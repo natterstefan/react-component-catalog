@@ -1,9 +1,11 @@
 {
   "name": "react-component-catalog",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Manage a registry of react-components easily.",
   "main": "dist/index.js",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "babel src --out-dir dist --source-maps",
     "build-umd": "npm run prebuild && webpack --mode=production",
@@ -17,7 +19,10 @@
     }
   },
   "lint-staged": {
-    "*.js": ["prettier --write", "git update-index --again"]
+    "*.js": [
+      "prettier --write",
+      "git update-index --again"
+    ]
   },
   "repository": {
     "type": "git",
