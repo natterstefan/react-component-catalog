@@ -4,6 +4,7 @@
 
 # Logs and Testing
 coverage
+.coveralls.yml
 
 # Development
 node_modules
