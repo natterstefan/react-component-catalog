@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const getDisplayName = (WrappedComponent, defaultName = 'Unknown') => {
+export const getDisplayName = (WrappedComponent, defaultName = 'Unknown') => {
   return WrappedComponent.displayName || WrappedComponent.name || defaultName
 }
 

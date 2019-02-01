@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { mount } from 'enzyme'
 
 import Catalog from '../lib/catalog'
-import withCatalog from './with-catalog'
+import withCatalog, { getDisplayName } from './with-catalog'
 
 const TestComponent = withCatalog(() => <div>Hello World</div>)
 
@@ -63,5 +63,25 @@ describe('withCatalog', () => {
     // and the component itself
     expect(wrapper.find(TestClassComponent).prop('hello')).toEqual('world')
     expect(wrapper.find(TestClassComponent).text()).toEqual('Hello Class')
+  })
+})
+
+describe('getDisplayName', () => {
+  it('returns the components displayName', () => {
+    const TestComponent = () => {}
+    TestComponent.displayName = 'TestComponent'
+
+    expect(getDisplayName(TestComponent)).toEqual('TestComponent')
+  })
+
+  it('returns the components name if displayName is not present', () => {
+    const TestComponent = () => {}
+    TestComponent.displayName = null
+
+    expect(getDisplayName(TestComponent)).toEqual('TestComponent')
+  })
+
+  it('returns Unknown for an anonymous function component', () => {
+    expect(getDisplayName(() => {})).toEqual('Unknown')
   })
 })

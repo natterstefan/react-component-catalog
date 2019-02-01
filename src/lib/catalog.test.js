@@ -16,11 +16,36 @@ describe('Catalog', () => {
     })
   })
 
-  it('exports CatalogComponent as default', () => {
+  it('can be created', () => {
+    testCatalog = new Catalog({
+      components: {
+        TestComponent,
+      },
+    })
+
+    expect(testCatalog._catalog).toEqual({
+      components: { TestComponent: TestComponent },
+    })
+  })
+
+  it('creates proper catalog with getComponent function', () => {
     expect(testCatalog).toEqual({
       _catalog: { components: { TestComponent: TestComponent } },
       getComponent: expect.any(Function),
     })
+  })
+
+  it('returns null for a requested component, when it was created with an empty component catalog', () => {
+    // first we create an empty registry
+    testCatalog = new Catalog()
+    expect(testCatalog).toEqual({
+      _catalog: {},
+      getComponent: expect.any(Function),
+    })
+
+    // now request a component from the catalog
+    const TestComponentFromCatalog = testCatalog.getComponent('TestComponent')
+    expect(TestComponentFromCatalog).toBeNull()
   })
 
   it('returns requested component fully functional', () => {
