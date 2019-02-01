@@ -6,8 +6,8 @@ import { Catalog } from 'react-component-catalog'
  * eg. Title: exists also in the base component, but client wants to have a
  * custom implementation
  */
-import App from './app'
-import Title from './title'
+import App from './components/app'
+import Title from './components/title'
 
 // base components (or from other clients if you like)
 import Button from 'Base/components/button'

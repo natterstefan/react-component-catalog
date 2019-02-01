@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+// TODO: use new Context API (https://reactjs.org/docs/context.html)
 class CatalogProvider extends React.Component {
   static propTypes = {
     catalog: PropTypes.object.isRequired,

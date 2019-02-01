@@ -8,4 +8,15 @@ adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ### Added
 
-- Initial project setup with example
+- `jest` test setup
+
+### Changed
+
+- renamed `name` property to `component`
+  - eg. `<CatalogComponent name="Button">` is now `<CatalogComponent component="Button">`
+
+## 2019/01/31 0.1.0
+
+### Added
+
+- Initial project setup with example app
