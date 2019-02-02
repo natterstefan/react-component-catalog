@@ -7,7 +7,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "babel src --ignore */*.test.js,**/*.test.js --out-dir dist --source-maps",
+    "build": "babel src --ignore */*.test.js,**/*.test.js --out-dir dist",
     "build-umd": "npm run prebuild && webpack --mode=production",
     "coverage": "jest --coverage",
     "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
@@ -77,7 +77,6 @@
     "webpack-cli": "^3.2.1"
   },
   "dependencies": {
-    "prop-types": "^15.6.2",
     "react": "^16.7.0"
   }
 }

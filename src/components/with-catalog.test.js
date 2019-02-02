@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { mount } from 'enzyme'
 
 import Catalog from '../lib/catalog'
+import CatalogProvider from './catalog-provider'
 import withCatalog, { getDisplayName } from './with-catalog'
 
 const TestComponent = withCatalog(() => <div>Hello World</div>)
@@ -16,7 +17,6 @@ const TestClassComponent = withCatalog(
 
 describe('withCatalog', () => {
   let testCatalog
-  let testContext
 
   beforeEach(() => {
     testCatalog = new Catalog({
@@ -25,23 +25,14 @@ describe('withCatalog', () => {
         TestComponent,
       },
     })
-
-    testContext = {
-      context: { catalog: testCatalog },
-    }
   })
 
   it('renders a wrapped functional component properly', () => {
-    const wrapper = mount(<TestComponent hello="world" />, testContext)
-
-    // with proper displayName
-    expect(wrapper.name()).toEqual('withCatalog(withCatalogChild)')
-
-    // passed props and the context as a new prop
-    expect(wrapper.childAt(0).props()).toEqual({
-      catalog: testCatalog,
-      hello: 'world',
-    })
+    const wrapper = mount(
+      <CatalogProvider catalog={testCatalog}>
+        <TestComponent hello="world" />
+      </CatalogProvider>,
+    )
 
     // and the component itself
     expect(wrapper.find(TestComponent).prop('hello')).toEqual('world')
@@ -49,16 +40,11 @@ describe('withCatalog', () => {
   })
 
   it('renders a wrapped react class component properly', () => {
-    const wrapper = mount(<TestClassComponent hello="world" />, testContext)
-
-    // with proper displayName
-    expect(wrapper.name()).toEqual('withCatalog(TestClassComponent)')
-
-    // passed props and the context as a new prop
-    expect(wrapper.childAt(0).props()).toEqual({
-      catalog: testCatalog,
-      hello: 'world',
-    })
+    const wrapper = mount(
+      <CatalogProvider catalog={testCatalog}>
+        <TestClassComponent hello="world" />
+      </CatalogProvider>,
+    )
 
     // and the component itself
     expect(wrapper.find(TestClassComponent).prop('hello')).toEqual('world')
@@ -81,7 +67,7 @@ describe('getDisplayName', () => {
     expect(getDisplayName(TestComponent)).toEqual('TestComponent')
   })
 
-  it('returns Unknown for an anonymous function component', () => {
-    expect(getDisplayName(() => {})).toEqual('Unknown')
+  it('returns Component for an anonymous function component', () => {
+    expect(getDisplayName(() => {})).toEqual('Component')
   })
 })

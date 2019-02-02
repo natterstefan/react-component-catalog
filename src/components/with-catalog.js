@@ -1,26 +1,32 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import { CatalogConsumer } from './catalog-provider'
 
-export const getDisplayName = (WrappedComponent, defaultName = 'Unknown') => {
-  return WrappedComponent.displayName || WrappedComponent.name || defaultName
+export const getDisplayName = WrappedComponent => {
+  return WrappedComponent.displayName || WrappedComponent.name || 'Component'
 }
 
-const withCatalog = Child => {
-  class withCatalog extends React.Component {
-    static contextTypes = {
-      catalog: PropTypes.object.isRequired,
-    }
-
-    static displayName = `withCatalog(${getDisplayName(
-      Child,
-      'withCatalogChild',
-    )})`
+/**
+ * withCatalog will connect to the CatalogProvider (Context) and pass the
+ * current catalog to the WrappedComponent
+ */
+const withCatalog = WrappedComponent => {
+  class WithCatalog extends React.Component {
+    static displayName = `WithCatalog(${getDisplayName(WrappedComponent)})`
 
     render() {
-      return <Child {...this.props} catalog={this.context.catalog} />
+      return (
+        <CatalogConsumer>
+          {context => (
+            <WrappedComponent
+              {...this.props}
+              catalog={context && context.catalog}
+            />
+          )}
+        </CatalogConsumer>
+      )
     }
   }
-  return withCatalog
+  return WithCatalog
 }
 
 export default withCatalog

@@ -1,0 +1,9 @@
+# tests and example files
+coverage
+example
+__test__
+__tests__
+*.test.js
+
+# logs
+*.log

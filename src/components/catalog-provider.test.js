@@ -2,7 +2,7 @@ import React from 'react'
 import { mount } from 'enzyme'
 
 import Catalog from '../lib/catalog'
-import CatalogProvider from './catalog-provider'
+import CatalogProvider, { CatalogConsumer } from './catalog-provider'
 import CatalogComponent from './catalog-component'
 
 const TestComponent = () => <div>Hello World</div>
@@ -18,6 +18,21 @@ describe('CatalogProvider', () => {
     })
   })
 
+  it('provides an empty catalog context if not rendered with one', () => {
+    const wrapper = mount(
+      <CatalogProvider>
+        <CatalogComponent component="TestComponent" hello="world" />
+      </CatalogProvider>,
+    )
+
+    expect(
+      wrapper
+        .find(CatalogComponent) // withCatalog wrapper
+        .childAt(0) // the actual CatalogComponent
+        .prop('catalog'),
+    ).toEqual({})
+  })
+
   it('provides the catalog context to consumers of the context', () => {
     const wrapper = mount(
       <CatalogProvider catalog={testCatalog}>
@@ -25,9 +40,12 @@ describe('CatalogProvider', () => {
       </CatalogProvider>,
     )
 
-    expect(wrapper.find(CatalogComponent).instance().context).toEqual({
-      catalog: testCatalog,
-    })
+    expect(
+      wrapper
+        .find(CatalogComponent) // withCatalog wrapper
+        .childAt(0) // the actual CatalogComponent
+        .prop('catalog'),
+    ).toEqual(testCatalog)
   })
 
   it('enables CatalogComponents to render Components from the catalog', () => {

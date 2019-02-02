@@ -1,24 +1,20 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { createContext, Component } from 'react'
 
-// TODO: use new Context API (https://reactjs.org/docs/context.html)
-class CatalogProvider extends React.Component {
-  static propTypes = {
-    catalog: PropTypes.object.isRequired,
-  }
+export const CatalogContext = createContext()
+export const CatalogConsumer = CatalogContext.Consumer
 
-  static childContextTypes = {
-    catalog: PropTypes.object,
-  }
-
-  getChildContext() {
-    return {
-      catalog: this.props.catalog,
-    }
-  }
-
+/**
+ * Provide the catalog to an entire react component tree via context
+ */
+export class CatalogProvider extends Component {
   render() {
-    return React.Children.only(this.props.children)
+    const { catalog = {}, children } = this.props
+
+    return (
+      <CatalogContext.Provider value={{ catalog }}>
+        {React.Children.only(children)}
+      </CatalogContext.Provider>
+    )
   }
 }
 

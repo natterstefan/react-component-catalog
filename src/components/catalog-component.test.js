@@ -3,12 +3,12 @@ import { mount } from 'enzyme'
 
 import Catalog from '../lib/catalog'
 import CatalogComponent from './catalog-component'
+import CatalogProvider from './catalog-provider'
 
 const TestComponent = () => <div>Hello World</div>
 
 describe('CatalogComponent', () => {
   let testCatalog
-  let testContext
 
   beforeEach(() => {
     testCatalog = new Catalog({
@@ -16,16 +16,13 @@ describe('CatalogComponent', () => {
         TestComponent,
       },
     })
-
-    testContext = {
-      context: { catalog: testCatalog },
-    }
   })
 
   it('renders a requested component fully functional', () => {
     const wrapper = mount(
-      <CatalogComponent component="TestComponent" />,
-      testContext,
+      <CatalogProvider catalog={testCatalog}>
+        <CatalogComponent component="TestComponent" />
+      </CatalogProvider>,
     )
 
     expect(wrapper.find(TestComponent).text()).toEqual('Hello World')
@@ -33,8 +30,9 @@ describe('CatalogComponent', () => {
 
   it('renders a requested component with additional props', () => {
     const wrapper = mount(
-      <CatalogComponent component="TestComponent" hello="world" />,
-      testContext,
+      <CatalogProvider catalog={testCatalog}>
+        <CatalogComponent component="TestComponent" hello="world" />
+      </CatalogProvider>,
     )
 
     expect(wrapper.find(TestComponent).text()).toEqual('Hello World')
@@ -43,21 +41,19 @@ describe('CatalogComponent', () => {
 
   it('renders null, when the requested component does not exist', () => {
     const wrapper = mount(
-      <CatalogComponent component="NotAvailableComponent" />,
-      testContext,
+      <CatalogProvider catalog={testCatalog}>
+        <CatalogComponent component="NotAvailableComponent" />
+      </CatalogProvider>,
     )
 
     expect(wrapper.find(CatalogComponent).html()).toBeNull()
   })
 
   it('renders null, when the catalog context does not exist', () => {
-    const backupConsole = console.error
-    console.error = () => {} // to prevent prop-types error from displaying
     const wrapper = mount(
       <CatalogComponent component="NotAvailableComponent" />,
     )
 
     expect(wrapper.find(CatalogComponent).html()).toBeNull()
-    console.error = backupConsole
   })
 })
