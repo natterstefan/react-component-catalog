@@ -1,6 +1,6 @@
 {
   "name": "react-component-catalog",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Manage a registry of react-components easily.",
   "main": "dist/index.js",
   "files": [
