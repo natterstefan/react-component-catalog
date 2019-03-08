@@ -5,7 +5,9 @@
   "version": "0.3.0",
   "description": "Manage a catalog (registry) of react-components easily.",
   "main": "dist/index.js",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "babel src --ignore */*.test.js,**/*.test.js --out-dir dist",
     "build-umd": "npm run prebuild && webpack --mode=production",
@@ -77,6 +79,7 @@
     "webpack-cli": "^3.2.1"
   },
   "dependencies": {
+    "hoist-non-react-statics": "^3.3.0",
     "react": "^16.7.0"
   }
 }

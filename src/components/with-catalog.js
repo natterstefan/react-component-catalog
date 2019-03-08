@@ -1,31 +1,32 @@
 import React from 'react'
+import hoistNonReactStatics from 'hoist-non-react-statics'
 import { CatalogConsumer } from './catalog-provider'
 
-export const getDisplayName = WrappedComponent => {
-  return WrappedComponent.displayName || WrappedComponent.name || 'Component'
+export const getDisplayName = Component => {
+  return Component.displayName || Component.name || 'Component'
 }
 
 /**
  * withCatalog will connect to the CatalogProvider (Context) and pass the
- * current catalog to the WrappedComponent
+ * current catalog to the Component
  */
-export const withCatalog = WrappedComponent => {
+export const withCatalog = Component => {
   class WithCatalog extends React.Component {
-    static displayName = `WithCatalog(${getDisplayName(WrappedComponent)})`
+    static displayName = `WithCatalog(${getDisplayName(Component)})`
 
     render() {
       return (
         <CatalogConsumer>
           {context => (
-            <WrappedComponent
-              {...this.props}
-              catalog={context && context.catalog}
-            />
+            <Component {...this.props} catalog={context && context.catalog} />
           )}
         </CatalogConsumer>
       )
     }
   }
+
+  hoistNonReactStatics(WithCatalog, Component)
+
   return WithCatalog
 }
 
