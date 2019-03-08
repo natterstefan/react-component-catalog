@@ -30,9 +30,10 @@ export class CatalogComponent extends React.Component {
     } = this.props
 
     if (!catalog || !catalog.getComponent) {
-      throw new ReferenceError(
-        'catalog is not defined. Please use <CatalogComponent /> in the context of a <CatalogProvider />',
+      console.error(
+        'catalog is not defined. Please use <CatalogComponent /> in the context of a <CatalogProvider /> with an existing catalog.',
       )
+      return null
     }
 
     const Component = catalog.getComponent(component)
@@ -47,7 +48,7 @@ export class CatalogComponent extends React.Component {
     // if no component was found, tell the developer and fail gracefully
     console.warn(
       `No component for "${component}" was found in the component catalog. The catalog contains the following components:`,
-      (catalog._catalog && catalog._catalog.components) || [],
+      catalog._catalog && catalog._catalog.components,
     )
 
     return null
