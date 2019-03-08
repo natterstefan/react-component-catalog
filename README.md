@@ -84,7 +84,12 @@ class App extends Component {
     // or you use them with the <CatalogComponent /> component
     return (
       <div>
-        <CatalogComponent component="Button">Button 1</CatalogComponent>
+        <CatalogComponent
+          component="Button"
+          fallbackComponent={() => <div>Button Component not found</div>}
+        >
+          Button 1
+        </CatalogComponent>
         <Button>Button 2</Button>
       </div>
     )

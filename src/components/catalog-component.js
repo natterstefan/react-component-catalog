@@ -24,7 +24,7 @@ export class CatalogComponent extends React.Component {
       // catalog props
       catalog,
       component,
-      fallback: Fallback,
+      fallbackComponent: FallbackComponent,
       // other props passed to component
       ...others
     } = this.props
@@ -40,8 +40,8 @@ export class CatalogComponent extends React.Component {
       return <Component {...others} />
     }
 
-    if (Fallback) {
-      return <Fallback {...others} />
+    if (FallbackComponent) {
+      return <FallbackComponent {...others} />
     }
 
     // if no component was found, tell the developer and fail gracefully
