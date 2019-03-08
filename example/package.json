@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "A working example for react-component-catalog",
   "main": "server/index.js",
+  "private": true,
   "scripts": {
     "build": "BABEL_ENV=production webpack -p",
     "prebuild": "rimraf dist",

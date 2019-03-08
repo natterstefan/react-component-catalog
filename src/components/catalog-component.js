@@ -16,7 +16,7 @@ import withCatalog from './with-catalog'
  * CatalogComponent will now render the `<Button />` component (if it is part of
  * the catalog and pass `hello` as a prop to the Button).
  */
-class CatalogComponent extends React.Component {
+export class CatalogComponent extends React.Component {
   render() {
     const { catalog, component, ...others } = this.props
 

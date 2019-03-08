@@ -97,8 +97,14 @@ export default withCatalog(App)
 ## How to build and test this package
 
 ```bash
+# build the package
 npm i
 npm build
+
+# run the example
+cd example
+npm run build
+npm start
 ```
 
 Then open the [example](./example) folder and follow the setup instructions.

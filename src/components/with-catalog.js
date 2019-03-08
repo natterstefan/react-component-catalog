@@ -9,7 +9,7 @@ export const getDisplayName = WrappedComponent => {
  * withCatalog will connect to the CatalogProvider (Context) and pass the
  * current catalog to the WrappedComponent
  */
-const withCatalog = WrappedComponent => {
+export const withCatalog = WrappedComponent => {
   class WithCatalog extends React.Component {
     static displayName = `WithCatalog(${getDisplayName(WrappedComponent)})`
 
