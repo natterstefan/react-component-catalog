@@ -123,7 +123,7 @@ straightforward way. That is why, I decided to create it.
 
 ## Licence
 
-[MIT](LICENCE)
+[Apache 2.0](LICENCE)
 
 ## Maintainers
 
