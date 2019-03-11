@@ -8,6 +8,9 @@ class App extends Component {
       <div>
         <Title>Hello Base</Title>
         <Button />
+        <p>
+          <a href="/client1">Open Client 1</a>
+        </p>
       </div>
     )
   }

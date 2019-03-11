@@ -16,7 +16,16 @@ class App extends Component {
     return (
       <div>
         <CatalogComponent component="Title">Hello Client1</CatalogComponent>
+        <CatalogComponent
+          component="Card"
+          fallbackComponent={() => <div>Component not found</div>}
+        >
+          Hello 404
+        </CatalogComponent>
         <Button />
+        <p>
+          <a href="/">Open Base</a>
+        </p>
       </div>
     )
   }

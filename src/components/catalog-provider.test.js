@@ -2,12 +2,13 @@ import React from 'react'
 import { mount } from 'enzyme'
 
 import Catalog from '../lib/catalog'
-import CatalogProvider, { CatalogConsumer } from './catalog-provider'
+import CatalogProvider from './catalog-provider'
 import CatalogComponent from './catalog-component'
 
 const TestComponent = () => <div>Hello World</div>
 
 describe('CatalogProvider', () => {
+  let backupConsole
   let testCatalog
 
   beforeEach(() => {
@@ -16,6 +17,13 @@ describe('CatalogProvider', () => {
         TestComponent,
       },
     })
+
+    backupConsole = console.error
+    console.error = jest.fn()
+  })
+
+  afterEach(() => {
+    console.error = backupConsole
   })
 
   it('provides an empty catalog context if not rendered with one', () => {

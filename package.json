@@ -1,7 +1,9 @@
 {
   "name": "react-component-catalog",
+  "author": "Stefan Natter <https://natterstefan.me>",
+  "license": "MIT",
   "version": "0.3.0",
-  "description": "Manage a registry of react-components easily.",
+  "description": "Manage a catalog (registry) of react-components easily.",
   "main": "dist/index.js",
   "files": [
     "dist"
@@ -31,7 +33,7 @@
   },
   "size-limit": [
     {
-      "limit": "8 KB",
+      "limit": "6 KB",
       "path": "dist/index.js"
     }
   ],
@@ -40,43 +42,44 @@
     "url": "git+https://github.com/natterstefan/react-component-catalog.git"
   },
   "keywords": [
-    "react",
-    "registry",
-    "react-registry",
     "react-components",
+    "react-registry",
+    "react-catalog",
+    "registry",
     "catalog",
-    "components"
+    "components",
+    "react"
   ],
-  "author": "Stefan Natter <stefan@natter.at>",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/natterstefan/react-component-catalog/issues"
   },
   "homepage": "https://github.com/natterstefan/react-component-catalog#readme",
   "devDependencies": {
     "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.2.2",
-    "@babel/plugin-proposal-class-properties": "^7.3.0",
-    "@babel/plugin-proposal-object-rest-spread": "^7.3.1",
-    "@babel/preset-env": "^7.3.1",
+    "@babel/core": "^7.3.4",
+    "@babel/plugin-proposal-class-properties": "^7.3.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
     "@babel/preset-react": "7.0.0",
     "babel-core": "7.0.0-bridge.0",
-    "babel-jest": "^24.0.0",
+    "babel-jest": "^24.3.1",
     "babel-loader": "^8.0.5",
-    "coveralls": "^3.0.2",
-    "enzyme": "^3.8.0",
-    "enzyme-adapter-react-16": "^1.8.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "coveralls": "^3.0.3",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.10.0",
     "husky": "^1.3.1",
-    "jest": "^24.0.0",
-    "lint-staged": "^8.1.1",
-    "prettier": "^1.16.3",
-    "react-dom": "^16.7.0",
+    "jest": "^24.3.1",
+    "lint-staged": "^8.1.5",
+    "prettier": "^1.16.4",
+    "react-dom": "^16.8.4",
     "rimraf": "^2.6.3",
     "size-limit": "^0.21.1",
-    "webpack": "^4.29.0",
-    "webpack-cli": "^3.2.1"
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.2.3"
   },
   "dependencies": {
-    "react": "^16.7.0"
+    "hoist-non-react-statics": "^3.3.0",
+    "react": "^16.8.4"
   }
 }

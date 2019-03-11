@@ -84,7 +84,12 @@ class App extends Component {
     // or you use them with the <CatalogComponent /> component
     return (
       <div>
-        <CatalogComponent component="Button">Button 1</CatalogComponent>
+        <CatalogComponent
+          component="Button"
+          fallbackComponent={() => <div>Button Component not found</div>}
+        >
+          Button 1
+        </CatalogComponent>
         <Button>Button 2</Button>
       </div>
     )
@@ -97,8 +102,14 @@ export default withCatalog(App)
 ## How to build and test this package
 
 ```bash
+# build the package
 npm i
 npm build
+
+# run the example
+cd example
+npm run build
+npm start
 ```
 
 Then open the [example](./example) folder and follow the setup instructions.

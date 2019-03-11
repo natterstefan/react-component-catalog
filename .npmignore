@@ -1,3 +1,7 @@
+# OS, IDE, ...
+.DS_Store
+.vscode
+
 # tests and example files
 coverage
 example
@@ -7,3 +11,4 @@ __tests__
 
 # logs
 *.log
+.coveralls.yml
