@@ -2,6 +2,7 @@ import React from 'react'
 import { mount } from 'enzyme'
 
 import Catalog from '../lib/catalog'
+
 import CatalogComponent from './catalog-component'
 import CatalogProvider from './catalog-provider'
 
@@ -44,7 +45,7 @@ describe('CatalogComponent', () => {
       </CatalogProvider>,
     )
 
-    expect(wrapper.find(TestComponent).text()).toEqual('Hello World')
+    expect(wrapper.find(TestComponent).text()).toStrictEqual('Hello World')
   })
 
   it('renders a requested component with additional props', () => {
@@ -54,8 +55,8 @@ describe('CatalogComponent', () => {
       </CatalogProvider>,
     )
 
-    expect(wrapper.find(TestComponent).text()).toEqual('Hello World')
-    expect(wrapper.find(TestComponent).prop('hello')).toEqual('world')
+    expect(wrapper.find(TestComponent).text()).toStrictEqual('Hello World')
+    expect(wrapper.find(TestComponent).prop('hello')).toStrictEqual('world')
   })
 
   it('renders the fallbackComponent, when the requested component does not exist', () => {
@@ -92,11 +93,11 @@ describe('CatalogComponent', () => {
     expect(console.warn).toHaveBeenCalledTimes(1)
     expect(console.warn).toHaveBeenLastCalledWith(
       'No component for "NotAvailableComponent" was found in the component catalog. The catalog contains the following components:',
-      { TestComponent },
+      ['TestComponent'],
     )
   })
 
-  it('tells the developer, when the requested component does not exist and no fallbackComponent was provided', () => {
+  it('tells the developer, when the requested component does not exist and no fallbackComponent was provided even when catalog is empty', () => {
     mount(
       <CatalogProvider catalog={emptyTestCatalog}>
         <CatalogComponent component="NotAvailableComponent" />
@@ -107,7 +108,7 @@ describe('CatalogComponent', () => {
     expect(console.warn).toHaveBeenCalledTimes(1)
     expect(console.warn).toHaveBeenLastCalledWith(
       'No component for "NotAvailableComponent" was found in the component catalog. The catalog contains the following components:',
-      {},
+      [],
     )
   })
 

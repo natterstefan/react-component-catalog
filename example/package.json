@@ -16,7 +16,11 @@
     "type": "git",
     "url": "git+https://github.com/natterstefan/react-component-catalog.git"
   },
-  "keywords": ["react", "components", "registry"],
+  "keywords": [
+    "react",
+    "components",
+    "registry"
+  ],
   "author": "Stefan Natter <stefan@natter.at>",
   "license": "MIT",
   "bugs": {
@@ -28,18 +32,18 @@
   },
   "dependencies": {
     "@babel/register": "^7.0.0",
-    "hapi": "^18.0.0",
+    "hapi": "^18.1.0",
     "inert": "^5.1.2",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0"
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4"
   },
   "devDependencies": {
     "@babel/cli": "7.2.3",
-    "@babel/core": "7.2.2",
-    "@babel/plugin-proposal-class-properties": "7.3.0",
-    "@babel/plugin-proposal-object-rest-spread": "7.3.1",
+    "@babel/core": "7.3.4",
+    "@babel/plugin-proposal-class-properties": "7.3.4",
+    "@babel/plugin-proposal-object-rest-spread": "7.3.4",
     "@babel/polyfill": "^7.2.5",
-    "@babel/preset-env": "7.3.1",
+    "@babel/preset-env": "7.3.4",
     "@babel/preset-react": "7.0.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-loader": "^8.0.5",

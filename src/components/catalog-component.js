@@ -1,5 +1,6 @@
 import React from 'react'
-import withCatalog from './with-catalog'
+
+import { withCatalog } from './with-catalog'
 
 /**
  * CatalogComponent is wrapped withCatalog by default and is capable of
@@ -18,41 +19,41 @@ import withCatalog from './with-catalog'
  * the catalog and pass `hello` as a prop to the Button). If the component would
  * not exist it will render the fallback.
  */
-export class CatalogComponent extends React.Component {
-  render() {
-    const {
-      // catalog props
-      catalog,
-      component,
-      fallbackComponent: FallbackComponent,
-      // other props passed to component
-      ...others
-    } = this.props
+const CatalogComponent = props => {
+  const {
+    // catalog props
+    catalog,
+    component,
+    fallbackComponent: FallbackComponent,
+    // other props passed to component
+    ...others
+  } = props
 
-    if (!catalog || !catalog.getComponent) {
-      console.error(
-        'catalog is not defined. Please use <CatalogComponent /> in the context of a <CatalogProvider /> with an existing catalog.',
-      )
-      return null
-    }
-
-    const Component = catalog.getComponent(component)
-    if (Component) {
-      return <Component {...others} />
-    }
-
-    if (FallbackComponent) {
-      return <FallbackComponent {...others} />
-    }
-
-    // if no component was found, tell the developer and fail gracefully
-    console.warn(
-      `No component for "${component}" was found in the component catalog. The catalog contains the following components:`,
-      catalog._catalog && catalog._catalog.components,
+  if (!catalog || !catalog.getComponent) {
+    console.error(
+      'catalog is not defined. Please use <CatalogComponent /> in the context of a <CatalogProvider /> with an existing catalog.',
     )
-
     return null
   }
+
+  const Component = catalog.getComponent(component)
+  if (Component) {
+    return <Component {...others} />
+  }
+
+  if (FallbackComponent) {
+    return <FallbackComponent {...others} />
+  }
+
+  // if no component was found, tell the developer and fail gracefully
+  console.warn(
+    `No component for "${component}" was found in the component catalog. The catalog contains the following components:`,
+    catalog._catalog &&
+      catalog._catalog.components &&
+      Object.keys(catalog._catalog.components),
+  )
+
+  return null
 }
 
 export default withCatalog(CatalogComponent)
