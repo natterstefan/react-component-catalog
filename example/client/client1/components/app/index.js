@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+
 import CatalogComponent, { withCatalog } from 'react-component-catalog'
 
 class App extends Component {

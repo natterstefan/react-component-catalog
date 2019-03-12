@@ -9,6 +9,9 @@ adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 ### Added
 
 - Dev: eslint support
+- `CatalogProvider` can be nested and they consume their parent's `catalog`
+- react-hooks support with new `useCatalog`. It is recommended to not use
+  `withCatalog` anymore but `useCatalog` whenever possible.
 
 ## 2019/03/11 0.4.0
 
