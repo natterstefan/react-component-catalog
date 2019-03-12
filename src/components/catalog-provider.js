@@ -1,21 +1,18 @@
-import React, { createContext, Component } from 'react'
+import React from 'react'
 
-export const CatalogContext = createContext()
-export const CatalogConsumer = CatalogContext.Consumer
+import CatalogContext from './catalog-context'
 
 /**
  * Provide the catalog to an entire react component tree via context
  */
-export class CatalogProvider extends Component {
-  render() {
-    const { catalog = {}, children } = this.props
+const CatalogProvider = props => {
+  const { catalog = {}, children } = props
 
-    return (
-      <CatalogContext.Provider value={{ catalog }}>
-        {React.Children.only(children)}
-      </CatalogContext.Provider>
-    )
-  }
+  return (
+    <CatalogContext.Provider value={{ catalog: { ...catalog } }}>
+      {React.Children.only(children)}
+    </CatalogContext.Provider>
+  )
 }
 
 export default CatalogProvider

@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-
 import { CatalogProvider } from 'react-component-catalog'
+
 import catalog, { App } from './catalog'
 
 ReactDOM.render(

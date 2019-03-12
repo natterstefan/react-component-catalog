@@ -2,6 +2,7 @@ import React from 'react'
 import { mount } from 'enzyme'
 
 import Catalog from '../lib/catalog'
+
 import CatalogProvider from './catalog-provider'
 import CatalogComponent from './catalog-component'
 
@@ -38,7 +39,7 @@ describe('CatalogProvider', () => {
         .find(CatalogComponent) // withCatalog wrapper
         .childAt(0) // the actual CatalogComponent
         .prop('catalog'),
-    ).toEqual({})
+    ).toStrictEqual({})
   })
 
   it('provides the catalog context to consumers of the context', () => {
@@ -53,6 +54,7 @@ describe('CatalogProvider', () => {
         .find(CatalogComponent) // withCatalog wrapper
         .childAt(0) // the actual CatalogComponent
         .prop('catalog'),
+      // eslint-disable-next-line jest/prefer-strict-equal
     ).toEqual(testCatalog)
   })
 
@@ -63,7 +65,7 @@ describe('CatalogProvider', () => {
       </CatalogProvider>,
     )
 
-    expect(wrapper.find(TestComponent).prop('hello')).toEqual('world')
-    expect(wrapper.find(TestComponent).text()).toEqual('Hello World')
+    expect(wrapper.find(TestComponent).prop('hello')).toStrictEqual('world')
+    expect(wrapper.find(TestComponent).text()).toStrictEqual('Hello World')
   })
 })

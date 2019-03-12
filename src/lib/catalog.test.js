@@ -23,14 +23,15 @@ describe('Catalog', () => {
       },
     })
 
-    expect(testCatalog._catalog).toEqual({
-      components: { TestComponent: TestComponent },
+    expect(testCatalog._catalog).toStrictEqual({
+      components: { TestComponent },
     })
   })
 
   it('creates proper catalog with getComponent function', () => {
+    // eslint-disable-next-line jest/prefer-strict-equal
     expect(testCatalog).toEqual({
-      _catalog: { components: { TestComponent: TestComponent } },
+      _catalog: { components: { TestComponent } },
       getComponent: expect.any(Function),
     })
   })
@@ -38,6 +39,8 @@ describe('Catalog', () => {
   it('returns null for a requested component, when it was created with an empty component catalog', () => {
     // first we create an empty registry
     testCatalog = new Catalog()
+
+    // eslint-disable-next-line jest/prefer-strict-equal
     expect(testCatalog).toEqual({
       _catalog: {},
       getComponent: expect.any(Function),
@@ -51,12 +54,16 @@ describe('Catalog', () => {
   it('returns requested component fully functional', () => {
     const TestComponentFromCatalog = testCatalog.getComponent('TestComponent')
     const wrapper = shallow(<TestComponentFromCatalog />)
-    expect(wrapper.text()).toEqual('Hello World')
+    expect(wrapper.text()).toStrictEqual('Hello World')
   })
 
   it('does not manipulate props of returned component', () => {
     const clickSpy = jest.fn()
-    const TestButton = () => <button onClick={clickSpy}>Hello Button</button>
+    const TestButton = () => (
+      <button type="button" onClick={clickSpy}>
+        Hello Button
+      </button>
+    )
 
     testCatalog = new Catalog({
       components: {
@@ -66,7 +73,7 @@ describe('Catalog', () => {
 
     const TestButtonFromCatalog = testCatalog.getComponent('TestButton')
     const wrapper = shallow(<TestButtonFromCatalog />)
-    expect(wrapper.text()).toEqual('Hello Button')
+    expect(wrapper.text()).toStrictEqual('Hello Button')
 
     wrapper.simulate('click')
     expect(clickSpy).toHaveBeenCalledTimes(1)

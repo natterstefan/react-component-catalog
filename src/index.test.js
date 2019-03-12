@@ -12,13 +12,13 @@ import ReactComponentCatalog, {
 
 describe('react-component-catalog', () => {
   it('exports CatalogComponent as default', () => {
-    expect(ReactComponentCatalog).toEqual(CatalogComponent)
+    expect(ReactComponentCatalog).toStrictEqual(CatalogComponent)
   })
 
   it('exports other parts as well', () => {
-    expect(Catalog).toEqual(CatalogPart)
-    expect(CatalogComponent).toEqual(CatalogComponentPart)
-    expect(CatalogProvider).toEqual(CatalogProviderPart)
-    expect(withCatalog).toEqual(withCatalogPart)
+    expect(Catalog).toStrictEqual(CatalogPart)
+    expect(CatalogComponent).toStrictEqual(CatalogComponentPart)
+    expect(CatalogProvider).toStrictEqual(CatalogProviderPart)
+    expect(withCatalog).toStrictEqual(withCatalogPart)
   })
 })

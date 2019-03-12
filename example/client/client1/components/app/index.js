@@ -7,11 +7,12 @@ class App extends Component {
 
     // you can import and use registered components with catalog.getComponent
     const { catalog } = props
-    this.Button = catalog.getComponent('Button')
+    this.Button =
+      catalog && catalog.getComponent && catalog.getComponent('Button')
   }
 
   render() {
-    const Button = this.Button
+    const { Button } = this
     // or you use them with the <CatalogComponent /> component
     return (
       <div>
@@ -22,7 +23,7 @@ class App extends Component {
         >
           Hello 404
         </CatalogComponent>
-        <Button />
+        {Button && <Button />}
         <p>
           <a href="/">Open Base</a>
         </p>

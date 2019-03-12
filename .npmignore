@@ -9,6 +9,7 @@ __test__
 __tests__
 *.test.js
 
-# logs
+# logs and development
 *.log
 .coveralls.yml
+tmp
