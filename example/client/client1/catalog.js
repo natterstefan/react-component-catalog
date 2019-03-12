@@ -1,5 +1,8 @@
 import { Catalog } from 'react-component-catalog'
 
+// base components (or from other clients if you like)
+import Button from 'Base/components/button'
+
 /**
  * client specific components
  *
@@ -8,9 +11,6 @@ import { Catalog } from 'react-component-catalog'
  */
 import App from './components/app'
 import Title from './components/title'
-
-// base components (or from other clients if you like)
-import Button from 'Base/components/button'
 
 const catalog = new Catalog({
   components: {

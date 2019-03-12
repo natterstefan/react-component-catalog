@@ -14,16 +14,16 @@ module.exports = {
     ...bundle('client1'),
   },
   output: {
-    filename: '[name]',
     chunkFilename: '[name].bundled.js',
+    filename: '[name]',
     path: resolve(__dirname, './dist/static'),
   },
   mode: 'development',
   module: {
     rules: [
       {
-        test: /\.js$/,
         exclude: /node_modules/,
+        test: /\.js$/,
         use: ['babel-loader'],
       },
     ],
@@ -32,17 +32,19 @@ module.exports = {
     splitChunks: {
       cacheGroups: {
         commons: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendor',
           chunks: 'all',
+          name: 'vendor',
+          test: /[\\/]node_modules[\\/]/,
         },
       },
     },
   },
   resolve: {
     alias: {
-      'react-component-catalog': resolve(__dirname, '..', 'dist/'),
       Base: resolve(__dirname, 'client/base/'),
+      react: resolve(__dirname, 'node_modules/react'),
+      'react-component-catalog': resolve(__dirname, '..', 'dist/'),
+      'react-dom': resolve(__dirname, 'node_modules/react-dom'),
     },
   },
 }

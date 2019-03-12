@@ -1,3 +1,5 @@
+const path = require('path')
+
 module.exports = {
   extends: 'eslint-config-ns',
   plugins: ['react-hooks'],
@@ -24,4 +26,15 @@ module.exports = {
       },
     },
   ],
+  // required in the example-app
+  settings: {
+    'import/resolver': {
+      alias: {
+        map: [
+          ['react-component-catalog', path.resolve(__dirname, 'dist')],
+          ['Base', path.resolve(__dirname, 'example/client/base')],
+        ],
+      },
+    },
+  },
 }

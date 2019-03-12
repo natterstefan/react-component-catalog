@@ -1,3 +1,5 @@
+// only disabled for now, until we eg. use 'warning' (https://www.npmjs.com/package/warning)
+/* eslint-disable no-console */
 import React from 'react'
 
 import { withCatalog } from './with-catalog'
