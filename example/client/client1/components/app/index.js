@@ -1,36 +1,28 @@
-import React, { Component } from 'react'
+/* eslint-disable import/order */
+import React from 'react'
+import CatalogComponent, { useCatalog } from 'react-component-catalog'
 
-import CatalogComponent, { withCatalog } from 'react-component-catalog'
+const App = () => {
+  const { catalog } = useCatalog()
+  const Button =
+    catalog && catalog.getComponent && catalog.getComponent('Button')
 
-class App extends Component {
-  constructor(props) {
-    super(props)
-
-    // you can import and use registered components with catalog.getComponent
-    const { catalog } = props
-    this.Button =
-      catalog && catalog.getComponent && catalog.getComponent('Button')
-  }
-
-  render() {
-    const { Button } = this
-    // or you use them with the <CatalogComponent /> component
-    return (
-      <div>
-        <CatalogComponent component="Title">Hello Client1</CatalogComponent>
-        <CatalogComponent
-          component="Card"
-          fallbackComponent={() => <div>Component not found</div>}
-        >
-          Hello 404
-        </CatalogComponent>
-        {Button && <Button />}
-        <p>
-          <a href="/">Open Base</a>
-        </p>
-      </div>
-    )
-  }
+  // or you use them with the <CatalogComponent /> component
+  return (
+    <div>
+      <CatalogComponent component="Title">Hello Client1</CatalogComponent>
+      <CatalogComponent
+        component="Card"
+        fallbackComponent={() => <div>Component not found</div>}
+      >
+        Hello Card
+      </CatalogComponent>
+      {Button && <Button />}
+      <p>
+        <a href="/">Open Base</a>
+      </p>
+    </div>
+  )
 }
 
-export default withCatalog(App)
+export default App

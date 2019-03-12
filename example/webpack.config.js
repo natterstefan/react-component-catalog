@@ -40,6 +40,8 @@ module.exports = {
     },
   },
   resolve: {
+    // de-dupe react to be able to use hooks https://github.com/facebook/react/issues/14317#issuecomment-463097191
+    // https://reactjs.org/warnings/invalid-hook-call-warning.html#duplicate-react
     alias: {
       Base: resolve(__dirname, 'client/base/'),
       react: resolve(__dirname, 'node_modules/react'),

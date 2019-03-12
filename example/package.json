@@ -16,11 +16,7 @@
     "type": "git",
     "url": "git+https://github.com/natterstefan/react-component-catalog.git"
   },
-  "keywords": [
-    "react",
-    "components",
-    "registry"
-  ],
+  "keywords": ["react", "components", "registry"],
   "author": "Stefan Natter <stefan@natter.at>",
   "license": "MIT",
   "bugs": {

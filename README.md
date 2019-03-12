@@ -18,15 +18,19 @@ npm i react-component-catalog --save
 
 ## Basic Usage
 
+### Requirements
+
+As this package depends on [`react-hooks`](https://reactjs.org/docs/hooks-overview.html),
+`"react": "^16.8.0"` and `"react-dom": "^16.8.0"` are required (see
+`peerDependencies` in [package.json](./package.json)).
+
 ### First register the components
 
 ```jsx
 // button.js
 import React from 'react';
 
-const Button = (props) => {
-  return <button>{props.children}</button>
-};
+const Button = (props) => <button>{props.children}</button>
 
 export default Button;
 ```
@@ -45,7 +49,7 @@ const catalog = new Catalog({
 export default catalog;
 ```
 
-### Import and use the catalog
+### Create a CatalogProvider
 
 ```jsx
 // index.js
@@ -64,39 +68,35 @@ ReactDOM.render(
 );
 ```
 
+### Import and use the catalog (with react-hooks)
+
 ```jsx
 // app.js
-import React, { Component } from 'react'
-import CatalogComponent, { withCatalog } from 'react-component-catalog'
+import React from 'react'
+// useCatalog is a react-hook
+import CatalogComponent, { useCatalog } from 'react-component-catalog'
 
-class App extends Component {
-  constructor(props) {
-    super(props)
+const App = () => {
+  const { catalog } = useCatalog()
+  const Button =
+    catalog && catalog.getComponent && catalog.getComponent('Button')
 
-    // you can import and use registered components with catalog.getComponent
-    const { catalog } = props
-    this.Button = catalog.getComponent('Button')
-  }
-
-  render() {
-    const Button = this.Button
-
-    // or you use them with the <CatalogComponent /> component
-    return (
-      <div>
-        <CatalogComponent
-          component="Button"
-          fallbackComponent={() => <div>Button Component not found</div>}
-        >
-          Button 1
-        </CatalogComponent>
-        <Button>Button 2</Button>
-      </div>
-    )
-  }
+  // or you use them with the <CatalogComponent /> component
+  return (
+    <div>
+      <CatalogComponent component="Title">Hello Client1</CatalogComponent>
+      <CatalogComponent
+        component="Card"
+        fallbackComponent={() => <div>Component not found</div>}
+      >
+        Hello Card
+      </CatalogComponent>
+      {Button && <Button />}
+    </div>
+  )
 }
 
-export default withCatalog(App)
+export default App
 ```
 
 ## How to build and test this package
