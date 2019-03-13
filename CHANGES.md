@@ -4,7 +4,7 @@ All notable changes to this project will be documented here. The format is based
 on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project
 adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## 2019/03/13 0.5.0
 
 ### Added
 
@@ -12,6 +12,12 @@ adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 - `CatalogProvider` can be nested and they consume their parent's `catalog`
 - react-hooks support with new `useCatalog`. It is recommended to not use
   `withCatalog` anymore but `useCatalog` whenever possible.
+
+### Changed
+
+As this package depends on [`react-hooks`](https://reactjs.org/docs/hooks-overview.html),
+`"react": "^16.8.0"` and `"react-dom": "^16.8.0"` are required (see
+`peerDependencies` in [package.json](./package.json)) from now on.
 
 ## 2019/03/11 0.4.0
 
