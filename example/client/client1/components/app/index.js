@@ -4,7 +4,7 @@ import CatalogComponent, { useCatalog } from 'react-component-catalog'
 
 const App = () => {
   const { catalog } = useCatalog()
-  const Button = catalog && catalog._components && catalog._components.Button
+  const Button = catalog.getComponent('Button')
 
   // or you use them with the <CatalogComponent /> component
   return (

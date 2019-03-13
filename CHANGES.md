@@ -13,11 +13,6 @@ adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 - react-hooks support with new `useCatalog`. It is recommended to not use
   `withCatalog` anymore but `useCatalog` whenever possible.
 
-### Removed
-
-- `Catalog` does not provide `catalog.getComponent` anymore. Instead use
-  `catalog._component` when catalog is present
-
 ## 2019/03/11 0.4.0
 
 ### Added

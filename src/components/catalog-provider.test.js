@@ -16,14 +16,10 @@ describe('CatalogProvider', () => {
 
   const expectedTestCatalog = {
     catalog: {
-      _catalog: {
-        components: {
-          TestComponent,
-        },
-      },
       _components: {
         TestComponent,
       },
+      getComponent: expect.any(Function),
     },
   }
 
@@ -118,12 +114,13 @@ describe('CatalogProvider', () => {
       },
     })
 
-    const expected = new Catalog({
-      components: {
+    const expected = {
+      _components: {
         TestComponent: TestComponentTwo,
         Title,
       },
-    })
+      getComponent: expect.any(Function),
+    }
 
     const Consumer = () => {
       const catalog = useCatalog()
