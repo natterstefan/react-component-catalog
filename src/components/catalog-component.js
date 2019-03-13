@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 import React from 'react'
 
-import { withCatalog } from './with-catalog'
+import useCatalog from './use-catalog'
 
 /**
  * CatalogComponent is wrapped withCatalog by default and is capable of
@@ -24,21 +24,23 @@ import { withCatalog } from './with-catalog'
 const CatalogComponent = props => {
   const {
     // catalog props
-    catalog,
     component,
     fallbackComponent: FallbackComponent,
     // other props passed to component
     ...others
   } = props
 
-  if (!catalog || !catalog.getComponent) {
+  // get catalog from the context
+  const { catalog } = useCatalog() || {}
+
+  if (!catalog || !catalog._components) {
     console.error(
       'catalog is not defined. Please use <CatalogComponent /> in the context of a <CatalogProvider /> with an existing catalog.',
     )
     return null
   }
 
-  const Component = catalog.getComponent(component)
+  const Component = catalog._components[component]
   if (Component) {
     return <Component {...others} />
   }
@@ -50,12 +52,10 @@ const CatalogComponent = props => {
   // if no component was found, tell the developer and fail gracefully
   console.warn(
     `No component for "${component}" was found in the component catalog. The catalog contains the following components:`,
-    catalog._catalog &&
-      catalog._catalog.components &&
-      Object.keys(catalog._catalog.components),
+    catalog._components && Object.keys(catalog._components),
   )
 
   return null
 }
 
-export default withCatalog(CatalogComponent)
+export default CatalogComponent

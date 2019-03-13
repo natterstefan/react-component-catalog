@@ -1,7 +1,7 @@
 import React from 'react'
 import hoistNonReactStatics from 'hoist-non-react-statics'
 
-import CatalogContext from './catalog-context'
+import useCatalog from './use-catalog'
 
 export const getDisplayName = Component => {
   return Component.displayName || Component.name || 'Component'
@@ -14,11 +14,10 @@ export const getDisplayName = Component => {
  * TODO: forwardRef (https://reactjs.org/docs/forwarding-refs.html#note-for-component-library-maintainers)
  */
 export const withCatalog = Component => {
-  const WithCatalog = props => (
-    <CatalogContext.Consumer>
-      {context => <Component {...props} catalog={context && context.catalog} />}
-    </CatalogContext.Consumer>
-  )
+  const WithCatalog = props => {
+    const catalog = useCatalog()
+    return <Component {...props} catalog={catalog && catalog.catalog} />
+  }
 
   WithCatalog.displayName = `WithCatalog(${getDisplayName(Component)})`
 

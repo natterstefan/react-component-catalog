@@ -18,12 +18,4 @@ module.exports = {
     libraryTarget: 'umd',
     path: resolve(__dirname, './dist'),
   },
-  // de-dupe react to be able to use hooks https://github.com/facebook/react/issues/14317#issuecomment-463097191
-  // https://reactjs.org/warnings/invalid-hook-call-warning.html#duplicate-react
-  resolve: {
-    alias: {
-      react: resolve('./node_modules/react'),
-      'react-dom': resolve('./node_modules/react-dom'),
-    },
-  },
 }

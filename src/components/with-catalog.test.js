@@ -30,6 +30,18 @@ describe('withCatalog', () => {
     expect(wrapper.find(TestComponent).prop('hello')).toStrictEqual('world')
     expect(wrapper.find(TestComponent).text()).toStrictEqual('Hello World')
   })
+
+  it('renders a wrapped functional component properly, when no catalog is provided', () => {
+    const wrapper = mount(
+      <CatalogProvider>
+        <TestComponent hello="world" />
+      </CatalogProvider>,
+    )
+
+    // and the component itself
+    expect(wrapper.find(TestComponent).prop('catalog')).toBeUndefined()
+    expect(wrapper.find(TestComponent).text()).toStrictEqual('Hello World')
+  })
 })
 
 describe('getDisplayName', () => {

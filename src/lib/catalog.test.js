@@ -23,15 +23,15 @@ describe('Catalog', () => {
       },
     })
 
-    expect(testCatalog._catalog).toStrictEqual({
-      components: { TestComponent },
+    expect(testCatalog._components).toStrictEqual({
+      TestComponent,
     })
   })
 
   it('creates proper catalog with getComponent function', () => {
     // eslint-disable-next-line jest/prefer-strict-equal
     expect(testCatalog).toEqual({
-      _catalog: { components: { TestComponent } },
+      _components: { TestComponent },
       getComponent: expect.any(Function),
     })
   })
@@ -42,7 +42,7 @@ describe('Catalog', () => {
 
     // eslint-disable-next-line jest/prefer-strict-equal
     expect(testCatalog).toEqual({
-      _catalog: {},
+      _components: {},
       getComponent: expect.any(Function),
     })
 
