@@ -32,7 +32,7 @@ describe('Catalog', () => {
     // eslint-disable-next-line jest/prefer-strict-equal
     expect(testCatalog).toEqual({
       _catalog: { components: { TestComponent } },
-      getComponent: expect.any(Function),
+      _components: { TestComponent },
     })
   })
 
@@ -43,16 +43,16 @@ describe('Catalog', () => {
     // eslint-disable-next-line jest/prefer-strict-equal
     expect(testCatalog).toEqual({
       _catalog: {},
-      getComponent: expect.any(Function),
+      _components: {},
     })
 
     // now request a component from the catalog
-    const TestComponentFromCatalog = testCatalog.getComponent('TestComponent')
-    expect(TestComponentFromCatalog).toBeNull()
+    const TestComponentFromCatalog = testCatalog._components.TestComponent
+    expect(TestComponentFromCatalog).toBeUndefined()
   })
 
   it('returns requested component fully functional', () => {
-    const TestComponentFromCatalog = testCatalog.getComponent('TestComponent')
+    const TestComponentFromCatalog = testCatalog._components.TestComponent
     const wrapper = shallow(<TestComponentFromCatalog />)
     expect(wrapper.text()).toStrictEqual('Hello World')
   })
@@ -71,7 +71,7 @@ describe('Catalog', () => {
       },
     })
 
-    const TestButtonFromCatalog = testCatalog.getComponent('TestButton')
+    const TestButtonFromCatalog = testCatalog._components.TestButton
     const wrapper = shallow(<TestButtonFromCatalog />)
     expect(wrapper.text()).toStrictEqual('Hello Button')
 

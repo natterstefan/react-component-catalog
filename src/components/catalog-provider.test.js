@@ -5,12 +5,14 @@ import Catalog from '../lib/catalog'
 
 import CatalogProvider from './catalog-provider'
 import CatalogComponent from './catalog-component'
+import useCatalog from './use-catalog'
 
 const TestComponent = () => <div>Hello World</div>
 
 describe('CatalogProvider', () => {
   let backupConsole
   let testCatalog
+  const verifyCatalog = jest.fn()
 
   beforeEach(() => {
     testCatalog = new Catalog({
@@ -21,6 +23,7 @@ describe('CatalogProvider', () => {
 
     backupConsole = console.error
     console.error = jest.fn()
+    verifyCatalog.mockReset()
   })
 
   afterEach(() => {
@@ -28,34 +31,48 @@ describe('CatalogProvider', () => {
   })
 
   it('provides an empty catalog context if not rendered with one', () => {
-    const wrapper = mount(
+    const Consumer = () => {
+      const catalog = useCatalog()
+      verifyCatalog(catalog)
+
+      return <div>Catalog</div>
+    }
+
+    mount(
       <CatalogProvider>
-        <CatalogComponent component="TestComponent" hello="world" />
+        <Consumer />
       </CatalogProvider>,
     )
 
-    expect(
-      wrapper
-        .find(CatalogComponent) // withCatalog wrapper
-        .childAt(0) // the actual CatalogComponent
-        .prop('catalog'),
-    ).toStrictEqual({})
+    expect(verifyCatalog).toHaveBeenCalledWith({ catalog: {} })
   })
 
   it('provides the catalog context to consumers of the context', () => {
-    const wrapper = mount(
+    const Consumer = () => {
+      const catalog = useCatalog()
+      verifyCatalog(catalog)
+
+      return <div>Catalog</div>
+    }
+
+    mount(
       <CatalogProvider catalog={testCatalog}>
-        <CatalogComponent component="TestComponent" hello="world" />
+        <Consumer />
       </CatalogProvider>,
     )
 
-    expect(
-      wrapper
-        .find(CatalogComponent) // withCatalog wrapper
-        .childAt(0) // the actual CatalogComponent
-        .prop('catalog'),
-      // eslint-disable-next-line jest/prefer-strict-equal
-    ).toEqual(testCatalog)
+    expect(verifyCatalog).toHaveBeenCalledWith({
+      catalog: {
+        _catalog: {
+          components: {
+            TestComponent,
+          },
+        },
+        _components: {
+          TestComponent,
+        },
+      },
+    })
   })
 
   it('enables CatalogComponents to render Components from the catalog', () => {

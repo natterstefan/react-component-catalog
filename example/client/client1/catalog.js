@@ -1,24 +1,34 @@
+/* eslint-disable import/order */
+import React from 'react'
 import { Catalog } from 'react-component-catalog'
+
+import App from './components/app'
 
 // base components (or from other clients if you like)
 import Button from 'Base/components/button'
-
 /**
  * client specific components
  *
  * eg. Title: exists also in the base component, but client wants to have a
  * custom implementation
  */
-import App from './components/app'
-import Title from './components/title'
+const Title = ({ children }) => <h2>OuterTitle - {children}</h2>
 
 const catalog = new Catalog({
   components: {
     App,
     Button,
+    OuterComponent: () => <div>OuterComponent</div>,
     Title,
   },
 })
 
-export { App }
-export default catalog
+// used in a nested CatalogProvider
+const innerCatalog = new Catalog({
+  components: {
+    InnerComponent: () => <div>InnerComponent</div>, // will throw a 404 in the outer context
+    Title: ({ children }) => <h2>InnerTitle - {children}</h2>, // inner CatalogProvider overwrites Title
+  },
+})
+
+export { App, catalog, innerCatalog }
