@@ -15,8 +15,8 @@ export const getDisplayName = Component => {
  */
 export const withCatalog = Component => {
   const WithCatalog = props => {
-    const { catalog } = useCatalog() || {}
-    return <Component {...props} catalog={catalog} />
+    const catalog = useCatalog()
+    return <Component {...props} catalog={catalog && catalog.catalog} />
   }
 
   WithCatalog.displayName = `WithCatalog(${getDisplayName(Component)})`

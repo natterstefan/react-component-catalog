@@ -14,6 +14,19 @@ describe('CatalogProvider', () => {
   let testCatalog
   const verifyCatalog = jest.fn()
 
+  const expectedTestCatalog = {
+    catalog: {
+      _catalog: {
+        components: {
+          TestComponent,
+        },
+      },
+      _components: {
+        TestComponent,
+      },
+    },
+  }
+
   beforeEach(() => {
     testCatalog = new Catalog({
       components: {
@@ -61,18 +74,7 @@ describe('CatalogProvider', () => {
       </CatalogProvider>,
     )
 
-    expect(verifyCatalog).toHaveBeenCalledWith({
-      catalog: {
-        _catalog: {
-          components: {
-            TestComponent,
-          },
-        },
-        _components: {
-          TestComponent,
-        },
-      },
-    })
+    expect(verifyCatalog).toHaveBeenCalledWith(expectedTestCatalog)
   })
 
   it('enables CatalogComponents to render Components from the catalog', () => {
@@ -84,5 +86,60 @@ describe('CatalogProvider', () => {
 
     expect(wrapper.find(TestComponent).prop('hello')).toStrictEqual('world')
     expect(wrapper.find(TestComponent).text()).toStrictEqual('Hello World')
+  })
+
+  it('can be nested within another CatalogProvider', () => {
+    const Consumer = () => {
+      const catalog = useCatalog()
+      verifyCatalog(catalog)
+
+      return <div>Catalog</div>
+    }
+
+    mount(
+      <CatalogProvider catalog={testCatalog}>
+        <CatalogProvider>
+          <Consumer />
+        </CatalogProvider>
+      </CatalogProvider>,
+    )
+
+    expect(verifyCatalog).toHaveBeenCalledWith(expectedTestCatalog)
+  })
+
+  it('can be nested within another CatalogProvider, which overwrites existing components in Catalog and extends it', () => {
+    const TestComponentTwo = () => <div>Different</div>
+    const Title = () => <h2>Hello</h2>
+
+    const innerCatalog = new Catalog({
+      components: {
+        TestComponent: TestComponentTwo,
+        Title,
+      },
+    })
+
+    const expected = new Catalog({
+      components: {
+        TestComponent: TestComponentTwo,
+        Title,
+      },
+    })
+
+    const Consumer = () => {
+      const catalog = useCatalog()
+      verifyCatalog(catalog)
+
+      return <div>Catalog</div>
+    }
+
+    mount(
+      <CatalogProvider catalog={testCatalog}>
+        <CatalogProvider catalog={innerCatalog}>
+          <Consumer />
+        </CatalogProvider>
+      </CatalogProvider>,
+    )
+
+    expect(verifyCatalog).toHaveBeenCalledWith({ catalog: expected })
   })
 })
