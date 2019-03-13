@@ -26,7 +26,7 @@ const catalog = new Catalog({
 // used in a nested CatalogProvider
 const innerCatalog = new Catalog({
   components: {
-    InnerComponent: () => <div>InnerComponent</div>, // will throw a 404 in the outer context
+    InnerComponent: () => <div>InnerComponent</div>,
     Title: ({ children }) => <h2>InnerTitle - {children}</h2>, // inner CatalogProvider overwrites Title
   },
 })

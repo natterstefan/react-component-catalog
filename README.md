@@ -68,6 +68,42 @@ ReactDOM.render(
 );
 ```
 
+#### Nesting CatalogProvider
+
+`<CatalogProvider />` can be nested, whereas the inner provider will extend and
+overwrite the parent provider.
+
+```js
+// setup catalogs
+const catalog = new Catalog({
+  components: {
+    OuterComponent: () => <div>OuterComponent</div>,
+    Title: ({ children }) => <h1>OuterTitle - {children}</h1>
+  },
+})
+
+const innerCatalog = new Catalog({
+  components: {
+    InnerComponent: () => <div>InnerComponent</div>,
+    Title: ({ children }) => <h2>InnerTitle - {children}</h2>, // inner CatalogProvider overwrites Title of the outer catalog
+  },
+})
+
+// usage
+const App = () => (
+  <CatalogProvider catalog={catalog}>
+    <CatalogProvider catalog={innerCatalog}>
+      <Content />
+    </CatalogProvider>
+  </CatalogProvider>
+)
+```
+
+`<Content />` can access components inside the `catalog` and `innerCatalog`. If
+the `innerCatalog` contains a component with the same name than in the `catalog`
+it will overwrite it. In this case `<Title />` gets overwritten in the inner
+provider.
+
 ### Import and use the catalog (with react-hooks)
 
 ```jsx
