@@ -2,12 +2,15 @@
   "name": "react-component-catalog",
   "author": "Stefan Natter <https://natterstefan.me>",
   "license": "Apache-2.0",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Manage a catalog (registry) of react-components easily.",
   "main": "dist/index.js",
   "module": "lib/index.js",
   "sideEffects": false,
-  "files": ["dist", "lib"],
+  "files": [
+    "dist",
+    "lib"
+  ],
   "scripts": {
     "build": "npm run build-lib && npm run build-umd",
     "build-lib": "babel src --ignore */*.test.js,**/*.test.js --out-dir lib",
