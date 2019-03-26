@@ -136,15 +136,20 @@ export default App
 
 ## How to build and test this package
 
-```bash
+```sh
 # build the package
 npm i
 npm build
 
-# run the example
+# run the example in watch-mode
+cd example
+npm run watch-client
+npm run watch-server
+
+# or run the example in production mode
 cd example
 npm run build
-npm start
+npm run start
 ```
 
 Then open the [example](./example) folder and follow the setup instructions.

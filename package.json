@@ -11,11 +11,11 @@
   "scripts": {
     "build": "npm run build-lib && npm run build-umd",
     "build-lib": "babel src --ignore */*.test.js,**/*.test.js --out-dir lib",
-    "build-umd": "npm run prebuild && webpack --mode=production",
+    "build-umd": "webpack --mode=production",
     "coverage": "jest --coverage",
     "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
     "lint": "eslint src",
-    "prebuild": "rimraf dist",
+    "prebuild": "rimraf dist && rimraf lib",
     "prepublishOnly": "npm run test && npm run build",
     "size": "size-limit",
     "test": "jest",
