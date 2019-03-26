@@ -13,11 +13,6 @@ module.exports = {
     ...bundle('base'),
     ...bundle('client1'),
   },
-  output: {
-    chunkFilename: '[name].bundled.js',
-    filename: '[name]',
-    path: resolve(__dirname, './dist/static'),
-  },
   mode: 'development',
   module: {
     rules: [
@@ -39,13 +34,17 @@ module.exports = {
       },
     },
   },
+  output: {
+    chunkFilename: '[name].bundled.js',
+    filename: '[name]',
+    path: resolve(__dirname, './dist/static'),
+  },
   resolve: {
     // de-dupe react to be able to use hooks https://github.com/facebook/react/issues/14317#issuecomment-463097191
     // https://reactjs.org/warnings/invalid-hook-call-warning.html#duplicate-react
     alias: {
-      Base: resolve(__dirname, 'client/base/'),
       react: resolve(__dirname, 'node_modules/react'),
-      'react-component-catalog': resolve(__dirname, '..', 'dist/'),
+      'react-component-catalog': resolve(__dirname, '..', 'lib/'),
       'react-dom': resolve(__dirname, 'node_modules/react-dom'),
     },
   },

@@ -4,6 +4,14 @@ All notable changes to this project will be documented here. The format is based
 on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project
 adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+
+### Added
+
+- `catalog` can be prefixed to prevent overwriting during nesting providers
+- added `"sideEffects": false` to package.json
+- added `"module": "lib/index.js"` to package.json (including `lib` output)
+
 ## 2019/03/13 0.5.0
 
 ### Added

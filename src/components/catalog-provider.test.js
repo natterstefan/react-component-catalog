@@ -139,4 +139,68 @@ describe('CatalogProvider', () => {
 
     expect(verifyCatalog).toHaveBeenCalledWith({ catalog: expected })
   })
+
+  it('can prefix all cataloged components with the catalogPrefix', () => {
+    const Consumer = () => {
+      const catalog = useCatalog()
+      verifyCatalog(catalog)
+
+      return <div>Catalog</div>
+    }
+
+    const expected = {
+      _components: {
+        _TestComponent: TestComponent,
+      },
+      getComponent: expect.any(Function),
+    }
+
+    mount(
+      <CatalogProvider catalog={testCatalog} catalogPrefix="_">
+        <Consumer />
+      </CatalogProvider>,
+    )
+
+    expect(verifyCatalog).toHaveBeenCalledWith({ catalog: expected })
+  })
+
+  it('can be nested within another CatalogProvider, and protected by prefixing cataloged components', () => {
+    const TestComponentTwo = () => <div>Different</div>
+    const Title = () => <h2>Hello</h2>
+
+    const innerCatalog = new Catalog({
+      components: {
+        TestComponent: TestComponentTwo,
+        Title,
+      },
+    })
+
+    const expected = {
+      _components: {
+        // innter catalog with prefix
+        _TestComponent: TestComponentTwo,
+        _Title: Title,
+        // outer catalog
+        TestComponent,
+      },
+      getComponent: expect.any(Function),
+    }
+
+    const Consumer = () => {
+      const catalog = useCatalog()
+      verifyCatalog(catalog)
+
+      return <div>Catalog</div>
+    }
+
+    mount(
+      <CatalogProvider catalog={testCatalog}>
+        <CatalogProvider catalog={innerCatalog} catalogPrefix="_">
+          <Consumer />
+        </CatalogProvider>
+      </CatalogProvider>,
+    )
+
+    expect(verifyCatalog).toHaveBeenCalledWith({ catalog: expected })
+  })
 })

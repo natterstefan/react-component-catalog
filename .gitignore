@@ -8,6 +8,8 @@ coverage
 
 # Development
 node_modules
-dist
 tmp
 
+# build
+dist
+lib

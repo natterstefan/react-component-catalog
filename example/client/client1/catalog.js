@@ -5,7 +5,7 @@ import { Catalog } from 'react-component-catalog'
 import App from './components/app'
 
 // base components (or from other clients if you like)
-import Button from 'Base/components/button'
+import Button from '../base/components/button'
 /**
  * client specific components
  *
