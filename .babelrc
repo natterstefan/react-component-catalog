@@ -5,7 +5,7 @@
     "@babel/preset-react"
   ],
   "plugins": [
-    "transform-es2015-modules-commonjs",
+    "@babel/plugin-transform-modules-commonjs",
     "@babel/plugin-proposal-class-properties",
     "@babel/plugin-proposal-object-rest-spread"
   ]
