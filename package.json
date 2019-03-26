@@ -5,11 +5,12 @@
   "version": "0.5.0",
   "description": "Manage a catalog (registry) of react-components easily.",
   "main": "dist/index.js",
-  "files": [
-    "dist"
-  ],
+  "module": "lib/index.js",
+  "sideEffects": false,
+  "files": ["dist", "lib"],
   "scripts": {
-    "build": "babel src --ignore */*.test.js,**/*.test.js --out-dir dist",
+    "build": "npm run build-lib && npm run build-umd",
+    "build-lib": "babel src --ignore */*.test.js,**/*.test.js --out-dir lib",
     "build-umd": "npm run prebuild && webpack --mode=production",
     "coverage": "jest --coverage",
     "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
