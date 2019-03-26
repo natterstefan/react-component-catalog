@@ -9,6 +9,8 @@ adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 ### Added
 
 - `catalog` can be prefixed to prevent overwriting during nesting providers
+- added `"sideEffects": false` to package.json
+- added `"module": "lib/index.js"` to package.json (including `lib` output)
 
 ## 2019/03/13 0.5.0
 
