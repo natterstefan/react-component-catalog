@@ -6,6 +6,10 @@ adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
 
+### Changed
+
+- build `es` version of the package as well (see [babel.config.js](./babel.config.js))
+
 ### Fixed
 
 - fixed `build` script and `main` field issue, causing usage issues

@@ -1,7 +1,29 @@
 /* eslint-disable sort-keys */
+// inspired by
+// - https://github.com/mui-org/material-ui/blob/b62015a61a4dfef72dfcb79cef917d701d50469f/babel.config.js
+let defaultPresets
+const environment = process.env.BABEL_ENV || 'umd'
+
+// We release a ES version of the package.
+// It's something that matches the latest official supported features of
+// JavaScript. Nothing more (stage-1, etc), nothing less (require, etc).
+if (environment === 'es') {
+  defaultPresets = []
+} else {
+  defaultPresets = [
+    [
+      '@babel/preset-env',
+      {
+        // note: we do not build "esm" (compared with material-ui example)
+        modules: ['umd'].includes(environment) ? false : 'commonjs',
+      },
+    ],
+  ]
+}
+
 module.exports = {
   comments: false,
-  presets: ['@babel/preset-env', '@babel/preset-react'],
+  presets: [...defaultPresets, '@babel/preset-react'],
   plugins: [
     '@babel/plugin-transform-modules-commonjs',
     '@babel/plugin-proposal-class-properties',
