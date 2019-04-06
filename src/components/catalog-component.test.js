@@ -5,6 +5,7 @@ import Catalog from '../lib/catalog'
 
 import CatalogComponent from './catalog-component'
 import CatalogProvider from './catalog-provider'
+import { withCatalog } from './with-catalog'
 
 const TestComponent = () => <div>Hello World</div>
 
@@ -57,6 +58,60 @@ describe('CatalogComponent', () => {
 
     expect(wrapper.find(TestComponent).text()).toStrictEqual('Hello World')
     expect(wrapper.find(TestComponent).prop('hello')).toStrictEqual('world')
+  })
+
+  it('renders a requested component with ref using withCatalog', () => {
+    const TestRef = withCatalog(props => (
+      <button {...props} type="button">
+        Hello Button
+      </button>
+    ))
+
+    /* eslint-disable react/no-multi-comp */
+    class App extends React.Component {
+      constructor(props) {
+        super(props)
+        this.setRef = React.createRef()
+      }
+
+      render() {
+        return <TestRef ref={this.setRef} />
+      }
+    }
+
+    const wrapper = mount(<App />)
+
+    const element = wrapper.find(TestRef).instance()
+    expect(wrapper.instance().setRef).toHaveProperty('current', element)
+  })
+
+  it('renders a requested component with ref using CatalogComponent', () => {
+    const TestRef = props => (
+      <button {...props} type="button">
+        Hello Button
+      </button>
+    )
+
+    /* eslint-disable react/no-multi-comp */
+    class App extends React.Component {
+      constructor(props) {
+        super(props)
+        this.setRef = React.createRef()
+      }
+
+      render() {
+        return (
+          <CatalogProvider catalog={new Catalog({ components: { TestRef } })}>
+            <CatalogComponent component="TestRef" ref={this.setRef} />
+          </CatalogProvider>
+        )
+      }
+    }
+
+    const wrapper = mount(<App />)
+
+    const element = wrapper.find(TestRef).instance()
+    expect(wrapper.instance().setRef).toHaveProperty('current', element)
   })
 
   it('renders the fallbackComponent, when the requested component does not exist', () => {

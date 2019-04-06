@@ -21,7 +21,7 @@ import useCatalog from './use-catalog'
  * the catalog and pass `hello` as a prop to the Button). If the component would
  * not exist it will render the fallback.
  */
-const CatalogComponent = props => {
+const CatalogComponent = React.forwardRef((props, ref) => {
   const {
     // catalog props
     component,
@@ -42,11 +42,11 @@ const CatalogComponent = props => {
 
   const Component = catalog._components[component]
   if (Component) {
-    return <Component {...others} />
+    return <Component {...others} ref={ref} />
   }
 
   if (FallbackComponent) {
-    return <FallbackComponent {...others} />
+    return <FallbackComponent {...others} ref={ref} />
   }
 
   // if no component was found, tell the developer and fail gracefully
@@ -56,6 +56,6 @@ const CatalogComponent = props => {
   )
 
   return null
-}
+})
 
 export default CatalogComponent
