@@ -11,13 +11,17 @@ export const getDisplayName = Component => {
  * withCatalog will connect to the CatalogProvider (Context) and pass the
  * current catalog to the Component
  *
- * TODO: forwardRef (https://reactjs.org/docs/forwarding-refs.html#note-for-component-library-maintainers)
+ * inspired by:
+ * - https://github.com/styled-components/styled-components/blob/df2c947e0a2a61e739b391cd8a47a787a56f6f5b/packages/styled-components/src/hoc/withTheme.js
  */
 export const withCatalog = Component => {
-  const WithCatalog = props => {
+  const WithCatalog = React.forwardRef((props, ref) => {
     const catalog = useCatalog()
-    return <Component {...props} catalog={catalog && catalog.catalog} />
-  }
+
+    return (
+      <Component {...props} catalog={catalog && catalog.catalog} ref={ref} />
+    )
+  })
 
   WithCatalog.displayName = `WithCatalog(${getDisplayName(Component)})`
 

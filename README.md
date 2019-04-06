@@ -12,17 +12,30 @@ React components dynamically based on the requested client-package.
 
 ## Getting started
 
-```bash
+```sh
 npm i react-component-catalog --save
+
+# or
+yarn add react-component-catalog
+```
+
+Then install the correct versions of each peerDependency package, which are
+listed by the command:
+
+```sh
+npm info "react-component-catalog@latest" peerDependencies
+```
+
+If using npm 5+, use this shortcut:
+
+```sh
+npx install-peerdeps --dev react-component-catalog
+
+# or
+yarn add react-component-catalog -D --peer
 ```
 
 ## Basic Usage
-
-### Requirements
-
-As this package depends on [`react-hooks`](https://reactjs.org/docs/hooks-overview.html),
-`"react": "^16.8.0"` and `"react-dom": "^16.8.0"` are required (see
-`peerDependencies` in [package.json](./package.json)).
 
 ### First register the components
 
@@ -132,6 +145,39 @@ const App = () => {
 }
 
 export default App
+```
+
+### Use catalog with `ref`
+
+> Refs provide a way to access DOM nodes or React elements created in the render
+method. ([Source: reactjs.org](https://reactjs.org/docs/refs-and-the-dom.html))
+
+It is possible to use `react-component-catalog` with `ref` as well. It would
+look similar to (works also with `<CatalogComponent />`):
+
+```js
+const TestComponent = withCatalog(props => (
+  <button {...props} type="button">
+    Hello Button
+  </button>
+))
+
+/* eslint-disable react/no-multi-comp */
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.setRef = React.createRef()
+  }
+
+  render() {
+    // or <CatalogComponent component="TestComponent" ref={this.setRef} />
+    return (
+      <CatalogProvider catalog={new Catalog({ components: { TestComponent } })}>
+        <TestComponent ref={this.setRef} />
+      </CatalogProvider>
+    )
+  }
+}
 ```
 
 ## How to build and test this package
