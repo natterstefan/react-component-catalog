@@ -14,8 +14,7 @@ if (environment === 'es') {
     [
       '@babel/preset-env',
       {
-        // note: we do not build "esm" (compared with material-ui example)
-        modules: ['umd'].includes(environment) ? false : 'commonjs',
+        modules: ['esm', 'umd'].includes(environment) ? false : 'commonjs',
       },
     ],
   ]

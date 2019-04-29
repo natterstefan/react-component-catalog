@@ -13,4 +13,6 @@ tmp
 # build
 dist
 es
+esm
 lib
+*.tgz
