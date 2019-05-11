@@ -24,11 +24,6 @@
         "packageNames": ["prettier"]
       },
       {
-        "groupName": "Babel and Webpack",
-        "updateTypes": ["minor"],
-        "packagePatterns": ["babel", "webpack"]
-      },
-      {
         "description": "automerge minor updates of widely used libraries (devDeps)",
         "updateTypes": ["minor"],
         "depTypeList": ["devDependencies"],
