@@ -212,7 +212,8 @@ how renovate works and how to configure it.
 
 - [Overview of Configuration Options](https://renovatebot.com/docs/configuration-options/)
 - [Create and use shareable Config Presets](https://renovatebot.com/docs/config-presets/) ([example config from teppeis](https://github.com/teppeis/renovate-config))
-- [Default preset configs for Renovate](https://github.com/renovatebot/presets/blob/master/packages/renovate-config-default/package.json)
+- [Default presets](https://renovatebot.com/docs/presets-default/)
+  - [Default preset configs for Renovate](https://github.com/renovatebot/presets/blob/master/packages/renovate-config-default/package.json)
 - [Config Presets](https://renovatebot.com/docs/presets-config/)
   - [config:base](https://github.com/renovatebot/presets/blob/master/packages/renovate-config-config/package.json)
 - [Package Presets](https://renovatebot.com/docs/presets-packages)
