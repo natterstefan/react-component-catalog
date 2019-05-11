@@ -1,5 +1,43 @@
 {
-  "extends": [
-    "config:base"
+  "extends": ["config:js-lib", "schedule:earlyMondays"],
+  "prHourlyLimit": 2,
+  "prConcurrentLimit": 5,
+  "branchPrefix": "renovate/",
+  "labels": ["dependencies", "renovate", "bot"],
+  "assignees": ["@natterstefan"],
+  "semanticCommits": true,
+  "packageRules": [
+    {
+      "packagePatterns": ["babel"],
+      "groupName": "babel"
+    },
+    {
+      "extends": ["packages:linters"],
+      "packagePatterns": ["prettier"],
+      "groupName": "linters",
+      "automerge": false
+    },
+    {
+      "packagePatterns": ["react", "react-dom"],
+      "groupName": "react"
+    },
+    {
+      "packagePatterns": ["jest", "enzyme"],
+      "groupName": "testing"
+    },
+    {
+      "packagePatterns": ["rimraf", "size-limit", "husky", "lint-staged"],
+      "groupName": "tools"
+    },
+    {
+      "packagePatterns": ["webpack"],
+      "groupName": "webpack"
+    },
+    {
+      "packageNames": ["node"],
+      "major": {
+        "enabled": false
+      }
+    }
   ]
 }
