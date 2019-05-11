@@ -1,0 +1,57 @@
+{
+  "extends": ["config:js-lib", "schedule:earlyMondays", ":prNotPending"],
+  "prHourlyLimit": 10,
+  "prConcurrentLimit": 5,
+  "branchPrefix": "renovate/",
+  "labels": ["dependencies", "renovate", "bot"],
+  "assignees": ["@natterstefan"],
+  "semanticCommits": true,
+  "npm": {
+    "extends": [
+      ":automergePatch",
+      ":noUnscheduledUpdates",
+      ":unpublishSafe",
+      "helpers:disableTypesNodeMajor"
+    ],
+    "lockFileMaintenance": {
+      "enabled": true,
+      "schedule": ["before 3am on the first day of the month"]
+    },
+    "packageRules": [
+      {
+        "groupName": "ESLint and Prettier",
+        "extends": ["packages:linters"],
+        "packageNames": ["prettier"]
+      },
+      {
+        "description": "automerge minor updates of widely used libraries (devDeps)",
+        "updateTypes": ["minor"],
+        "depTypeList": ["devDependencies"],
+        "automerge": true,
+        "packagePatterns": ["jest", "enzyme"],
+        "packageNames": [
+          "husky",
+          "lint-staged",
+          "nodemon",
+          "rimraf",
+          "size-limit"
+        ]
+      },
+      {
+        "packageNames": ["react", "react-dom"],
+        "depTypeList": ["peerDependencies", "devDependencies"],
+        "groupName": "react"
+      },
+      {
+        "description": "disable package.json > engines update",
+        "depTypeList": ["engines"],
+        "enabled": false
+      },
+      {
+        "packageNames": ["node"],
+        "description": "Allow only minor updates of node versions",
+        "updateTypes": ["minor"]
+      }
+    ]
+  }
+}

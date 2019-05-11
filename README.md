@@ -6,9 +6,12 @@
 [![Coverage Status](https://coveralls.io/repos/github/natterstefan/react-component-catalog/badge.svg?branch=master)](https://coveralls.io/github/natterstefan/react-component-catalog?branch=master)
 [![Known Vulnerabilities](https://snyk.io/test/github/natterstefan/react-component-catalog/badge.svg)](https://snyk.io/test/github/natterstefan/react-component-catalog)
 [![GitHub license](https://img.shields.io/github/license/natterstefan/react-component-catalog.svg)](https://github.com/natterstefan/react-component-catalog/blob/master/LICENCE)
+[![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
 
-React-Component-Catalog is a library for registering, retrieving, and rendering
-React components dynamically based on the requested client-package.
+[React-Component-Catalog](https://github.com/natterstefan/react-component-catalog)
+is a library for individually registering, retrieving, and rendering React
+components based on your own conditions (eg. different component for various
+clients, sites, ...).
 
 ## Getting started
 
@@ -200,6 +203,21 @@ npm run start
 
 Then open the [example](./example) folder and follow the setup instructions.
 Afterwards, you can see the package in action.
+
+## Renovate
+
+This project uses [renovate](https://renovatebot.com), to keep dependencies
+updated. For the record I listed some links here, for developers interested in
+how renovate works and how to configure it.
+
+- [Overview of Configuration Options](https://renovatebot.com/docs/configuration-options/)
+- [Create and use shareable Config Presets](https://renovatebot.com/docs/config-presets/) ([example config from teppeis](https://github.com/teppeis/renovate-config))
+- [Default presets](https://renovatebot.com/docs/presets-default/)
+  - [Default preset configs for Renovate](https://github.com/renovatebot/presets/blob/master/packages/renovate-config-default/package.json)
+- [Config Presets](https://renovatebot.com/docs/presets-config/)
+  - [config:base](https://github.com/renovatebot/presets/blob/master/packages/renovate-config-config/package.json)
+- [Package Presets](https://renovatebot.com/docs/presets-packages)
+  - [packages:linters](https://renovatebot.com/docs/presets-packages/#packageslinters)
 
 ## Credits
 
