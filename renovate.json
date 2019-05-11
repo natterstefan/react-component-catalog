@@ -18,7 +18,7 @@
       "automerge": false
     },
     {
-      "packagePatterns": ["react", "react-dom"],
+      "packageNames": ["react", "react-dom"],
       "groupName": "react"
     },
     {
@@ -26,7 +26,13 @@
       "groupName": "testing"
     },
     {
-      "packagePatterns": ["rimraf", "size-limit", "husky", "lint-staged"],
+      "packagePatterns": [
+        "husky",
+        "lint-staged",
+        "nodemon",
+        "rimraf",
+        "size-limit"
+      ],
       "groupName": "tools"
     },
     {
