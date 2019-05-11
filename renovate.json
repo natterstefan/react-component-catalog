@@ -1,6 +1,6 @@
 {
   "extends": ["config:js-lib", "schedule:earlyMondays", ":prNotPending"],
-  "prHourlyLimit": 2,
+  "prHourlyLimit": 10,
   "prConcurrentLimit": 5,
   "branchPrefix": "renovate/",
   "labels": ["dependencies", "renovate", "bot"],
