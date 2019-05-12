@@ -2,11 +2,16 @@
   "name": "react-component-catalog",
   "author": "Stefan Natter <https://natterstefan.me>",
   "license": "Apache-2.0",
-  "version": "1.0.1",
+  "version": "1.0.10",
   "description": "Manage a catalog (registry) of react-components easily.",
   "main": "lib/index.js",
   "module": "esm/index.js",
-  "files": ["dist", "es", "esm", "lib"],
+  "files": [
+    "dist",
+    "es",
+    "esm",
+    "lib"
+  ],
   "scripts": {
     "build": "npm run build-cjs && npm run build-es && npm run build-esm && npm run build-umd",
     "build-cjs": "BABEL_ENV=cjs babel src --ignore */*.test.js,**/*.test.js --out-dir lib",
@@ -18,6 +23,8 @@
     "lint": "eslint src",
     "prebuild": "rimraf dist && rimraf lib",
     "prepublishOnly": "npm run test && npm run build",
+    "prerelease": "npm run build && npm run test",
+    "release": "standard-version",
     "size": "size-limit",
     "test": "jest",
     "watch-test": "jest --watch"
@@ -45,6 +52,9 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "standard-version": {
+    "changelogHeader": "# React-Component-Catalog Changelog\n\nAll notable changes to this project will be documented here. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).\n\n"
   },
   "repository": {
     "type": "git",
@@ -104,6 +114,7 @@
     "react-dom": "16.8.6",
     "rimraf": "2.6.3",
     "size-limit": "0.21.1",
+    "standard-version": "^6.0.1",
     "webpack": "4.29.6",
     "webpack-cli": "3.3.0"
   },

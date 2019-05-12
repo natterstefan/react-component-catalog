@@ -205,6 +205,29 @@ npm run start
 Then open the [example](./example) folder and follow the setup instructions.
 Afterwards, you can see the package in action.
 
+## How to release and publish the package
+
+This package uses [standard-version](https://github.com/conventional-changelog/standard-version)
+and [commitizen](https://github.com/commitizen/cz-cli) for standardizing commit
+messages, release tags and the changelog.
+
+When you're ready to release, execute the following commands in the given order:
+
+1. `git checkout master`
+2. `git pull origin master`
+3. `npm run release -- --no-verify`
+4. `git push --follow-tags origin master`
+5. `npm publish`
+
+### Links
+
+- [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0-beta.4/)
+- [conventional-changelog](https://github.com/conventional-changelog/conventional-changelog)
+  - [Modules Important to Conventional Changelog Ecosystem](https://github.com/conventional-changelog/conventional-changelog#modules-important-to-conventional-changelog-ecosystem)
+- [semantic-release](https://github.com/semantic-release/semantic-release)
+  (standard-version alternative, with extended CI support)
+- [commitlint](https://github.com/conventional-changelog/commitlint)
+
 ## Renovate
 
 This project uses [renovate](https://renovatebot.com), to keep dependencies
