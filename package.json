@@ -23,13 +23,16 @@
     "lint": "eslint src",
     "prebuild": "rimraf dist && rimraf lib",
     "prepublishOnly": "npm run test && npm run build",
+    "prerelease": "npm run build && npm run test",
+    "release": "standard-version",
     "size": "size-limit",
     "test": "jest",
     "watch-test": "jest --watch"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged",
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook"
     }
   },
   "lint-staged": {
@@ -45,6 +48,14 @@
       "path": "dist/index.js"
     }
   ],
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "standard-version": {
+    "changelogHeader": "# React-Component-Catalog Changelog\n\nAll notable changes to this project will be documented here. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).\n\n"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/natterstefan/react-component-catalog.git"
@@ -79,7 +90,9 @@
     "babel-eslint": "10.0.1",
     "babel-jest": "24.7.1",
     "babel-loader": "8.0.5",
+    "commitizen": "3.1.1",
     "coveralls": "3.0.3",
+    "cz-conventional-changelog": "2.1.0",
     "enzyme": "3.9.0",
     "enzyme-adapter-react-16": "1.12.0",
     "eslint": "5.16.0",
@@ -101,6 +114,7 @@
     "react-dom": "16.8.6",
     "rimraf": "2.6.3",
     "size-limit": "0.21.1",
+    "standard-version": "6.0.1",
     "webpack": "4.29.6",
     "webpack-cli": "3.3.0"
   },

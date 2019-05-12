@@ -7,6 +7,7 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/natterstefan/react-component-catalog/badge.svg)](https://snyk.io/test/github/natterstefan/react-component-catalog)
 [![GitHub license](https://img.shields.io/github/license/natterstefan/react-component-catalog.svg)](https://github.com/natterstefan/react-component-catalog/blob/master/LICENCE)
 [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 [React-Component-Catalog](https://github.com/natterstefan/react-component-catalog)
 is a library for individually registering, retrieving, and rendering React
@@ -203,6 +204,29 @@ npm run start
 
 Then open the [example](./example) folder and follow the setup instructions.
 Afterwards, you can see the package in action.
+
+## How to release and publish the package
+
+This package uses [standard-version](https://github.com/conventional-changelog/standard-version)
+and [commitizen](https://github.com/commitizen/cz-cli) for standardizing commit
+messages, release tags and the changelog.
+
+When you're ready to release, execute the following commands in the given order:
+
+1. `git checkout master`
+2. `git pull origin master`
+3. `npm run release -- --no-verify`
+4. `git push --follow-tags origin master`
+5. `npm publish`
+
+### Links
+
+- [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0-beta.4/)
+- [conventional-changelog](https://github.com/conventional-changelog/conventional-changelog)
+  - [Modules Important to Conventional Changelog Ecosystem](https://github.com/conventional-changelog/conventional-changelog#modules-important-to-conventional-changelog-ecosystem)
+- [semantic-release](https://github.com/semantic-release/semantic-release)
+  (standard-version alternative, with extended CI support)
+- [commitlint](https://github.com/conventional-changelog/commitlint)
 
 ## Renovate
 
