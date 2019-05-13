@@ -46,6 +46,18 @@
     {
       "limit": "6 KB",
       "path": "dist/index.js"
+    },
+    {
+      "limit": "6 KB",
+      "path": "lib/**/*.js"
+    },
+    {
+      "limit": "6 KB",
+      "path": "es/**/*.js"
+    },
+    {
+      "limit": "6 KB",
+      "path": "esm/**/*.js"
     }
   ],
   "config": {
