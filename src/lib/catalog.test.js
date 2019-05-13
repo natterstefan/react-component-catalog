@@ -49,64 +49,84 @@ describe('Catalog', () => {
         TestComponent,
       },
       getComponent: expect.any(Function),
+      hasComponent: expect.any(Function),
     })
   })
 
-  it('returns null for a requested component, when it was created with an empty component catalog', () => {
-    // first we create an empty registry
-    testCatalog = new Catalog()
+  describe('getComponent', () => {
+    it('returns null for a requested component, when it was created with an empty component catalog', () => {
+      // first we create an empty registry
+      testCatalog = new Catalog()
 
-    // eslint-disable-next-line jest/prefer-strict-equal
-    expect(testCatalog).toEqual({
-      _components: {},
-      getComponent: expect.any(Function),
+      // eslint-disable-next-line jest/prefer-strict-equal
+      expect(testCatalog).toEqual({
+        _components: {},
+        getComponent: expect.any(Function),
+        hasComponent: expect.any(Function),
+      })
+
+      // now request a component from the catalog
+      const TestComponentFromCatalog = testCatalog.getComponent('TestComponent')
+      expect(TestComponentFromCatalog).toBeNull()
     })
 
-    // now request a component from the catalog
-    const TestComponentFromCatalog = testCatalog.getComponent('TestComponent')
-    expect(TestComponentFromCatalog).toBeNull()
-  })
-
-  it('returns requested component fully functional', () => {
-    const TestComponentFromCatalog = testCatalog.getComponent('TestComponent')
-    const wrapper = shallow(<TestComponentFromCatalog />)
-    expect(wrapper.text()).toStrictEqual('Hello World')
-  })
-
-  it('does not manipulate props of returned component', () => {
-    const clickSpy = jest.fn()
-    const TestButton = () => (
-      <button type="button" onClick={clickSpy}>
-        Hello Button
-      </button>
-    )
-
-    testCatalog = new Catalog({
-      components: {
-        TestButton,
-      },
+    it('returns requested component fully functional', () => {
+      const TestComponentFromCatalog = testCatalog.getComponent('TestComponent')
+      const wrapper = shallow(<TestComponentFromCatalog />)
+      expect(wrapper.text()).toStrictEqual('Hello World')
     })
 
-    const TestButtonFromCatalog = testCatalog.getComponent('TestButton')
-    const wrapper = shallow(<TestButtonFromCatalog />)
-    expect(wrapper.text()).toStrictEqual('Hello Button')
+    it('does not manipulate props of returned component', () => {
+      const clickSpy = jest.fn()
+      const TestButton = () => (
+        <button type="button" onClick={clickSpy}>
+          Hello Button
+        </button>
+      )
 
-    wrapper.simulate('click')
-    expect(clickSpy).toHaveBeenCalledTimes(1)
+      testCatalog = new Catalog({
+        components: {
+          TestButton,
+        },
+      })
+
+      const TestButtonFromCatalog = testCatalog.getComponent('TestButton')
+      const wrapper = shallow(<TestButtonFromCatalog />)
+      expect(wrapper.text()).toStrictEqual('Hello Button')
+
+      wrapper.simulate('click')
+      expect(clickSpy).toHaveBeenCalledTimes(1)
+    })
+
+    it('returns nested requested component fully functional', () => {
+      const TestComponentFromCatalog = testCatalog.getComponent(
+        'ArticlePage.AudioArticle',
+      )
+      const wrapper = shallow(<TestComponentFromCatalog />)
+      expect(wrapper.text()).toStrictEqual('AudioArticle')
+    })
+
+    it('returns null when nested requested component is not available', () => {
+      const TestComponentFromCatalog = testCatalog.getComponent(
+        'ArticlePage.OtherArticle',
+      )
+      expect(TestComponentFromCatalog).toBeNull()
+    })
   })
 
-  it('returns nested requested component fully functional', () => {
-    const TestComponentFromCatalog = testCatalog.getComponent(
-      'ArticlePage.AudioArticle',
-    )
-    const wrapper = shallow(<TestComponentFromCatalog />)
-    expect(wrapper.text()).toStrictEqual('AudioArticle')
-  })
+  describe('hasComponent', () => {
+    it('returns true when component exists', () => {
+      const hasAudioArticle = testCatalog.hasComponent(
+        'ArticlePage.AudioArticle',
+      )
+      expect(hasAudioArticle).toBeTruthy()
+    })
 
-  it('returns null when nested requested component is not available', () => {
-    const TestComponentFromCatalog = testCatalog.getComponent(
-      'ArticlePage.OtherArticle',
-    )
-    expect(TestComponentFromCatalog).toBeNull()
+    it('returns false when component exists', () => {
+      const hasOtherArticle = testCatalog.hasComponent(
+        'ArticlePage.OtherArticle',
+      )
+      expect(hasOtherArticle).toBeFalsy()
+    })
   })
 })
