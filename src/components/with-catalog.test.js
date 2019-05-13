@@ -8,6 +8,9 @@ import { getDisplayName, withCatalog } from './with-catalog'
 
 const TestComponent = withCatalog(() => <div>Hello World</div>)
 
+const TestButton = () => <button type="button">Hello</button>
+const TestButtonComponent = withCatalog(TestButton)
+
 describe('withCatalog', () => {
   let testCatalog
 
@@ -15,8 +18,24 @@ describe('withCatalog', () => {
     testCatalog = new Catalog({
       components: {
         TestComponent,
+        TestButtonComponent,
       },
     })
+  })
+
+  it('has a proper default displayName for easier debugging etc.', () => {
+    expect(TestComponent.displayName).toStrictEqual('WithCatalog(Component)')
+  })
+
+  it('has a proper displayName for react components for easier debugging etc.', () => {
+    const wrapper = mount(
+      <CatalogProvider catalog={testCatalog}>
+        <TestButtonComponent />
+      </CatalogProvider>,
+    )
+
+    const elem = wrapper.find(TestButtonComponent)
+    expect(elem.name()).toStrictEqual('WithCatalog(TestButton)')
   })
 
   it('renders a wrapped functional component properly', () => {

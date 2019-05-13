@@ -58,4 +58,6 @@ const CatalogComponent = React.forwardRef((props, ref) => {
   return null
 })
 
+CatalogComponent.displayName = 'CatalogComponent'
+
 export default CatalogComponent
