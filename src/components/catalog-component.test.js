@@ -39,6 +39,10 @@ describe('CatalogComponent', () => {
     console.warn = backupWarn
   })
 
+  it('has a a proper displayName for easier debugging etc.', () => {
+    expect(CatalogComponent.displayName).toStrictEqual('CatalogComponent')
+  })
+
   it('renders a requested component fully functional', () => {
     const wrapper = mount(
       <CatalogProvider catalog={testCatalog}>
