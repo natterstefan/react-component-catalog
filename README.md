@@ -133,6 +133,9 @@ const App = () => {
   const { catalog } = useCatalog()
   const Button = catalog.getComponent('Button')
 
+  // you can also first check if it exists
+  const hasButton = catalog.hasComponent('Button')
+
   // or you use them with the <CatalogComponent /> component
   return (
     <div>
