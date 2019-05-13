@@ -44,7 +44,7 @@ module.exports = {
     // https://reactjs.org/warnings/invalid-hook-call-warning.html#duplicate-react
     alias: {
       react: resolve(__dirname, 'node_modules/react'),
-      'react-component-catalog': resolve(__dirname, '..', 'lib/'),
+      'react-component-catalog': resolve(__dirname, '..', 'src/'),
       'react-dom': resolve(__dirname, 'node_modules/react-dom'),
     },
   },

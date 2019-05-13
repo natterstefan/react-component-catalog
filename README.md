@@ -45,44 +45,44 @@ yarn add react-component-catalog -D --peer
 
 ```jsx
 // button.js
-import React from 'react';
+import React from 'react'
 
-const Button = (props) => <button>{props.children}</button>
+const Button = props => <button>{props.children}</button>
 
-export default Button;
+export default Button
 ```
 
 ```jsx
 // catalog.js
-import { Catalog } from 'react-component-catalog';
-import Button from './button';
+import { Catalog } from 'react-component-catalog'
+import Button from './button'
 
 const catalog = new Catalog({
   components: {
     Button,
   },
-});
+})
 
-export default catalog;
+export default catalog
 ```
 
 ### Create a CatalogProvider
 
 ```jsx
 // index.js
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-import { CatalogProvider } from 'react-component-catalog';
-import catalog from './catalog';
-import App from './app';
+import { CatalogProvider } from 'react-component-catalog'
+import catalog from './catalog'
+import App from './app'
 
 ReactDOM.render(
   <CatalogProvider catalog={catalog}>
     <App />
   </CatalogProvider>,
   document.getElementById('_root'),
-);
+)
 ```
 
 #### Nesting CatalogProvider
@@ -95,7 +95,7 @@ overwrite the parent provider.
 const catalog = new Catalog({
   components: {
     OuterComponent: () => <div>OuterComponent</div>,
-    Title: ({ children }) => <h1>OuterTitle - {children}</h1>
+    Title: ({ children }) => <h1>OuterTitle - {children}</h1>,
   },
 })
 
@@ -154,7 +154,7 @@ export default App
 ### Use catalog with `ref`
 
 > Refs provide a way to access DOM nodes or React elements created in the render
-method. ([Source: reactjs.org](https://reactjs.org/docs/refs-and-the-dom.html))
+> method. ([Source: reactjs.org](https://reactjs.org/docs/refs-and-the-dom.html))
 
 It is possible to use `react-component-catalog` with `ref` as well. It would
 look similar to (works also with `<CatalogComponent />`):
@@ -187,12 +187,18 @@ class App extends React.Component {
 ## How to build and test this package
 
 ```sh
-# build the package
+# -- build the package--
 npm i
 npm build
+```
 
+```sh
+# -- test the package --
 # run the example in watch-mode
 cd example
+npm run watch
+
+# or if you want to run them individually
 npm run watch-client
 npm run watch-server
 
@@ -228,7 +234,9 @@ When you're ready to release, execute the following commands in the given order:
   (standard-version alternative, with extended CI support)
 - [commitlint](https://github.com/conventional-changelog/commitlint)
 
-## Renovate
+## Tools
+
+### Renovate
 
 This project uses [renovate](https://renovatebot.com), to keep dependencies
 updated. For the record I listed some links here, for developers interested in
