@@ -20,6 +20,7 @@ describe('CatalogProvider', () => {
         TestComponent,
       },
       getComponent: expect.any(Function),
+      hasComponent: expect.any(Function),
     },
   }
 
@@ -120,6 +121,7 @@ describe('CatalogProvider', () => {
         Title,
       },
       getComponent: expect.any(Function),
+      hasComponent: expect.any(Function),
     }
 
     const Consumer = () => {
@@ -153,6 +155,7 @@ describe('CatalogProvider', () => {
         _TestComponent: TestComponent,
       },
       getComponent: expect.any(Function),
+      hasComponent: expect.any(Function),
     }
 
     mount(
@@ -184,6 +187,7 @@ describe('CatalogProvider', () => {
         TestComponent,
       },
       getComponent: expect.any(Function),
+      hasComponent: expect.any(Function),
     }
 
     const Consumer = () => {

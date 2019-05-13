@@ -8,6 +8,7 @@ import CatalogProvider from './catalog-provider'
 import { withCatalog } from './with-catalog'
 
 const TestComponent = () => <div>Hello World</div>
+const BaseArticle = () => <div>Hello BaseArticle</div>
 
 const FallbackComponent = () => <div>Fallback</div>
 
@@ -21,6 +22,15 @@ describe('CatalogComponent', () => {
     testCatalog = new Catalog({
       components: {
         TestComponent,
+        ArticlePage: {
+          BaseArticle,
+        },
+        Pages: {
+          NestedPage: () => null,
+          AnotherNestedPage: {
+            OtherPage: () => null,
+          },
+        },
       },
     })
 
@@ -51,6 +61,16 @@ describe('CatalogComponent', () => {
     )
 
     expect(wrapper.find(TestComponent).text()).toStrictEqual('Hello World')
+  })
+
+  it('renders a requested nested component fully functional', () => {
+    const wrapper = mount(
+      <CatalogProvider catalog={testCatalog}>
+        <CatalogComponent component="ArticlePage.BaseArticle" />
+      </CatalogProvider>,
+    )
+
+    expect(wrapper.find(BaseArticle).text()).toStrictEqual('Hello BaseArticle')
   })
 
   it('renders a requested component with additional props', () => {
@@ -151,8 +171,14 @@ describe('CatalogComponent', () => {
     // test if the developer was notified
     expect(console.warn).toHaveBeenCalledTimes(1)
     expect(console.warn).toHaveBeenLastCalledWith(
-      'No component for "NotAvailableComponent" was found in the component catalog. The catalog contains the following components:',
-      ['TestComponent'],
+      '"NotAvailableComponent" not found in component catalog. The catalog contains only:',
+      [
+        'TestComponent',
+        // must also work with nested components
+        'ArticlePage.BaseArticle',
+        'Pages.NestedPage',
+        'Pages.AnotherNestedPage.OtherPage',
+      ],
     )
   })
 
@@ -166,7 +192,7 @@ describe('CatalogComponent', () => {
     // test if the developer was notified
     expect(console.warn).toHaveBeenCalledTimes(1)
     expect(console.warn).toHaveBeenLastCalledWith(
-      'No component for "NotAvailableComponent" was found in the component catalog. The catalog contains the following components:',
+      '"NotAvailableComponent" not found in component catalog. The catalog contains only:',
       [],
     )
   })
