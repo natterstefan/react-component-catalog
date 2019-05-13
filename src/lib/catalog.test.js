@@ -5,12 +5,21 @@ import Catalog from './catalog'
 
 const TestComponent = () => <div>Hello World</div>
 
+const AudioArticle = () => <div>AudioArticle</div>
+const BaseArticle = () => <div>BaseArticle</div>
+const VideoArticle = () => <div>VideoArticle</div>
+
 describe('Catalog', () => {
   let testCatalog
 
   beforeEach(() => {
     testCatalog = new Catalog({
       components: {
+        ArticlePage: {
+          AudioArticle,
+          BaseArticle,
+          VideoArticle,
+        },
         TestComponent,
       },
     })
@@ -31,7 +40,14 @@ describe('Catalog', () => {
   it('creates proper catalog with getComponent function', () => {
     // eslint-disable-next-line jest/prefer-strict-equal
     expect(testCatalog).toEqual({
-      _components: { TestComponent },
+      _components: {
+        ArticlePage: {
+          AudioArticle,
+          BaseArticle,
+          VideoArticle,
+        },
+        TestComponent,
+      },
       getComponent: expect.any(Function),
     })
   })
@@ -77,5 +93,20 @@ describe('Catalog', () => {
 
     wrapper.simulate('click')
     expect(clickSpy).toHaveBeenCalledTimes(1)
+  })
+
+  it('returns nested requested component fully functional', () => {
+    const TestComponentFromCatalog = testCatalog.getComponent(
+      'ArticlePage.AudioArticle',
+    )
+    const wrapper = shallow(<TestComponentFromCatalog />)
+    expect(wrapper.text()).toStrictEqual('AudioArticle')
+  })
+
+  it('returns null when nested requested component is not available', () => {
+    const TestComponentFromCatalog = testCatalog.getComponent(
+      'ArticlePage.OtherArticle',
+    )
+    expect(TestComponentFromCatalog).toBeNull()
   })
 })
