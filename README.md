@@ -41,7 +41,7 @@ yarn add react-component-catalog -D --peer
 
 ## Basic Usage
 
-### First register the components
+### Create a Catalog
 
 ```jsx
 // button.js
@@ -64,6 +64,68 @@ const catalog = new Catalog({
 })
 
 export default catalog
+```
+
+#### Create a nested Catalog
+
+It is also possible to add a nested `components`-object to the `Catalog`. This
+allows registering variations of a component. Take an article for instance.
+You might want to register different types of the component. There might be a
+`AudioArticle`, `VideoArticle` and a `BaseArticle` component you want to use.
+You can add them to the catalog like this:
+
+```jsx
+// catalog.js
+import { Catalog } from 'react-component-catalog'
+
+// different types of articles
+import AudioArticle from './audio-article'
+import BaseArticle from './base-article'
+import VideoArticle from './video-article'
+
+const catalog = new Catalog({
+  components: {
+    ArticlePage: {
+      AudioArticle,
+      BaseArticle,
+      VideoArticle,
+    },
+  },
+})
+
+export default catalog
+```
+
+And you could later use it like this:
+
+```jsx
+// app.js
+import React from 'react'
+import CatalogComponent, { useCatalog } from 'react-component-catalog'
+
+const App = (props) => {
+  const { isAudioArticle, isVideoArticle } = props
+  const { catalog } = useCatalog()
+  
+  // get the ArticlePage object from the catalog
+  const ArticlePage = catalog.getComponent('ArticlePage')
+
+  // or get them one by one with one of the following methods
+  // const BaseArticle = catalog.getComponent('ArticlePage.BaseArticle')
+  // <CatalogComponent component="ArticlePage.BaseArticle" />
+
+  if (isAudioArticle) {
+    return <ArticlePage.AudioArticle {...props} />
+  }
+
+  if (isVideoArticle) {
+    return <ArticlePage.VideoArticle {...props} />
+  }
+
+  return <ArticlePage.BaseArticle {...props} />
+}
+
+export default App
 ```
 
 ### Create a CatalogProvider

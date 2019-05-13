@@ -57,3 +57,39 @@ export const get = (obj, path, def) => {
 
   return current
 }
+
+/**
+ * Returns an array with the flattend Object.keys of a given object
+ *
+ * Inspired by flattenObject published on https://30secondsofcode.org/object
+ *
+ * ```js
+ * const obj = {
+ *  a: 1,
+ *  b: 2,
+ *  c: {
+ *    d: 3,
+ *    e: {
+ *      f: 4,
+ *    },
+ *  },
+ * }
+ * ```
+ *
+ * would result in `['a', 'b', 'c.d', 'c.e.f']`
+ */
+export const flattenObjectKeys = (obj, prefix = '', flatObjectProps = []) => {
+  Object.keys(obj).reduce((acc, k) => {
+    const pre = prefix.length ? `${prefix}.` : ''
+
+    if (typeof obj[k] === 'object') {
+      Object.assign(acc, flattenObjectKeys(obj[k], pre + k, flatObjectProps))
+    } else {
+      flatObjectProps.push(pre + k)
+    }
+
+    return acc
+  }, {})
+
+  return flatObjectProps
+}

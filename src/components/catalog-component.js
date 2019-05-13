@@ -2,6 +2,8 @@
 /* eslint-disable no-console */
 import React from 'react'
 
+import { flattenObjectKeys } from '../utils'
+
 import useCatalog from './use-catalog'
 
 /**
@@ -40,7 +42,7 @@ const CatalogComponent = React.forwardRef((props, ref) => {
     return null
   }
 
-  const Component = catalog._components[component]
+  const Component = catalog.getComponent(component)
   if (Component) {
     return <Component {...others} ref={ref} />
   }
@@ -51,8 +53,8 @@ const CatalogComponent = React.forwardRef((props, ref) => {
 
   // if no component was found, tell the developer and fail gracefully
   console.warn(
-    `No component for "${component}" was found in the component catalog. The catalog contains the following components:`,
-    catalog._components && Object.keys(catalog._components),
+    `"${component}" not found in component catalog. The catalog contains only:`,
+    catalog._components && flattenObjectKeys(catalog._components),
   )
 
   return null

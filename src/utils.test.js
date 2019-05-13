@@ -1,22 +1,22 @@
-import { get } from './utils'
+import { get, flattenObjectKeys } from './utils'
 
 describe('utils', () => {
-  describe('get', () => {
-    const obj = {
-      a: 1,
-      b: 2,
-      c: {
-        d: 3,
-        e: {
-          f: 4,
-        },
+  const obj = {
+    a: 1,
+    b: 2,
+    c: {
+      d: 3,
+      e: {
+        f: 4,
       },
-    }
+    },
+  }
 
-    const objArray = {
-      a: [{ b: 1 }, { b: 2 }],
-    }
+  const objArray = {
+    a: [{ b: 1 }, { b: 2 }],
+  }
 
+  describe('get', () => {
     it('returns undefined when path (nested or not) is not found', () => {
       expect(get(obj, 'ab')).toBeUndefined()
       expect(get(objArray, 'a[2].b')).toBeUndefined()
@@ -41,6 +41,16 @@ describe('utils', () => {
 
     it('returns value when nested path (with array) is found', () => {
       expect(get(objArray, 'a[0].b')).toStrictEqual(1)
+    })
+  })
+
+  describe('flattenObjectKeys', () => {
+    it("returns an array containing the object's properties", () => {
+      expect(flattenObjectKeys(obj)).toStrictEqual(['a', 'b', 'c.d', 'c.e.f'])
+    })
+
+    it("returns an array containing the object's (with array) properties", () => {
+      expect(flattenObjectKeys(objArray)).toStrictEqual(['a.0.b', 'a.1.b'])
     })
   })
 })
