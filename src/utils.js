@@ -18,7 +18,10 @@ export const get = (obj, path, def) => {
   const stringToPath = pathValue => {
     // If the path isn't a string, return it
     if (typeof pathValue !== 'string') {
-      return pathValue
+      if (Array.isArray(pathValue)) {
+        return pathValue
+      }
+      return null
     }
 
     // Create new array
@@ -40,6 +43,11 @@ export const get = (obj, path, def) => {
 
   // Get the path as an array
   const findPath = stringToPath(path)
+
+  // an invalid path was provided, which we were not able to handle
+  if (!findPath) {
+    return def
+  }
 
   // Cache the current object
   let current = obj

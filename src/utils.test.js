@@ -31,12 +31,20 @@ describe('utils', () => {
       expect(get(obj, 'a')).toStrictEqual(1)
     })
 
-    it('returns value when path (with array) is present in obj', () => {
-      expect(get(objArray.a, '[0]')).toStrictEqual({ b: 1 })
+    it('returns value when path is pointing to a present array index', () => {
+      expect(get(objArray.a, '0')).toStrictEqual({ b: 1 })
+    })
+
+    it('returns value when path is an index of an array (non-string path) is present in obj', () => {
+      expect(get(objArray.a, 0)).toBeUndefined()
     })
 
     it('returns value when nested path is found', () => {
       expect(get(obj, 'c.e.f')).toStrictEqual(4)
+    })
+
+    it('returns value when nested path (string-array) is found', () => {
+      expect(get(obj, ['c', 'e', 'f'])).toStrictEqual(4)
     })
 
     it('returns value when nested path (with array) is found', () => {
