@@ -2,7 +2,7 @@
   "name": "react-component-catalog",
   "author": "Stefan Natter <https://natterstefan.me>",
   "license": "Apache-2.0",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Manage a catalog (registry) of react-components easily.",
   "main": "lib/index.js",
   "module": "esm/index.js",
@@ -32,7 +32,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
-      "prepare-commit-msg": "exec < /dev/tty && git cz --hook"
+      "prepare-commit-msg": "exec < /dev/tty && ./node_modules/.bin/git-cz --hook"
     }
   },
   "lint-staged": {

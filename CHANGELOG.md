@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented here. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+
+## [1.1.0](https://github.com/natterstefan/react-component-catalog/compare/v1.0.1...v1.1.0) (2019-05-14)
+
+
+### Bug Fixes
+
+* **CatalogComponent:** Fix missing displayName ([fa3e14f](https://github.com/natterstefan/react-component-catalog/commit/fa3e14f))
+
+
+### Features
+
+* **catalog:** Add new catalog.hasComponent function ([c4c10a2](https://github.com/natterstefan/react-component-catalog/commit/c4c10a2))
+* **catalog:** Allow nested components object in catalog ([ca236ad](https://github.com/natterstefan/react-component-catalog/commit/ca236ad))
+* **CatalogComponent:** CatalogComponent supports nested components ([369375b](https://github.com/natterstefan/react-component-catalog/commit/369375b))
+
+
+
 ## [1.0.1](https://github.com/natterstefan/react-component-catalog/compare/v1.0.0...v1.0.1) (2019/04/29)
 
 ### Added
