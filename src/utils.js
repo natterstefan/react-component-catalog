@@ -79,6 +79,10 @@ export const get = (obj, path, def) => {
  * would result in `['a', 'b', 'c.d', 'c.e.f']`
  */
 export const flattenObjectKeys = (obj, prefix = '', flatObjectProps = []) => {
+  if (!obj || typeof obj === 'string' || typeof obj === 'number') {
+    return null
+  }
+
   Object.keys(obj).reduce((acc, k) => {
     const pre = prefix.length ? `${prefix}.` : ''
 
