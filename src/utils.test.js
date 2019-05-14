@@ -45,6 +45,19 @@ describe('utils', () => {
   })
 
   describe('flattenObjectKeys', () => {
+    it('returns null when no object is given', () => {
+      expect(flattenObjectKeys()).toBeNull()
+    })
+
+    it('returns an empty array for an empty object', () => {
+      expect(flattenObjectKeys({})).toStrictEqual([])
+    })
+
+    it('returns an empty array for values other than an object', () => {
+      expect(flattenObjectKeys(1)).toBeNull()
+      expect(flattenObjectKeys('string')).toBeNull()
+    })
+
     it("returns an array containing the object's properties", () => {
       expect(flattenObjectKeys(obj)).toStrictEqual(['a', 'b', 'c.d', 'c.e.f'])
     })
