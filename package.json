@@ -24,7 +24,7 @@
     "prebuild": "rimraf dist && rimraf es && rimraf esm && rimraf lib",
     "prepublishOnly": "npm run prerelease",
     "prerelease": "npm run build && npm run test",
-    "release": "standard-version",
+    "release": "HUSKY_SKIP_HOOKS=1 standard-version",
     "size": "size-limit",
     "test": "jest",
     "watch-test": "jest --watch"
