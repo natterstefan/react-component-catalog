@@ -6,7 +6,6 @@
 
 [![Dependencies](https://img.shields.io/david/natterstefan/react-component-catalog.svg)](https://github.com/natterstefan/react-component-catalog/blob/master/package.json)
 [![Known Vulnerabilities](https://snyk.io/test/github/natterstefan/react-component-catalog/badge.svg)](https://snyk.io/test/github/natterstefan/react-component-catalog)
-[![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 [React-Component-Catalog](https://github.com/natterstefan/react-component-catalog)
@@ -103,10 +102,10 @@ And you could later use it like this:
 import React from 'react'
 import CatalogComponent, { useCatalog } from 'react-component-catalog'
 
-const App = (props) => {
+const App = props => {
   const { isAudioArticle, isVideoArticle } = props
   const { catalog } = useCatalog()
-  
+
   // get the ArticlePage object from the catalog
   const ArticlePage = catalog.getComponent('ArticlePage')
 
@@ -298,23 +297,6 @@ When you're ready to release, execute the following commands in the given order:
 - [semantic-release](https://github.com/semantic-release/semantic-release)
   (standard-version alternative, with extended CI support)
 - [commitlint](https://github.com/conventional-changelog/commitlint)
-
-## Tools
-
-### Renovate
-
-This project uses [renovate](https://renovatebot.com), to keep dependencies
-updated. For the record I listed some links here, for developers interested in
-how renovate works and how to configure it.
-
-- [Overview of Configuration Options](https://renovatebot.com/docs/configuration-options/)
-- [Create and use shareable Config Presets](https://renovatebot.com/docs/config-presets/) ([example config from teppeis](https://github.com/teppeis/renovate-config))
-- [Default presets](https://renovatebot.com/docs/presets-default/)
-  - [Default preset configs for Renovate](https://github.com/renovatebot/presets/blob/master/packages/renovate-config-default/package.json)
-- [Config Presets](https://renovatebot.com/docs/presets-config/)
-  - [config:base](https://github.com/renovatebot/presets/blob/master/packages/renovate-config-config/package.json)
-- [Package Presets](https://renovatebot.com/docs/presets-packages)
-  - [packages:linters](https://renovatebot.com/docs/presets-packages/#packageslinters)
 
 ## Credits
 
