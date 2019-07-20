@@ -2,7 +2,7 @@ const { resolve } = require('path')
 
 module.exports = {
   entry: resolve(__dirname, 'src/index.js'),
-  mode: 'development',
+  mode: 'production',
   module: {
     rules: [
       {

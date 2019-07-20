@@ -3,6 +3,9 @@ const path = require('path')
 module.exports = {
   extends: 'eslint-config-ns',
   plugins: ['react-hooks'],
+  globals: {
+    __DEV__: true,
+  },
   rules: {
     'jest/prefer-strict-equal': 'error',
     'no-underscore-dangle': 0,

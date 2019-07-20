@@ -27,5 +27,7 @@ module.exports = {
     '@babel/plugin-transform-modules-commonjs',
     '@babel/plugin-proposal-class-properties',
     '@babel/plugin-proposal-object-rest-spread',
+    // https://github.com/4Catalyzer/babel-plugin-dev-expression
+    'babel-plugin-dev-expression',
   ],
 }

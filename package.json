@@ -102,6 +102,7 @@
     "babel-eslint": "10.0.2",
     "babel-jest": "24.8.0",
     "babel-loader": "8.0.6",
+    "babel-plugin-dev-expression": "^0.2.2",
     "commitizen": "3.1.1",
     "coveralls": "3.0.4",
     "cz-conventional-changelog": "2.1.0",

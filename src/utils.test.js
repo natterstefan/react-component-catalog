@@ -51,27 +51,4 @@ describe('utils', () => {
       expect(get(objArray, 'a[0].b')).toStrictEqual(1)
     })
   })
-
-  describe('flattenObjectKeys', () => {
-    it('returns null when no object is given', () => {
-      expect(flattenObjectKeys()).toBeNull()
-    })
-
-    it('returns an empty array for an empty object', () => {
-      expect(flattenObjectKeys({})).toStrictEqual([])
-    })
-
-    it('returns an empty array for values other than an object', () => {
-      expect(flattenObjectKeys(1)).toBeNull()
-      expect(flattenObjectKeys('string')).toBeNull()
-    })
-
-    it("returns an array containing the object's properties", () => {
-      expect(flattenObjectKeys(obj)).toStrictEqual(['a', 'b', 'c.d', 'c.e.f'])
-    })
-
-    it("returns an array containing the object's (with array) properties", () => {
-      expect(flattenObjectKeys(objArray)).toStrictEqual(['a.0.b', 'a.1.b'])
-    })
-  })
 })

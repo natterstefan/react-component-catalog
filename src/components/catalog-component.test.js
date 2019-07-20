@@ -14,24 +14,25 @@ const FallbackComponent = () => <div>Fallback</div>
 
 describe('CatalogComponent', () => {
   let backupError
-  let backupWarn
   let testCatalog
   let emptyTestCatalog
 
+  const components = {
+    TestComponent,
+    ArticlePage: {
+      BaseArticle,
+    },
+    Pages: {
+      NestedPage: () => null,
+      AnotherNestedPage: {
+        OtherPage: () => null,
+      },
+    },
+  }
+
   beforeEach(() => {
     testCatalog = new Catalog({
-      components: {
-        TestComponent,
-        ArticlePage: {
-          BaseArticle,
-        },
-        Pages: {
-          NestedPage: () => null,
-          AnotherNestedPage: {
-            OtherPage: () => null,
-          },
-        },
-      },
+      components,
     })
 
     emptyTestCatalog = new Catalog({
@@ -39,14 +40,11 @@ describe('CatalogComponent', () => {
     })
 
     backupError = console.error
-    backupWarn = console.warn
     console.error = jest.fn()
-    console.warn = jest.fn()
   })
 
   afterEach(() => {
     console.error = backupError
-    console.warn = backupWarn
   })
 
   it('has a a proper displayName for easier debugging etc.', () => {
@@ -169,16 +167,11 @@ describe('CatalogComponent', () => {
     )
 
     // test if the developer was notified
-    expect(console.warn).toHaveBeenCalledTimes(1)
-    expect(console.warn).toHaveBeenLastCalledWith(
-      '"NotAvailableComponent" not found in component catalog. The catalog contains only:',
-      [
-        'TestComponent',
-        // must also work with nested components
-        'ArticlePage.BaseArticle',
-        'Pages.NestedPage',
-        'Pages.AnotherNestedPage.OtherPage',
-      ],
+    expect(console.error).toHaveBeenCalledTimes(1)
+    expect(console.error).toHaveBeenLastCalledWith(
+      'CatalogComponent: "NotAvailableComponent" not found in component catalog.',
+      'The catalog contains only:',
+      components,
     )
   })
 
@@ -190,10 +183,11 @@ describe('CatalogComponent', () => {
     )
 
     // test if the developer was notified
-    expect(console.warn).toHaveBeenCalledTimes(1)
-    expect(console.warn).toHaveBeenLastCalledWith(
-      '"NotAvailableComponent" not found in component catalog. The catalog contains only:',
-      [],
+    expect(console.error).toHaveBeenCalledTimes(1)
+    expect(console.error).toHaveBeenLastCalledWith(
+      'CatalogComponent: "NotAvailableComponent" not found in component catalog.',
+      'The catalog contains only:',
+      {},
     )
   })
 
@@ -207,7 +201,7 @@ describe('CatalogComponent', () => {
     // test if the developer was notified
     expect(console.error).toHaveBeenCalledTimes(1)
     expect(console.error).toHaveBeenLastCalledWith(
-      'catalog is not defined. Please use <CatalogComponent /> in the context of a <CatalogProvider /> with an existing catalog.',
+      'catalog is not defined. Please, use <CatalogComponent /> in the context of a <CatalogProvider /> with an existing catalog.',
     )
   })
 })

@@ -2,8 +2,6 @@
 /* eslint-disable no-console */
 import React from 'react'
 
-import { flattenObjectKeys } from '../utils'
-
 import useCatalog from './use-catalog'
 
 /**
@@ -34,11 +32,12 @@ const CatalogComponent = React.forwardRef((props, ref) => {
 
   // get catalog from the context
   const { catalog } = useCatalog() || {}
-
   if (!catalog || !catalog._components) {
-    console.error(
-      'catalog is not defined. Please use <CatalogComponent /> in the context of a <CatalogProvider /> with an existing catalog.',
-    )
+    if (__DEV__) {
+      console.error(
+        'catalog is not defined. Please, use <CatalogComponent /> in the context of a <CatalogProvider /> with an existing catalog.',
+      )
+    }
     return null
   }
 
@@ -51,11 +50,18 @@ const CatalogComponent = React.forwardRef((props, ref) => {
     return <FallbackComponent {...others} ref={ref} />
   }
 
-  // if no component was found, tell the developer and fail gracefully
-  console.warn(
-    `"${component}" not found in component catalog. The catalog contains only:`,
-    catalog._components && flattenObjectKeys(catalog._components),
-  )
+  if (__DEV__) {
+    // if no component was found, warn the user, but only when NODE_ENV equals
+    // "development"
+    const isClient = typeof window !== 'undefined'
+    const errorMsg = `CatalogComponent: "${component}" not found in component catalog.`
+
+    if (isClient) {
+      console.error(errorMsg, 'The catalog contains only:', catalog._components)
+    } else {
+      console.error(errorMsg)
+    }
+  }
 
   return null
 })
