@@ -37,6 +37,7 @@
   },
   "lint-staged": {
     "*.js": [
+      "npm run lint",
       "prettier --write",
       "git update-index --again",
       "jest --findRelatedTests"
