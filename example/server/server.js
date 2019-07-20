@@ -1,5 +1,6 @@
 import Hapi from 'hapi'
 import inert from 'inert'
+
 import render from './render'
 
 export const createServer = async () => {
@@ -7,6 +8,7 @@ export const createServer = async () => {
    * BASIC SERVER
    */
   const server = Hapi.server({
+    host: 'localhost',
     port: 8000,
   })
   await server.register(inert)

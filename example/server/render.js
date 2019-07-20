@@ -2,7 +2,7 @@
  * For now we just allow the server to serve clients defined in `allowedClients`
  * in a more sophisticated setup, one would derive the `client` value from other
  * parameters (eg. hostname, path, ...).
- * 
+ *
  * For this demo this restriction and identification of the client is enough.
  */
 const allowedClients = ['base', 'client1']
