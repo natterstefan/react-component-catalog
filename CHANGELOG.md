@@ -3,6 +3,16 @@
 All notable changes to this project will be documented here. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 
+## [1.2.0](https://github.com/natterstefan/react-component-catalog/compare/v1.1.1...v1.2.0) (2019-07-21)
+
+
+### Features
+
+* disable/remove renovate (for now) ([319725e](https://github.com/natterstefan/react-component-catalog/commit/319725e))
+* **logging:** use babel-plugin-dev-expression for logging errors ([#41](https://github.com/natterstefan/react-component-catalog/issues/41)) ([6fdd918](https://github.com/natterstefan/react-component-catalog/commit/6fdd918))
+
+
+
 ### [1.1.1](https://github.com/natterstefan/react-component-catalog/compare/v1.1.0...v1.1.1) (2019-05-15)
 
 

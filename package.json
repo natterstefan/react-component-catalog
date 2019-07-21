@@ -2,7 +2,7 @@
   "name": "react-component-catalog",
   "author": "Stefan Natter <https://natterstefan.me>",
   "license": "Apache-2.0",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Manage a catalog (registry) of react-components easily.",
   "main": "lib/index.js",
   "module": "esm/index.js",
@@ -67,7 +67,41 @@
     }
   },
   "standard-version": {
-    "changelogHeader": "# React-Component-Catalog Changelog\n\nAll notable changes to this project will be documented here. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).\n\n"
+    "changelogHeader": "# React-Component-Catalog Changelog\n\nAll notable changes to this project will be documented here. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).\n\n",
+    "types": [
+      {
+        "type": "feat",
+        "section": "Features"
+      },
+      {
+        "type": "fix",
+        "section": "Fixes"
+      },
+      {
+        "type": "chore",
+        "hidden": true
+      },
+      {
+        "type": "docs",
+        "hidden": true
+      },
+      {
+        "type": "style",
+        "hidden": true
+      },
+      {
+        "type": "refactor",
+        "hidden": true
+      },
+      {
+        "type": "perf",
+        "hidden": true
+      },
+      {
+        "type": "test",
+        "hidden": true
+      }
+    ]
   },
   "repository": {
     "type": "git",
