@@ -23,7 +23,7 @@
     "lint": "eslint src",
     "prebuild": "rimraf dist && rimraf es && rimraf esm && rimraf lib",
     "prepublishOnly": "npm run prerelease",
-    "prerelease": "npm run build && npm run test && npm run size",
+    "prerelease": "npm run size && npm run build && npm run test",
     "release": "HUSKY_SKIP_HOOKS=1 standard-version",
     "size": "size-limit",
     "test": "jest",
