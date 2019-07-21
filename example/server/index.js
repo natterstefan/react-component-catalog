@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 require('@babel/register')({
   babelrc: true,
 })
@@ -8,9 +9,13 @@ async function startServer() {
   try {
     const server = await createServer()
     await server.start()
-    console.log('server running at:', server.info.uri)
+    console.log(
+      `Server running at: ${server.info.uri}`,
+      '\n- Open base: http://localhost:8000/base',
+      '\n- Open client: http://localhost:8000/client1',
+    )
   } catch (err) {
-    console.log(err)
+    console.error(err)
     process.exit(1)
   }
 }

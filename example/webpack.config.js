@@ -1,5 +1,7 @@
 const { resolve } = require('path')
 
+require('dotenv').config()
+
 const bundle = client => ({
   [`${client}.bundled.js`]: [
     '@babel/polyfill',
@@ -13,7 +15,7 @@ module.exports = {
     ...bundle('base'),
     ...bundle('client1'),
   },
-  mode: 'development',
+  mode: process.env.BABEL_ENV || process.env.NODE_ENV || 'development',
   module: {
     rules: [
       {
@@ -44,7 +46,6 @@ module.exports = {
     // https://reactjs.org/warnings/invalid-hook-call-warning.html#duplicate-react
     alias: {
       react: resolve(__dirname, 'node_modules/react'),
-      'react-component-catalog': resolve(__dirname, '..', 'src/'),
       'react-dom': resolve(__dirname, 'node_modules/react-dom'),
     },
   },
