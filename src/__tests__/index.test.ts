@@ -1,14 +1,14 @@
-import CatalogPart from './lib/catalog'
-import CatalogComponentPart from './components/catalog-component'
-import CatalogProviderPart from './components/catalog-provider'
-import withCatalogPart from './components/with-catalog'
+import CatalogPart from '../catalog'
+import CatalogComponentPart from '../components/catalog-component'
+import CatalogProviderPart from '../components/catalog-provider'
+import withCatalogPart from '../components/with-catalog'
 
 import ReactComponentCatalog, {
   Catalog,
   CatalogComponent,
   CatalogProvider,
   withCatalog,
-} from '.'
+} from '..'
 
 describe('react-component-catalog', () => {
   it('exports CatalogComponent as default', () => {

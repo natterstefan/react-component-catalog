@@ -4,4 +4,5 @@ import Adapter from 'enzyme-adapter-react-16'
 
 configure({ adapter: new Adapter() })
 
+// @ts-ignore
 global.__DEV__ = true

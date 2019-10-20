@@ -14,13 +14,13 @@
   ],
   "scripts": {
     "build": "npm run build-cjs && npm run build-es && npm run build-esm && npm run build-umd",
-    "build-cjs": "BABEL_ENV=cjs babel src --ignore */*.test.js,**/*.test.js --out-dir lib",
-    "build-es": "BABEL_ENV=es babel src --ignore */*.test.js,**/*.test.js --out-dir es",
-    "build-esm": "BABEL_ENV=esm babel src --ignore */*.test.js,**/*.test.js --out-dir esm",
+    "build-cjs": "BABEL_ENV=cjs tsc --outDir lib --module commonjs --target es5 -d",
+    "build-es": "BABEL_ENV=es tsc --outDir es --module es2015 --target es2015 -d",
+    "build-esm": "BABEL_ENV=esm tsc --outDir esm --module es2015 --target es5 -d",
     "build-umd": "BABEL_ENV=umd webpack --mode=production",
     "coverage": "jest --coverage",
     "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
-    "lint": "eslint src",
+    "lint": "tsc --noEmit && eslint 'src/**/*.{ts,tsx}' --quiet",
     "prebuild": "rimraf dist && rimraf es && rimraf esm && rimraf lib",
     "prepublishOnly": "npm run prerelease",
     "prerelease": "npm run build && npm run size && npm run test",
@@ -121,8 +121,7 @@
   },
   "homepage": "https://github.com/natterstefan/react-component-catalog#readme",
   "peerDependencies": {
-    "react": ">=16.8.3 <17",
-    "react-dom": ">=16.8.3 <17"
+    "react": ">=16.8.3 <17"
   },
   "devDependencies": {
     "@babel/cli": "7.7.0",
@@ -132,13 +131,20 @@
     "@babel/plugin-transform-modules-commonjs": "7.7.0",
     "@babel/preset-env": "7.7.1",
     "@babel/preset-react": "7.7.0",
-    "@size-limit/preset-small-lib": "^2.2.1",
+    "@size-limit/preset-small-lib": "2.2.1",
+    "@types/enzyme": "3.10.3",
+    "@types/enzyme-adapter-react-16": "1.0.5",
     "@types/jest": "24.0.23",
+    "@types/react": "16.8.3",
+    "@types/react-dom": "16.8.3",
+    "@typescript-eslint/eslint-plugin": "^2.8.0",
+    "@typescript-eslint/parser": "^2.8.0",
+    "awesome-typescript-loader": "5.2.1",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "10.0.3",
     "babel-jest": "24.9.0",
     "babel-loader": "8.0.6",
-    "babel-plugin-dev-expression": "^0.2.2",
+    "babel-plugin-dev-expression": "0.2.2",
     "commitizen": "4.0.3",
     "coveralls": "3.0.7",
     "cz-conventional-changelog": "3.0.2",
@@ -147,7 +153,7 @@
     "eslint": "6.6.0",
     "eslint-config-airbnb": "18.0.1",
     "eslint-config-ns": "1.0.0",
-    "eslint-config-prettier": "6.6.0",
+    "eslint-config-prettier": "6.7.0",
     "eslint-import-resolver-alias": "1.1.2",
     "eslint-plugin-import": "2.18.2",
     "eslint-plugin-jest": "23.0.4",
@@ -162,11 +168,15 @@
     "react": "16.8.3",
     "react-dom": "16.8.3",
     "rimraf": "3.0.0",
-    "standard-version": "7.0.0",
+    "source-map-loader": "0.2.4",
+    "standard-version": "7.0.1",
+    "ts-jest": "24.1.0",
+    "typescript": "3.7.2",
     "webpack": "4.41.2",
     "webpack-cli": "3.3.10"
   },
   "dependencies": {
+    "@types/hoist-non-react-statics": "^3.3.1",
     "hoist-non-react-statics": "^3.3.1"
   }
 }

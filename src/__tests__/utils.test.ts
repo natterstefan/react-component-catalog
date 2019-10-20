@@ -1,4 +1,4 @@
-import { get } from './utils'
+import { get } from '../utils'
 
 describe('utils', () => {
   const obj = {

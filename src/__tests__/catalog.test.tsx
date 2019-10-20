@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import Catalog from './catalog'
+import Catalog, { ICatalog } from '../catalog'
 
 const TestComponent = () => <div>Hello World</div>
 
@@ -10,7 +10,7 @@ const BaseArticle = () => <div>BaseArticle</div>
 const VideoArticle = () => <div>VideoArticle</div>
 
 describe('Catalog', () => {
-  let testCatalog
+  let testCatalog: ICatalog
 
   beforeEach(() => {
     testCatalog = new Catalog({
@@ -56,7 +56,7 @@ describe('Catalog', () => {
   describe('getComponent', () => {
     it('returns null for a requested component, when it was created with an empty component catalog', () => {
       // first we create an empty registry
-      testCatalog = new Catalog()
+      testCatalog = new Catalog({ components: {} })
 
       // eslint-disable-next-line jest/prefer-strict-equal
       expect(testCatalog).toEqual({

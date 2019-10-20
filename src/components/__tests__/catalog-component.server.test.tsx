@@ -4,17 +4,16 @@
 import React from 'react'
 import { render } from 'enzyme'
 
-import Catalog from '../lib/catalog'
-
-import CatalogComponent from './catalog-component'
-import CatalogProvider from './catalog-provider'
+import Catalog, { ICatalog } from '../../catalog'
+import CatalogComponent from '../catalog-component'
+import CatalogProvider from '../catalog-provider'
 
 const TestComponent = () => <div>Hello World</div>
 const BaseArticle = () => <div>Hello BaseArticle</div>
 
 describe('CatalogComponent', () => {
-  let backupError
-  let testCatalog
+  let backupError: () => void
+  let testCatalog: ICatalog
 
   const components = {
     TestComponent,
@@ -22,9 +21,9 @@ describe('CatalogComponent', () => {
       BaseArticle,
     },
     Pages: {
-      NestedPage: () => null,
+      NestedPage: () => <div />,
       AnotherNestedPage: {
-        OtherPage: () => null,
+        OtherPage: () => <div />,
       },
     },
   }

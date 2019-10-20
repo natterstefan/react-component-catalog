@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { ComponentType } from 'react'
 import hoistNonReactStatics from 'hoist-non-react-statics'
 
 import useCatalog from './use-catalog'
 
-export const getDisplayName = Component => {
+export const getDisplayName = (Component: ComponentType): string => {
   return Component.displayName || Component.name || 'Component'
 }
 
@@ -14,13 +14,11 @@ export const getDisplayName = Component => {
  * inspired by:
  * - https://github.com/styled-components/styled-components/blob/df2c947e0a2a61e739b391cd8a47a787a56f6f5b/packages/styled-components/src/hoc/withTheme.js
  */
-export const withCatalog = Component => {
-  const WithCatalog = React.forwardRef((props, ref) => {
+export const withCatalog = (Component: ComponentType<any>) => {
+  const WithCatalog = React.forwardRef((props: any, ref) => {
     const catalog = useCatalog()
 
-    return (
-      <Component {...props} catalog={catalog && catalog.catalog} ref={ref} />
-    )
+    return <Component {...props} catalog={catalog.catalog} ref={ref} />
   })
 
   WithCatalog.displayName = `WithCatalog(${getDisplayName(Component)})`

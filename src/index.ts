@@ -1,4 +1,4 @@
-import Catalog from './lib/catalog'
+import Catalog from './catalog'
 // components
 import CatalogComponent from './components/catalog-component'
 import CatalogProvider from './components/catalog-provider'

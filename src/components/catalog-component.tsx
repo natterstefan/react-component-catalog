@@ -1,11 +1,19 @@
 // only disabled for now, until we eg. use 'warning' (https://www.npmjs.com/package/warning)
 /* eslint-disable no-console */
-import React from 'react'
+import React, { ReactNode, ComponentType, ComponentPropsWithRef } from 'react'
 
 import useCatalog from './use-catalog'
 
+interface IProps {
+  children?: ReactNode
+  component: string
+  fallbackComponent?: ComponentType<ComponentPropsWithRef<any>>
+  // any other component property is just taken as is
+  [property: string]: any
+}
+
 /**
- * CatalogComponent is wrapped withCatalog by default and is capable of
+ * `CatalogComponent` is wrapped `withCatalog` by default and is capable of
  *
  * - rendering requested component from the catalog
  * - passing props to the requested component
@@ -14,14 +22,15 @@ import useCatalog from './use-catalog'
  *   the catalog
  *
  * Example:
- *
+ * ```jsx
  * <CatalogComponent component="Button" hello="world" fallback={() => <div>not found</div>} />
+ * ```
  *
- * CatalogComponent will now render the `<Button />` component (if it is part of
- * the catalog and pass `hello` as a prop to the Button). If the component would
- * not exist it will render the fallback.
+ * `CatalogComponent` will now render the `<Button />` component (if it is part
+ * of the catalog and pass `hello` as a prop to the Button). If the component
+ * would not exist it will render the fallback.
  */
-const CatalogComponent = React.forwardRef((props, ref) => {
+const CatalogComponent = React.forwardRef((props: IProps, ref) => {
   const {
     // catalog props
     component,
@@ -33,6 +42,8 @@ const CatalogComponent = React.forwardRef((props, ref) => {
   // get catalog from the context
   const { catalog } = useCatalog() || {}
   if (!catalog || !catalog._components) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
     if (__DEV__) {
       console.error(
         'catalog is not defined. Please, use <CatalogComponent /> in the context of a <CatalogProvider /> with an existing catalog.',
@@ -60,6 +71,8 @@ const CatalogComponent = React.forwardRef((props, ref) => {
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+  // @ts-ignore
   if (__DEV__) {
     // if no component was found, warn the user, but only when NODE_ENV equals
     // "development"
