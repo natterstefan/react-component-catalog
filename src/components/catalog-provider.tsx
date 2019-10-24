@@ -60,4 +60,9 @@ const CatalogProvider = (props: IProps): JSX.Element => {
   )
 }
 
+CatalogProvider.defaultProps = {
+  catalogPrefix: '',
+  catalog: new Catalog({ components: {} }),
+} as Partial<IProps>
+
 export default CatalogProvider
