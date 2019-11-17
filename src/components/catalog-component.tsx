@@ -42,8 +42,6 @@ const CatalogComponent = React.forwardRef((props: IProps, ref) => {
   // get catalog from the context
   const { catalog } = useCatalog() || {}
   if (!catalog || !catalog._components) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-    // @ts-ignore
     if (__DEV__) {
       console.error(
         'catalog is not defined. Please, use <CatalogComponent /> in the context of a <CatalogProvider /> with an existing catalog.',
@@ -71,8 +69,6 @@ const CatalogComponent = React.forwardRef((props: IProps, ref) => {
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-  // @ts-ignore
   if (__DEV__) {
     // if no component was found, warn the user, but only when NODE_ENV equals
     // "development"

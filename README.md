@@ -254,7 +254,7 @@ class App extends React.Component {
 ## How to build and test this package
 
 ```sh
-# -- build the package--
+# -- build the package --
 npm i
 npm build
 ```
