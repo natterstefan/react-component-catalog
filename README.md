@@ -256,7 +256,7 @@ class App extends React.Component {
 ```sh
 # -- build the package --
 npm i
-npm build
+npm watch # or build it once with npm run build
 ```
 
 ```sh

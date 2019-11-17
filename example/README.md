@@ -25,7 +25,7 @@ For the purpose of this demo this should be enough.
 ## Setup new clients
 
 In order to serve new clients (eg `hello`) in this demo, one has to extend the
-folowing:
+following:
 
 1. add new bundle to the [webpack.config.js](./webpack.config.js)
 2. allow another client pattern in [server/render.js](./server/render.js))
