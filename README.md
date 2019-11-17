@@ -203,7 +203,10 @@ const App = () => {
       <CatalogComponent component="Title">Hello Client1</CatalogComponent>
       <CatalogComponent
         component="Card"
+        {/* the fallbackComponent can either be a new component, or a component
+          from the catalog */}
         fallbackComponent={() => <div>Component not found</div>}
+        { /* fallbackComponent="FallbackComponent" */ }
       >
         Hello Card
       </CatalogComponent>
