@@ -25,7 +25,7 @@ const CatalogComponent = React.forwardRef((props, ref) => {
   const {
     // catalog props
     component,
-    fallbackComponent: FallbackComponent,
+    fallbackComponent,
     // other props passed to component
     ...others
   } = props
@@ -46,8 +46,18 @@ const CatalogComponent = React.forwardRef((props, ref) => {
     return <Component {...others} ref={ref} />
   }
 
-  if (FallbackComponent) {
-    return <FallbackComponent {...others} ref={ref} />
+  if (fallbackComponent) {
+    let FallbackComponent = null
+
+    if (typeof fallbackComponent === 'string') {
+      FallbackComponent = catalog.getComponent(fallbackComponent)
+    } else {
+      FallbackComponent = fallbackComponent
+    }
+
+    if (FallbackComponent) {
+      return <FallbackComponent {...others} ref={ref} />
+    }
   }
 
   if (__DEV__) {

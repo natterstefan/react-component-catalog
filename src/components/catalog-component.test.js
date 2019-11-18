@@ -11,6 +11,7 @@ const TestComponent = () => <div>Hello World</div>
 const BaseArticle = () => <div>Hello BaseArticle</div>
 
 const FallbackComponent = () => <div>Fallback</div>
+const FallbackFromCatalog = () => <div>FallbackFromCatalog</div>
 
 describe('CatalogComponent', () => {
   let backupError
@@ -18,6 +19,7 @@ describe('CatalogComponent', () => {
   let emptyTestCatalog
 
   const components = {
+    FallbackFromCatalog,
     TestComponent,
     ArticlePage: {
       BaseArticle,
@@ -147,6 +149,32 @@ describe('CatalogComponent', () => {
     )
 
     expect(wrapper.find(FallbackComponent)).toHaveLength(1)
+  })
+
+  it('renders a FallbackComponent from the catalog, when the requested component does not exist', () => {
+    const wrapper = mount(
+      <CatalogProvider catalog={testCatalog}>
+        <CatalogComponent
+          component="NotAvailableComponent"
+          fallbackComponent="FallbackFromCatalog"
+        />
+      </CatalogProvider>,
+    )
+
+    expect(wrapper.find(FallbackFromCatalog)).toHaveLength(1)
+  })
+
+  it('renders null, when the requested component and the fallbackComponent does not exist', () => {
+    const wrapper = mount(
+      <CatalogProvider catalog={testCatalog}>
+        <CatalogComponent
+          component="NotAvailableComponent"
+          fallbackComponent="NotAvailableFallback"
+        />
+      </CatalogProvider>,
+    )
+
+    expect(wrapper.find(CatalogComponent).html()).toBeNull()
   })
 
   it('renders null, when the requested component does not exist and no fallbackComponent was provided', () => {
