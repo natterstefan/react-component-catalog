@@ -300,6 +300,7 @@ When you're ready to release, execute the following commands in the given order:
 - [semantic-release](https://github.com/semantic-release/semantic-release)
   (standard-version alternative, with extended CI support)
 - [commitlint](https://github.com/conventional-changelog/commitlint)
+- [npm-dedupe when eg. multiple @types/\* versions are installed](https://docs.npmjs.com/cli/dedupe.html)
 
 ## Credits
 
