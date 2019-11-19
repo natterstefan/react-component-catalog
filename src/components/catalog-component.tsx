@@ -56,7 +56,7 @@ const CatalogComponent = React.forwardRef((props: IProps, ref) => {
   }
 
   if (fallbackComponent) {
-    let FallbackComponent = null
+    let FallbackComponent: IProps['fallbackComponent'] = null
 
     if (typeof fallbackComponent === 'string') {
       FallbackComponent = catalog.getComponent(fallbackComponent)

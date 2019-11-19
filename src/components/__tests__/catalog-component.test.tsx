@@ -194,38 +194,6 @@ describe('CatalogComponent', () => {
     expect(wrapper.find(CatalogComponent).html()).toBeNull()
   })
 
-  it('tells the developer, when the requested component does not exist and no fallbackComponent was provided', () => {
-    mount(
-      <CatalogProvider catalog={testCatalog}>
-        <CatalogComponent component="NotAvailableComponent" />
-      </CatalogProvider>,
-    )
-
-    // test if the developer was notified
-    expect(console.error).toHaveBeenCalledTimes(1)
-    expect(console.error).toHaveBeenLastCalledWith(
-      'CatalogComponent: "NotAvailableComponent" not found in component catalog.',
-      'The catalog contains only:',
-      components,
-    )
-  })
-
-  it('tells the developer, when the requested component does not exist and no fallbackComponent was provided even when catalog is empty', () => {
-    mount(
-      <CatalogProvider catalog={emptyTestCatalog}>
-        <CatalogComponent component="NotAvailableComponent" />
-      </CatalogProvider>,
-    )
-
-    // test if the developer was notified
-    expect(console.error).toHaveBeenCalledTimes(1)
-    expect(console.error).toHaveBeenLastCalledWith(
-      'CatalogComponent: "NotAvailableComponent" not found in component catalog.',
-      'The catalog contains only:',
-      {},
-    )
-  })
-
   it('renders null, when the catalog context does not exist', () => {
     const wrapper = mount(
       <CatalogComponent component="NotAvailableComponent" />,
@@ -238,5 +206,67 @@ describe('CatalogComponent', () => {
     expect(console.error).toHaveBeenLastCalledWith(
       'catalog is not defined. Please, use <CatalogComponent /> in the context of a <CatalogProvider /> with an existing catalog.',
     )
+  })
+
+  describe('debugging on DEV', () => {
+    it('tells the developer, when the requested component does not exist and no fallbackComponent was provided', () => {
+      mount(
+        <CatalogProvider catalog={testCatalog}>
+          <CatalogComponent component="NotAvailableComponent" />
+        </CatalogProvider>,
+      )
+
+      // test if the developer was notified
+      expect(console.error).toHaveBeenCalledTimes(1)
+      expect(console.error).toHaveBeenLastCalledWith(
+        'CatalogComponent: "NotAvailableComponent" not found in component catalog.',
+        'The catalog contains only:',
+        components,
+      )
+    })
+
+    it('tells the developer, when the requested component does not exist and no fallbackComponent was provided even when catalog is empty', () => {
+      mount(
+        <CatalogProvider catalog={emptyTestCatalog}>
+          <CatalogComponent component="NotAvailableComponent" />
+        </CatalogProvider>,
+      )
+
+      // test if the developer was notified
+      expect(console.error).toHaveBeenCalledTimes(1)
+      expect(console.error).toHaveBeenLastCalledWith(
+        'CatalogComponent: "NotAvailableComponent" not found in component catalog.',
+        'The catalog contains only:',
+        {},
+      )
+    })
+  })
+
+  describe('debugging on PRODUCTION', () => {
+    beforeAll(() => {
+      ;(global as any).__DEV__ = false
+    })
+
+    afterAll(() => {
+      ;(global as any).__DEV__ = true
+    })
+
+    it('does not tell enable debugging logs when __DEV__ is false', () => {
+      mount(
+        <CatalogProvider catalog={testCatalog}>
+          <CatalogComponent component="NotAvailableComponent" />
+        </CatalogProvider>,
+      )
+      expect(console.error).toHaveBeenCalledTimes(0)
+    })
+
+    it('does not tell enable debuggding logs when __DEV__ is false', () => {
+      mount(
+        <CatalogProvider catalog={null}>
+          <div />
+        </CatalogProvider>,
+      )
+      expect(console.error).toHaveBeenCalledTimes(0)
+    })
   })
 })
