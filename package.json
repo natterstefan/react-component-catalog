@@ -52,7 +52,7 @@
   },
   "size-limit": [
     {
-      "limit": "6 KB",
+      "limit": "12 KB",
       "path": "dist/index.js",
       "config": "./webpack.config.js",
       "ignore": [
