@@ -5,7 +5,6 @@ type PropertyTypes = string | number
 export interface ICatalog {
   _components: ICatalogProperty
   getComponent(component: PropertyTypes): any
-  // getComponents(): ICatalogProperty
   hasComponent(component: PropertyTypes): boolean
 }
 
@@ -29,8 +28,6 @@ export class Catalog implements ICatalog {
   // get a component by id, if not available we return null
   public getComponent: ICatalog['getComponent'] = component =>
     get(this._components, component) || null
-
-  // public getComponents: ICatalog['getComponents'] = () => this._components
 
   // returns a boolean value after checking if the component exists in the catalog
   public hasComponent: ICatalog['hasComponent'] = component =>
