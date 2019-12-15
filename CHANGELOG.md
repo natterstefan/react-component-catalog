@@ -3,6 +3,13 @@
 All notable changes to this project will be documented here. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 
+## [2.0.0-beta.0](https://github.com/natterstefan/react-component-catalog/compare/v1.3.0...v2.0.0-beta.0) (2019-12-15)
+
+
+### Features
+
+* js -> ts ([#47](https://github.com/natterstefan/react-component-catalog/issues/47)) ([a57e291](https://github.com/natterstefan/react-component-catalog/commit/a57e291e86e0d273bc168fafad584839bad77d61))
+
 ## [1.3.0](https://github.com/natterstefan/react-component-catalog/compare/v1.2.0...v1.3.0) (2019-11-18)
 
 
