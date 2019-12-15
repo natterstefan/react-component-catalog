@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const { resolve } = require('path')
+const { join, resolve } = require('path')
 
 require('dotenv').config()
 
@@ -22,13 +22,18 @@ module.exports = {
       {
         test: /\.(t|j)sx?$/,
         loader: 'awesome-typescript-loader',
+        exclude: [resolve(__dirname, 'node_modules')],
         options: {
           useBabel: true,
           useCache: true,
         },
       },
-      // add source-map support
-      { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader' },
+      {
+        enforce: 'pre',
+        test: /\.js$/,
+        loader: 'source-map-loader',
+        exclude: [join(process.cwd(), 'node_modules')],
+      },
     ],
   },
   optimization: {
