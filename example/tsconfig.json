@@ -8,7 +8,7 @@
       "dom"
     ] /* Specify library files to be included in the compilation. */,
     "noImplicitAny": false,
-    /* https://stackoverflow.com/a/52404148/1238150 */
+    /* temporary workaround (https://stackoverflow.com/a/52404148/1238150) */
     "skipLibCheck": true
   },
   "include": ["client/**/*", "server/**/*"]
