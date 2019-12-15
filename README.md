@@ -288,7 +288,8 @@ When you're ready to release, execute the following commands in the given order:
 
 1. `git checkout master`
 2. `git pull origin master`
-3. `npm run release`
+3. `npm run release --release-as major|minor|patch` (or for eg. beta releases:
+   `npm run release -- --prerelease beta --release-as major`)
 4. `git push --tags`
 5. `npm publish`
 
