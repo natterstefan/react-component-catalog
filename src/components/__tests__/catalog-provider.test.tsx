@@ -1,17 +1,16 @@
 import React from 'react'
 import { mount } from 'enzyme'
 
-import Catalog from '../lib/catalog'
-
-import CatalogProvider from './catalog-provider'
-import CatalogComponent from './catalog-component'
-import useCatalog from './use-catalog'
+import Catalog, { ICatalog } from '../../catalog'
+import CatalogProvider from '../catalog-provider'
+import CatalogComponent from '../catalog-component'
+import useCatalog from '../use-catalog'
 
 const TestComponent = () => <div>Hello World</div>
 
 describe('CatalogProvider', () => {
-  let backupConsole
-  let testCatalog
+  let backupConsole: () => void
+  let testCatalog: ICatalog
   const verifyCatalog = jest.fn()
 
   const expectedTestCatalog = {
@@ -19,6 +18,14 @@ describe('CatalogProvider', () => {
       _components: {
         TestComponent,
       },
+      getComponent: expect.any(Function),
+      hasComponent: expect.any(Function),
+    },
+  }
+
+  const expectedEmptyCatalog = {
+    catalog: {
+      _components: {},
       getComponent: expect.any(Function),
       hasComponent: expect.any(Function),
     },
@@ -40,22 +47,25 @@ describe('CatalogProvider', () => {
     console.error = backupConsole
   })
 
-  it('provides an empty catalog context if not rendered with one', () => {
-    const Consumer = () => {
-      const catalog = useCatalog()
-      verifyCatalog(catalog)
+  it.each([null, undefined])(
+    'provides an empty catalog context if not rendered with one',
+    type => {
+      const Consumer = () => {
+        const catalog = useCatalog()
+        verifyCatalog(catalog)
 
-      return <div>Catalog</div>
-    }
+        return <div>Catalog</div>
+      }
 
-    mount(
-      <CatalogProvider>
-        <Consumer />
-      </CatalogProvider>,
-    )
+      mount(
+        <CatalogProvider catalog={type}>
+          <Consumer />
+        </CatalogProvider>,
+      )
 
-    expect(verifyCatalog).toHaveBeenCalledWith({ catalog: {} })
-  })
+      expect(verifyCatalog).toHaveBeenCalledWith(expectedEmptyCatalog)
+    },
+  )
 
   it('provides the catalog context to consumers of the context', () => {
     const Consumer = () => {
@@ -95,7 +105,7 @@ describe('CatalogProvider', () => {
 
     mount(
       <CatalogProvider catalog={testCatalog}>
-        <CatalogProvider>
+        <CatalogProvider catalog={null}>
           <Consumer />
         </CatalogProvider>
       </CatalogProvider>,

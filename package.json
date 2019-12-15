@@ -6,6 +6,7 @@
   "description": "Manage a catalog (registry) of react-components easily.",
   "main": "lib/index.js",
   "module": "esm/index.js",
+  "types": "lib/index.d.ts",
   "files": [
     "dist",
     "es",
@@ -13,20 +14,26 @@
     "lib"
   ],
   "scripts": {
-    "build": "npm run build-cjs && npm run build-es && npm run build-esm && npm run build-umd",
-    "build-cjs": "BABEL_ENV=cjs babel src --ignore */*.test.js,**/*.test.js --out-dir lib",
-    "build-es": "BABEL_ENV=es babel src --ignore */*.test.js,**/*.test.js --out-dir es",
-    "build-esm": "BABEL_ENV=esm babel src --ignore */*.test.js,**/*.test.js --out-dir esm",
+    "build": " npm run build-types && npm run build-cjs && npm run build-es && npm run build-esm && npm run build-umd",
+    "build-types": "npm run build-cjs-types && npm run build-es-types && npm run build-esm-types",
+    "build-cjs": "BABEL_ENV=cjs babel src --ignore **/@types/*,**/*.test.tsx,**/*.test.ts --out-dir lib --extensions '.ts,.tsx'",
+    "build-cjs-types": "tsc --outDir lib --module commonjs --target es5 -d --emitDeclarationOnly",
+    "build-es": "BABEL_ENV=es babel src --ignore **/@types/*,**/*.test.tsx,**/*.test.ts --out-dir es --extensions '.ts,.tsx'",
+    "build-es-types": "tsc  --outDir es --module es2015 --target es2015 -d --emitDeclarationOnly",
+    "build-esm": "BABEL_ENV=esm babel src --ignore **/@types/*,**/*.test.tsx,**/*.test.ts --out-dir esm --extensions '.ts,.tsx'",
+    "build-esm-types": "tsc --outDir esm --module es2015 --target es5 -d --emitDeclarationOnly",
     "build-umd": "BABEL_ENV=umd webpack --mode=production",
     "coverage": "jest --coverage",
     "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
-    "lint": "eslint src",
+    "lint": "eslint 'src/**/*.{ts,tsx}' --quiet",
     "prebuild": "rimraf dist && rimraf es && rimraf esm && rimraf lib",
     "prepublishOnly": "npm run prerelease",
     "prerelease": "npm run build && npm run size && npm run test",
     "release": "HUSKY_SKIP_HOOKS=1 standard-version",
     "size": "size-limit",
-    "test": "jest",
+    "test": "jest && npm run test-types",
+    "test-types": "tsc --noEmit",
+    "watch": "BABEL_ENV=esm babel --watch src --ignore **/@types/*,**/*.test.tsx,**/*.test.ts --out-dir esm --extensions '.ts,.tsx'",
     "watch-test": "jest --watch"
   },
   "husky": {
@@ -45,8 +52,13 @@
   },
   "size-limit": [
     {
-      "limit": "6 KB",
-      "path": "dist/index.js"
+      "limit": "12 KB",
+      "path": "dist/index.js",
+      "config": "./webpack.config.js",
+      "ignore": [
+        "react",
+        "react-dom"
+      ]
     },
     {
       "limit": "6 KB",
@@ -121,8 +133,7 @@
   },
   "homepage": "https://github.com/natterstefan/react-component-catalog#readme",
   "peerDependencies": {
-    "react": ">=16.8.3 <17",
-    "react-dom": ">=16.8.3 <17"
+    "react": ">=16.8.3 <17"
   },
   "devDependencies": {
     "@babel/cli": "7.7.0",
@@ -132,13 +143,20 @@
     "@babel/plugin-transform-modules-commonjs": "7.7.0",
     "@babel/preset-env": "7.7.1",
     "@babel/preset-react": "7.7.0",
-    "@size-limit/preset-small-lib": "^2.2.1",
+    "@babel/preset-typescript": "7.7.2",
+    "@size-limit/preset-small-lib": "2.2.1",
+    "@types/enzyme": "3.10.3",
+    "@types/enzyme-adapter-react-16": "1.0.5",
     "@types/jest": "24.0.23",
+    "@types/react": "16.9.11",
+    "@types/react-dom": "16.9.4",
+    "@typescript-eslint/eslint-plugin": "^2.8.0",
+    "@typescript-eslint/parser": "^2.8.0",
+    "awesome-typescript-loader": "5.2.1",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "10.0.3",
-    "babel-jest": "24.9.0",
     "babel-loader": "8.0.6",
-    "babel-plugin-dev-expression": "^0.2.2",
+    "babel-plugin-dev-expression": "0.2.2",
     "commitizen": "4.0.3",
     "coveralls": "3.0.7",
     "cz-conventional-changelog": "3.0.2",
@@ -147,7 +165,7 @@
     "eslint": "6.6.0",
     "eslint-config-airbnb": "18.0.1",
     "eslint-config-ns": "1.0.0",
-    "eslint-config-prettier": "6.6.0",
+    "eslint-config-prettier": "6.7.0",
     "eslint-import-resolver-alias": "1.1.2",
     "eslint-plugin-import": "2.18.2",
     "eslint-plugin-jest": "23.0.4",
@@ -162,11 +180,16 @@
     "react": "16.8.3",
     "react-dom": "16.8.3",
     "rimraf": "3.0.0",
-    "standard-version": "7.0.0",
+    "source-map-loader": "0.2.4",
+    "standard-version": "7.0.1",
+    "terser-webpack-plugin": "^2.2.1",
+    "ts-jest": "24.1.0",
+    "typescript": "3.7.2",
     "webpack": "4.41.2",
     "webpack-cli": "3.3.10"
   },
   "dependencies": {
+    "@types/hoist-non-react-statics": "^3.3.1",
     "hoist-non-react-statics": "^3.3.1"
   }
 }

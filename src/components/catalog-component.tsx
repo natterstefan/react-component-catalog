@@ -1,11 +1,21 @@
 // only disabled for now, until we eg. use 'warning' (https://www.npmjs.com/package/warning)
 /* eslint-disable no-console */
-import React from 'react'
+import React, { ReactNode, ComponentType, ComponentPropsWithRef } from 'react'
 
 import useCatalog from './use-catalog'
 
+interface IProps {
+  children?: ReactNode
+  // represents the path in the catalog of the requested component
+  component: string
+  // when no component is found, a fallbackComponent is rendered instead
+  fallbackComponent?: ComponentType<ComponentPropsWithRef<any>>
+  // any other component property is just taken as is
+  [property: string]: any
+}
+
 /**
- * CatalogComponent is wrapped withCatalog by default and is capable of
+ * `CatalogComponent` is wrapped `withCatalog` by default and is capable of
  *
  * - rendering requested component from the catalog
  * - passing props to the requested component
@@ -14,14 +24,15 @@ import useCatalog from './use-catalog'
  *   the catalog
  *
  * Example:
- *
+ * ```jsx
  * <CatalogComponent component="Button" hello="world" fallback={() => <div>not found</div>} />
+ * ```
  *
- * CatalogComponent will now render the `<Button />` component (if it is part of
- * the catalog and pass `hello` as a prop to the Button). If the component would
- * not exist it will render the fallback.
+ * `CatalogComponent` will now render the `<Button />` component (if it is part
+ * of the catalog and pass `hello` as a prop to the Button). If the component
+ * would not exist it will render the fallback.
  */
-const CatalogComponent = React.forwardRef((props, ref) => {
+const CatalogComponent = React.forwardRef((props: IProps, ref) => {
   const {
     // catalog props
     component,
@@ -47,7 +58,7 @@ const CatalogComponent = React.forwardRef((props, ref) => {
   }
 
   if (fallbackComponent) {
-    let FallbackComponent = null
+    let FallbackComponent: IProps['fallbackComponent'] = null
 
     if (typeof fallbackComponent === 'string') {
       FallbackComponent = catalog.getComponent(fallbackComponent)

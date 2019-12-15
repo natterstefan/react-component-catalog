@@ -1,11 +1,12 @@
-const { resolve } = require('path')
+/* eslint-disable @typescript-eslint/no-var-requires */
+const { join, resolve } = require('path')
 
 require('dotenv').config()
 
 const bundle = client => ({
   [`${client}.bundled.js`]: [
     '@babel/polyfill',
-    resolve(__dirname, 'client', client, 'index.js'),
+    resolve(__dirname, 'client', client, 'index.tsx'),
   ],
 })
 
@@ -19,9 +20,19 @@ module.exports = {
   module: {
     rules: [
       {
-        exclude: /node_modules/,
+        test: /\.(t|j)sx?$/,
+        loader: 'awesome-typescript-loader',
+        exclude: [resolve(__dirname, 'node_modules')],
+        options: {
+          useBabel: true,
+          useCache: true,
+        },
+      },
+      {
+        enforce: 'pre',
         test: /\.js$/,
-        use: ['babel-loader'],
+        loader: 'source-map-loader',
+        exclude: [join(process.cwd(), 'node_modules')],
       },
     ],
   },
@@ -48,5 +59,6 @@ module.exports = {
       react: resolve(__dirname, 'node_modules/react'),
       'react-dom': resolve(__dirname, 'node_modules/react-dom'),
     },
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
   },
 }

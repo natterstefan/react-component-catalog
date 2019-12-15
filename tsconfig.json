@@ -1,0 +1,21 @@
+{
+  /* inspired by https://github.com/marmelab/react-admin/blob/HEAD@%7B2019-10-20T17:02:44Z%7D/tsconfig.json */
+  "compilerOptions": {
+    /* Basic Options */
+    "target": "ES5" /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017','ES2018' or 'ESNEXT'. */,
+    "declaration": false /* Generates corresponding '.d.ts' file. (set to true in npm script) */,
+    "declarationMap": false /* Generates a sourcemap for each corresponding '.d.ts' file. (set to true in npm script) */,
+    "sourceMap": true /* Generates corresponding '.map' file. */,
+    "removeComments": true /* Do not emit comments to output. */,
+    "jsx": "react" /* Specify JSX code generation: 'preserve', 'react-native', or 'react'. */,
+
+    /* Strict Type-Checking Options */
+    "noImplicitAny": true /* Raise error on expressions and declarations with an implied 'any' type. */,
+
+    /* Module Resolution Options */
+    "moduleResolution": "node" /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */,
+    "esModuleInterop": true /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
+  },
+  "include": ["src/**/*"],
+  "exclude": ["src/**/*.test.*"]
+}

@@ -1,23 +1,32 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 
-import Catalog from '../lib/catalog'
+import Catalog, { ICatalog } from '../catalog'
 
 import CatalogContext from './catalog-context'
 import useCatalog from './use-catalog'
 
+// https://flow.org/en/docs/react/types/
+interface IProps {
+  // the catalog you want to provided with the CatalogProvider
+  catalog: ICatalog
+  // prefix the given catalog allows nesting multiple catalogs within one app
+  catalogPrefix?: string
+  children: ReactNode
+}
+
 /**
- * Provide the catalog to an entire react component tree via context
+ * Provide the `catalog` to an entire react component tree. Read more about
+ * React context here: https://reactjs.org/docs/context.html
  */
-const CatalogProvider = props => {
-  const { catalog = {}, catalogPrefix = '', children } = props
+const CatalogProvider = (props: IProps): JSX.Element => {
+  const { catalog, catalogPrefix, children } = props
   const { catalog: outerCatalog } = useCatalog() || {}
 
-  let prefixedCatalog = null
+  let prefixedCatalog: ICatalog = null
   if (catalogPrefix && catalog._components) {
-    const components = {}
+    const components: { [key: string]: any } = {}
 
-    // eslint-disable-next-line
-    Object.keys(catalog._components).map(c => {
+    Object.keys(catalog._components).forEach(c => {
       components[`${catalogPrefix}${c}`] = catalog._components[c]
     })
 
@@ -25,6 +34,9 @@ const CatalogProvider = props => {
       components,
     })
   }
+
+  let prepCatalog =
+    prefixedCatalog || catalog || new Catalog({ components: {} })
 
   /**
    * if an outerCatalog (from another parent CatalogProvider) exists already, we
@@ -34,7 +46,6 @@ const CatalogProvider = props => {
    *
    * either append the prefixed catalog, or the provided one
    */
-  let prepCatalog = prefixedCatalog || catalog
   if (outerCatalog) {
     prepCatalog = new Catalog({
       components: {
@@ -50,5 +61,10 @@ const CatalogProvider = props => {
     </CatalogContext.Provider>
   )
 }
+
+CatalogProvider.defaultProps = {
+  catalogPrefix: '',
+  catalog: new Catalog({ components: {} }),
+} as Partial<IProps>
 
 export default CatalogProvider

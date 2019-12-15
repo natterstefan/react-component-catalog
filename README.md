@@ -254,9 +254,9 @@ class App extends React.Component {
 ## How to build and test this package
 
 ```sh
-# -- build the package--
+# -- build the package --
 npm i
-npm build
+npm watch # or build it once with npm run build
 ```
 
 ```sh
@@ -300,6 +300,7 @@ When you're ready to release, execute the following commands in the given order:
 - [semantic-release](https://github.com/semantic-release/semantic-release)
   (standard-version alternative, with extended CI support)
 - [commitlint](https://github.com/conventional-changelog/commitlint)
+- [npm-dedupe when eg. multiple @types/\* versions are installed](https://docs.npmjs.com/cli/dedupe.html)
 
 ## Credits
 

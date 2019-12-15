@@ -1,10 +1,9 @@
 import React from 'react'
 import { mount } from 'enzyme'
 
-import Catalog from '../lib/catalog'
-
-import CatalogProvider from './catalog-provider'
-import { getDisplayName, withCatalog } from './with-catalog'
+import Catalog, { ICatalog } from '../../catalog'
+import CatalogProvider from '../catalog-provider'
+import { getDisplayName, withCatalog } from '../with-catalog'
 
 const TestComponent = withCatalog(() => <div>Hello World</div>)
 
@@ -12,7 +11,7 @@ const TestButton = () => <button type="button">Hello</button>
 const TestButtonComponent = withCatalog(TestButton)
 
 describe('withCatalog', () => {
-  let testCatalog
+  let testCatalog: ICatalog
 
   beforeEach(() => {
     testCatalog = new Catalog({
@@ -52,7 +51,7 @@ describe('withCatalog', () => {
 
   it('renders a wrapped functional component properly, when no catalog is provided', () => {
     const wrapper = mount(
-      <CatalogProvider>
+      <CatalogProvider catalog={null}>
         <TestComponent hello="world" />
       </CatalogProvider>,
     )
@@ -65,20 +64,20 @@ describe('withCatalog', () => {
 
 describe('getDisplayName', () => {
   it('returns the components displayName', () => {
-    const TestComp = () => {}
+    const TestComp = (): null => null
     TestComp.displayName = 'TestComp'
 
     expect(getDisplayName(TestComp)).toStrictEqual('TestComp')
   })
 
   it('returns the components name if displayName is not present', () => {
-    const TestComp = () => {}
+    const TestComp = (): null => null
     TestComp.displayName = null
 
     expect(getDisplayName(TestComp)).toStrictEqual('TestComp')
   })
 
   it('returns Component for an anonymous function component', () => {
-    expect(getDisplayName(() => {})).toStrictEqual('Component')
+    expect(getDisplayName(() => null)).toStrictEqual('Component')
   })
 })

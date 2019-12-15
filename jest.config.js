@@ -1,8 +1,8 @@
 module.exports = {
-  collectCoverageFrom: ['src/**/*.js'],
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+  collectCoverageFrom: ['src/**/*.ts'],
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   testPathIgnorePatterns: ['<rootDir>/(dist|es|esm|lib|node_modules)/'],
   transform: {
-    '^.+\\.js$': 'babel-jest',
+    '^.+\\.(t|j)sx?$': 'ts-jest',
   },
 }

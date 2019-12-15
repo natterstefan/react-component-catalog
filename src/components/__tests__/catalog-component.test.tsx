@@ -1,11 +1,11 @@
+/* eslint-disable react/no-multi-comp */
 import React from 'react'
 import { mount } from 'enzyme'
 
-import Catalog from '../lib/catalog'
-
-import CatalogComponent from './catalog-component'
-import CatalogProvider from './catalog-provider'
-import { withCatalog } from './with-catalog'
+import Catalog, { ICatalog } from '../../catalog'
+import CatalogComponent from '../catalog-component'
+import CatalogProvider from '../catalog-provider'
+import { withCatalog } from '../with-catalog'
 
 const TestComponent = () => <div>Hello World</div>
 const BaseArticle = () => <div>Hello BaseArticle</div>
@@ -14,9 +14,9 @@ const FallbackComponent = () => <div>Fallback</div>
 const FallbackFromCatalog = () => <div>FallbackFromCatalog</div>
 
 describe('CatalogComponent', () => {
-  let backupError
-  let testCatalog
-  let emptyTestCatalog
+  let backupError: () => void
+  let testCatalog: ICatalog
+  let emptyTestCatalog: ICatalog
 
   const components = {
     FallbackFromCatalog,
@@ -25,9 +25,9 @@ describe('CatalogComponent', () => {
       BaseArticle,
     },
     Pages: {
-      NestedPage: () => null,
+      NestedPage: (): null => null,
       AnotherNestedPage: {
-        OtherPage: () => null,
+        OtherPage: (): null => null,
       },
     },
   }
@@ -91,34 +91,40 @@ describe('CatalogComponent', () => {
       </button>
     ))
 
-    /* eslint-disable react/no-multi-comp */
     class App extends React.Component {
-      constructor(props) {
+      public setRef: any
+
+      constructor(props: any) {
         super(props)
         this.setRef = React.createRef()
       }
 
       render() {
-        return <TestRef ref={this.setRef} />
+        return (
+          <CatalogProvider catalog={new Catalog({ components: { TestRef } })}>
+            <TestRef ref={this.setRef} />
+          </CatalogProvider>
+        )
       }
     }
 
-    const wrapper = mount(<App />)
+    const wrapper = mount<App>(<App />)
 
     const element = wrapper.find(TestRef).instance()
     expect(wrapper.instance().setRef).toHaveProperty('current', element)
   })
 
   it('renders a requested component with ref using CatalogComponent', () => {
-    const TestRef = props => (
+    const TestRef = (props: any) => (
       <button {...props} type="button">
         Hello Button
       </button>
     )
 
-    /* eslint-disable react/no-multi-comp */
     class App extends React.Component {
-      constructor(props) {
+      public setRef: any
+
+      constructor(props: any) {
         super(props)
         this.setRef = React.createRef()
       }
@@ -132,7 +138,8 @@ describe('CatalogComponent', () => {
       }
     }
 
-    const wrapper = mount(<App />)
+    // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/26039#issuecomment-399517293
+    const wrapper = mount<App>(<App />)
 
     const element = wrapper.find(TestRef).instance()
     expect(wrapper.instance().setRef).toHaveProperty('current', element)
@@ -187,38 +194,6 @@ describe('CatalogComponent', () => {
     expect(wrapper.find(CatalogComponent).html()).toBeNull()
   })
 
-  it('tells the developer, when the requested component does not exist and no fallbackComponent was provided', () => {
-    mount(
-      <CatalogProvider catalog={testCatalog}>
-        <CatalogComponent component="NotAvailableComponent" />
-      </CatalogProvider>,
-    )
-
-    // test if the developer was notified
-    expect(console.error).toHaveBeenCalledTimes(1)
-    expect(console.error).toHaveBeenLastCalledWith(
-      'CatalogComponent: "NotAvailableComponent" not found in component catalog.',
-      'The catalog contains only:',
-      components,
-    )
-  })
-
-  it('tells the developer, when the requested component does not exist and no fallbackComponent was provided even when catalog is empty', () => {
-    mount(
-      <CatalogProvider catalog={emptyTestCatalog}>
-        <CatalogComponent component="NotAvailableComponent" />
-      </CatalogProvider>,
-    )
-
-    // test if the developer was notified
-    expect(console.error).toHaveBeenCalledTimes(1)
-    expect(console.error).toHaveBeenLastCalledWith(
-      'CatalogComponent: "NotAvailableComponent" not found in component catalog.',
-      'The catalog contains only:',
-      {},
-    )
-  })
-
   it('renders null, when the catalog context does not exist', () => {
     const wrapper = mount(
       <CatalogComponent component="NotAvailableComponent" />,
@@ -231,5 +206,67 @@ describe('CatalogComponent', () => {
     expect(console.error).toHaveBeenLastCalledWith(
       'catalog is not defined. Please, use <CatalogComponent /> in the context of a <CatalogProvider /> with an existing catalog.',
     )
+  })
+
+  describe('debugging on DEV', () => {
+    it('tells the developer, when the requested component does not exist and no fallbackComponent was provided', () => {
+      mount(
+        <CatalogProvider catalog={testCatalog}>
+          <CatalogComponent component="NotAvailableComponent" />
+        </CatalogProvider>,
+      )
+
+      // test if the developer was notified
+      expect(console.error).toHaveBeenCalledTimes(1)
+      expect(console.error).toHaveBeenLastCalledWith(
+        'CatalogComponent: "NotAvailableComponent" not found in component catalog.',
+        'The catalog contains only:',
+        components,
+      )
+    })
+
+    it('tells the developer, when the requested component does not exist and no fallbackComponent was provided even when catalog is empty', () => {
+      mount(
+        <CatalogProvider catalog={emptyTestCatalog}>
+          <CatalogComponent component="NotAvailableComponent" />
+        </CatalogProvider>,
+      )
+
+      // test if the developer was notified
+      expect(console.error).toHaveBeenCalledTimes(1)
+      expect(console.error).toHaveBeenLastCalledWith(
+        'CatalogComponent: "NotAvailableComponent" not found in component catalog.',
+        'The catalog contains only:',
+        {},
+      )
+    })
+  })
+
+  describe('debugging on PRODUCTION', () => {
+    beforeAll(() => {
+      ;(global as any).__DEV__ = false
+    })
+
+    afterAll(() => {
+      ;(global as any).__DEV__ = true
+    })
+
+    it('does not tell enable debugging logs when __DEV__ is false', () => {
+      mount(
+        <CatalogProvider catalog={testCatalog}>
+          <CatalogComponent component="NotAvailableComponent" />
+        </CatalogProvider>,
+      )
+      expect(console.error).toHaveBeenCalledTimes(0)
+    })
+
+    it('does not tell enable debuggding logs when __DEV__ is false', () => {
+      mount(
+        <CatalogProvider catalog={null}>
+          <div />
+        </CatalogProvider>,
+      )
+      expect(console.error).toHaveBeenCalledTimes(0)
+    })
   })
 })
