@@ -7,7 +7,9 @@ import useCatalog from './use-catalog'
 
 // https://flow.org/en/docs/react/types/
 interface IProps {
+  // the catalog you want to provided with the CatalogProvider
   catalog: ICatalog
+  // prefix the given catalog allows nesting multiple catalogs within one app
   catalogPrefix?: string
   children: ReactNode
 }

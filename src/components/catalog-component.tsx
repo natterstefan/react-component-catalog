@@ -6,7 +6,9 @@ import useCatalog from './use-catalog'
 
 interface IProps {
   children?: ReactNode
+  // represents the path in the catalog of the requested component
   component: string
+  // when no component is found, a fallbackComponent is rendered instead
   fallbackComponent?: ComponentType<ComponentPropsWithRef<any>>
   // any other component property is just taken as is
   [property: string]: any
