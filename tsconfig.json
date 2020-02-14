@@ -3,8 +3,8 @@
   "compilerOptions": {
     /* Basic Options */
     "target": "ES5" /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017','ES2018' or 'ESNEXT'. */,
-    "declaration": false /* Generates corresponding '.d.ts' file. (set to true in npm script) */,
-    "declarationMap": false /* Generates a sourcemap for each corresponding '.d.ts' file. (set to true in npm script) */,
+    "declaration": true /* Generates corresponding '.d.ts' file. */,
+    "declarationMap": true /* Generates a sourcemap for each corresponding '.d.ts' file. */,
     "sourceMap": true /* Generates corresponding '.map' file. */,
     "removeComments": true /* Do not emit comments to output. */,
     "jsx": "react" /* Specify JSX code generation: 'preserve', 'react-native', or 'react'. */,
