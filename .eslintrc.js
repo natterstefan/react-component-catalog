@@ -13,13 +13,20 @@ module.exports = {
     __DEV__: true,
   },
   rules: {
-    'jest/prefer-strict-equal': 'error',
+    'import/extensions': 0,
     'no-underscore-dangle': 0,
     'sort-keys': 0,
+
+    // jest settings
+    'jest/prefer-strict-equal': 'error',
+
+    // react settings
     'react/jsx-props-no-spreading': 0,
     'react/prop-types': 0,
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'error',
+
+    // typescript settings
     '@typescript-eslint/interface-name-prefix': [
       2,
       {

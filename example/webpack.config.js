@@ -16,6 +16,11 @@ module.exports = {
     ...bundle('base'),
     ...bundle('client1'),
   },
+  output: {
+    chunkFilename: '[name].bundled.js',
+    filename: '[name]',
+    path: resolve(__dirname, './dist/static'),
+  },
   mode: process.env.BABEL_ENV || process.env.NODE_ENV || 'development',
   module: {
     rules: [
@@ -46,11 +51,6 @@ module.exports = {
         },
       },
     },
-  },
-  output: {
-    chunkFilename: '[name].bundled.js',
-    filename: '[name]',
-    path: resolve(__dirname, './dist/static'),
   },
   resolve: {
     // de-dupe react to be able to use hooks https://github.com/facebook/react/issues/14317#issuecomment-463097191

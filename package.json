@@ -114,7 +114,7 @@
   },
   "lint-staged": {
     "*.js": [
-      "npm run lint",
+      "yarn run lint",
       "prettier --write",
       "git update-index --again",
       "jest --findRelatedTests"
