@@ -27,6 +27,7 @@ module.exports = {
     'react-hooks/exhaustive-deps': 'error',
 
     // typescript settings
+    '@typescript-eslint/no-explicit-any': 0,
     '@typescript-eslint/interface-name-prefix': [
       2,
       {
