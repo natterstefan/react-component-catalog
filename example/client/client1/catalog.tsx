@@ -1,6 +1,5 @@
 /* eslint-disable import/order */
 import React from 'react'
-import { Catalog } from 'react-component-catalog'
 
 import App from './components/app'
 
@@ -14,21 +13,17 @@ import Button from '../base/components/button'
  */
 const Title = ({ children }) => <h2>OuterTitle - {children}</h2>
 
-const catalog = new Catalog({
-  components: {
-    App,
-    Button,
-    OuterComponent: () => <div>OuterComponent</div>,
-    Title,
-  },
-})
+const catalog = {
+  App,
+  Button,
+  OuterComponent: () => <div>OuterComponent</div>,
+  Title,
+}
 
 // used in a nested CatalogProvider
-const innerCatalog = new Catalog({
-  components: {
-    InnerComponent: () => <div>InnerComponent</div>,
-    Title: ({ children }) => <h2>InnerTitle - {children}</h2>, // inner CatalogProvider overwrites Title
-  },
-})
+const innerCatalog = {
+  InnerComponent: () => <div>InnerComponent</div>,
+  Title: ({ children }) => <h2>InnerTitle - {children}</h2>, // inner CatalogProvider overwrites Title
+}
 
 export { App, catalog, innerCatalog }

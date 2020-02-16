@@ -1,7 +1,6 @@
 import React from 'react'
 import { mount } from 'enzyme'
 
-import Catalog, { ICatalog } from '../../catalog'
 import CatalogProvider from '../catalog-provider'
 import CatalogComponent from '../catalog-component'
 import useCatalog from '../use-catalog'
@@ -10,33 +9,25 @@ const TestComponent = () => <div>Hello World</div>
 
 describe('CatalogProvider', () => {
   let backupConsole: () => void
-  let testCatalog: ICatalog
+  let testCatalog: {}
   const verifyCatalog = jest.fn()
 
   const expectedTestCatalog = {
-    catalog: {
-      _components: {
-        TestComponent,
-      },
-      getComponent: expect.any(Function),
-      hasComponent: expect.any(Function),
+    _catalog: {
+      TestComponent,
     },
+    getComponent: expect.any(Function),
+    hasComponent: expect.any(Function),
   }
 
   const expectedEmptyCatalog = {
-    catalog: {
-      _components: {},
-      getComponent: expect.any(Function),
-      hasComponent: expect.any(Function),
-    },
+    _catalog: {},
+    getComponent: expect.any(Function),
+    hasComponent: expect.any(Function),
   }
 
   beforeEach(() => {
-    testCatalog = new Catalog({
-      components: {
-        TestComponent,
-      },
-    })
+    testCatalog = { TestComponent }
 
     backupConsole = console.error
     console.error = jest.fn()
@@ -118,15 +109,13 @@ describe('CatalogProvider', () => {
     const TestComponentTwo = () => <div>Different</div>
     const Title = () => <h2>Hello</h2>
 
-    const innerCatalog = new Catalog({
-      components: {
-        TestComponent: TestComponentTwo,
-        Title,
-      },
-    })
+    const innerCatalog = {
+      TestComponent: TestComponentTwo,
+      Title,
+    }
 
     const expected = {
-      _components: {
+      _catalog: {
         TestComponent: TestComponentTwo,
         Title,
       },
@@ -149,7 +138,7 @@ describe('CatalogProvider', () => {
       </CatalogProvider>,
     )
 
-    expect(verifyCatalog).toHaveBeenCalledWith({ catalog: expected })
+    expect(verifyCatalog).toHaveBeenCalledWith(expected)
   })
 
   it('can prefix all cataloged components with the catalogPrefix', () => {
@@ -161,7 +150,7 @@ describe('CatalogProvider', () => {
     }
 
     const expected = {
-      _components: {
+      _catalog: {
         _TestComponent: TestComponent,
       },
       getComponent: expect.any(Function),
@@ -174,27 +163,25 @@ describe('CatalogProvider', () => {
       </CatalogProvider>,
     )
 
-    expect(verifyCatalog).toHaveBeenCalledWith({ catalog: expected })
+    expect(verifyCatalog).toHaveBeenCalledWith(expected)
   })
 
   it('can be nested within another CatalogProvider, and protected by prefixing cataloged components', () => {
     const TestComponentTwo = () => <div>Different</div>
     const Title = () => <h2>Hello</h2>
 
-    const innerCatalog = new Catalog({
-      components: {
-        TestComponent: TestComponentTwo,
-        Title,
-      },
-    })
+    const innerCatalog = {
+      TestComponent: TestComponentTwo,
+      Title,
+    }
 
     const expected = {
-      _components: {
+      _catalog: {
         // innter catalog with prefix
-        _TestComponent: TestComponentTwo,
-        _Title: Title,
+        TestComponent: TestComponentTwo,
+        Title,
         // outer catalog
-        TestComponent,
+        _TestComponent: TestComponent,
       },
       getComponent: expect.any(Function),
       hasComponent: expect.any(Function),
@@ -208,13 +195,13 @@ describe('CatalogProvider', () => {
     }
 
     mount(
-      <CatalogProvider catalog={testCatalog}>
-        <CatalogProvider catalog={innerCatalog} catalogPrefix="_">
+      <CatalogProvider catalog={testCatalog} catalogPrefix="_">
+        <CatalogProvider catalog={innerCatalog}>
           <Consumer />
         </CatalogProvider>
       </CatalogProvider>,
     )
 
-    expect(verifyCatalog).toHaveBeenCalledWith({ catalog: expected })
+    expect(verifyCatalog).toHaveBeenCalledWith(expected)
   })
 })

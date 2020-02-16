@@ -1,9 +1,8 @@
-/* eslint-disable import/order */
-import React from 'react'
+import React, { FunctionComponent } from 'react'
 import CatalogComponent, { useCatalog } from 'react-component-catalog'
 
-const App = () => {
-  const { catalog } = useCatalog()
+const App: FunctionComponent = () => {
+  const catalog = useCatalog()
   const Button = catalog.getComponent('Button')
 
   // or you use them with the <CatalogComponent /> component

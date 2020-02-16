@@ -56,11 +56,11 @@ export default Button
 import { Catalog } from 'react-component-catalog'
 import Button from './button'
 
-const catalog = new Catalog({
-  components: {
-    Button,
-  },
-})
+const CATALOG = {
+  Button,
+}
+
+const catalog = new Catalog(CATALOG)
 
 export default catalog
 ```
@@ -83,12 +83,10 @@ import BaseArticle from './base-article'
 import VideoArticle from './video-article'
 
 const catalog = new Catalog({
-  components: {
-    ArticlePage: {
-      AudioArticle,
-      BaseArticle,
-      VideoArticle,
-    },
+  ArticlePage: {
+    AudioArticle,
+    BaseArticle,
+    VideoArticle,
   },
 })
 
@@ -104,7 +102,7 @@ import CatalogComponent, { useCatalog } from 'react-component-catalog'
 
 const App = props => {
   const { isAudioArticle, isVideoArticle } = props
-  const { catalog } = useCatalog()
+  const catalog = useCatalog()
 
   // get the ArticlePage object from the catalog
   const ArticlePage = catalog.getComponent('ArticlePage')
@@ -154,17 +152,13 @@ overwrite the parent provider.
 ```js
 // setup catalogs
 const catalog = new Catalog({
-  components: {
-    OuterComponent: () => <div>OuterComponent</div>,
-    Title: ({ children }) => <h1>OuterTitle - {children}</h1>,
-  },
+  OuterComponent: () => <div>OuterComponent</div>,
+  Title: ({ children }) => <h1>OuterTitle - {children}</h1>,
 })
 
 const innerCatalog = new Catalog({
-  components: {
-    InnerComponent: () => <div>InnerComponent</div>,
-    Title: ({ children }) => <h2>InnerTitle - {children}</h2>, // inner CatalogProvider overwrites Title of the outer catalog
-  },
+  InnerComponent: () => <div>InnerComponent</div>,
+  Title: ({ children }) => <h2>InnerTitle - {children}</h2>, // inner CatalogProvider overwrites Title of the outer catalog
 })
 
 // usage
@@ -191,7 +185,7 @@ import React from 'react'
 import CatalogComponent, { useCatalog } from 'react-component-catalog'
 
 const App = () => {
-  const { catalog } = useCatalog()
+  const catalog = useCatalog()
   const Button = catalog.getComponent('Button')
 
   // you can also first check if it exists
@@ -243,7 +237,7 @@ class App extends React.Component {
   render() {
     // or <CatalogComponent component="TestComponent" ref={this.setRef} />
     return (
-      <CatalogProvider catalog={new Catalog({ components: { TestComponent } })}>
+      <CatalogProvider catalog={new Catalog({ TestComponent })}>
         <TestComponent ref={this.setRef} />
       </CatalogProvider>
     )

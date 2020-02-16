@@ -42,8 +42,8 @@ const CatalogComponent = React.forwardRef((props: IProps, ref) => {
   } = props
 
   // get catalog from the context
-  const { catalog } = useCatalog() || {}
-  if (!catalog || !catalog._components) {
+  const catalog = useCatalog()
+  if (!catalog || typeof catalog.getComponent !== 'function') {
     if (__DEV__) {
       console.error(
         'catalog is not defined. Please, use <CatalogComponent /> in the context of a <CatalogProvider /> with an existing catalog.',
@@ -78,7 +78,7 @@ const CatalogComponent = React.forwardRef((props: IProps, ref) => {
     const errorMsg = `CatalogComponent: "${component}" not found in component catalog.`
 
     if (isClient) {
-      console.error(errorMsg, 'The catalog contains only:', catalog._components)
+      console.error(errorMsg, 'The catalog contains only:', catalog._catalog)
     } else {
       console.error(errorMsg)
     }

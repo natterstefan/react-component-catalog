@@ -1,14 +1,15 @@
 import React, { ReactNode } from 'react'
 
 import Catalog, { ICatalog } from '../catalog'
+import { CatalogComponents } from '../types'
 
 import CatalogContext from './catalog-context'
 import useCatalog from './use-catalog'
 
 // https://flow.org/en/docs/react/types/
-interface IProps {
+interface IProps<T extends CatalogComponents> {
   // the catalog you want to provided with the CatalogProvider
-  catalog: ICatalog
+  catalog: T
   // prefix the given catalog allows nesting multiple catalogs within one app
   catalogPrefix?: string
   children: ReactNode
@@ -18,45 +19,34 @@ interface IProps {
  * Provide the `catalog` to an entire react component tree. Read more about
  * React context here: https://reactjs.org/docs/context.html
  */
-const CatalogProvider = (props: IProps): JSX.Element => {
+const CatalogProvider = <T extends CatalogComponents>(
+  props: IProps<T>,
+): JSX.Element => {
   const { catalog, catalogPrefix, children } = props
-  const { catalog: outerCatalog } = useCatalog() || {}
+  const outerCatalog = useCatalog()
+  let prepCatalog: ICatalog<T> = new Catalog({})
 
-  let prefixedCatalog: ICatalog = null
-  if (catalogPrefix && catalog._components) {
-    const components: { [key: string]: any } = {}
-
-    Object.keys(catalog._components).forEach(c => {
-      components[`${catalogPrefix}${c}`] = catalog._components[c]
-    })
-
-    prefixedCatalog = new Catalog({
-      components,
+  const prefixedCatalog: { [prop: string]: any } = {}
+  if (catalog && catalogPrefix) {
+    Object.keys(catalog).forEach(c => {
+      prefixedCatalog[`${catalogPrefix}${c}`] = (catalog as any)[c]
     })
   }
-
-  let prepCatalog =
-    prefixedCatalog || catalog || new Catalog({ components: {} })
 
   /**
    * if an outerCatalog (from another parent CatalogProvider) exists already, we
    * are going to merge them together and create a new Catalog context object.
    *
-   * Attention: the innerCatalog will overwrite the outerCatalog
-   *
-   * either append the prefixed catalog, or the provided one
+   * Attention: the innerCatalog will overwrite the outerCatalog!
    */
-  if (outerCatalog) {
-    prepCatalog = new Catalog({
-      components: {
-        ...(outerCatalog && outerCatalog._components),
-        ...(prepCatalog && prepCatalog._components),
-      },
-    })
-  }
+  prepCatalog = new Catalog({
+    ...(outerCatalog && outerCatalog._catalog),
+    // either use the prefixed or the raw catalog
+    ...((catalogPrefix && prefixedCatalog) || catalog),
+  })
 
   return (
-    <CatalogContext.Provider value={{ catalog: prepCatalog }}>
+    <CatalogContext.Provider value={prepCatalog}>
       {React.Children.only(children)}
     </CatalogContext.Provider>
   )
@@ -64,7 +54,7 @@ const CatalogProvider = (props: IProps): JSX.Element => {
 
 CatalogProvider.defaultProps = {
   catalogPrefix: '',
-  catalog: new Catalog({ components: {} }),
-} as Partial<IProps>
+  catalog: {},
+} as Partial<IProps<{}>>
 
 export default CatalogProvider

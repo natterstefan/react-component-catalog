@@ -11,5 +11,5 @@
     /* temporary workaround (https://stackoverflow.com/a/52404148/1238150) */
     "skipLibCheck": true
   },
-  "include": ["client/**/*", "server/**/*"]
+  "include": ["client/**/*", "server/**/*", "types/**/*"]
 }
