@@ -38,6 +38,59 @@ npx install-peerdeps --dev react-component-catalog
 yarn add react-component-catalog -D --peer
 ```
 
+## Upgrade from 1.x.x to 2.0.0
+
+### Catalog Data Structure changes
+
+When upgrading to 2.0.0, one needs to change the `Catalog`'s data structure.
+
+```diff
+// catalog.js
+import { Catalog } from 'react-component-catalog'
+import Button from './button'
+
+-const catalog = new Catalog({
+-  components: {
+-    Button,
+-  },
+-})
++const catalog = new Catalog({
++  Button,
++})
+
+export default catalog
+```
+
+### `useCatalog` and `catalog` changes
+
+`getComponent` does not return `null` anymore when a component is not found,
+instead it returns `undefined`.
+
+```diff
+import React from 'react'
+import CatalogComponent, { useCatalog } from 'react-component-catalog'
+
+const App = () => {
+- const { catalog } = useCatalog()
++ const catalog = useCatalog()
+
+- console.log('available components', catalog._components)
++ console.log('available components', catalog._catalog)
+
+  const Button = catalog.getComponent('Button')
+
+  // ...
+}
+```
+
+### `Catalog` changes
+
+`Catalog` is not exported anymore, so code like does not work anymore:
+
+```diff
+- import { Catalog } from 'react-catalog-component'
+```
+
 ## Basic Usage
 
 ### Create a Catalog

@@ -177,11 +177,11 @@ describe('CatalogProvider', () => {
 
     const expected = {
       _catalog: {
-        // innter catalog with prefix
+        // outer catalog has a prefix
+        _TestComponent: TestComponent,
+        // inner catalog has no prefix
         TestComponent: TestComponentTwo,
         Title,
-        // outer catalog
-        _TestComponent: TestComponent,
       },
       getComponent: expect.any(Function),
       hasComponent: expect.any(Function),

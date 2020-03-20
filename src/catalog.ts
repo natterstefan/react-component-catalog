@@ -7,7 +7,7 @@ export interface ICatalog<T extends CatalogComponents = CatalogComponents> {
   // get a component by id, if not available it will return null
   getComponent: (component: string) => any
   // validates if the given component exists in the catalog
-  hasComponent: (component: string) => boolean
+  hasComponent: (component: keyof T) => boolean
 }
 
 export class Catalog<T extends CatalogComponents = CatalogComponents>
