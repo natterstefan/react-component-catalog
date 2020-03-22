@@ -7,9 +7,11 @@ import useCatalog from '../use-catalog'
 
 const TestComponent = () => <div>Hello World</div>
 
+const DEFAULT_CATALOG = { TestComponent }
+
 describe('CatalogProvider', () => {
   let backupConsole: () => void
-  let testCatalog: {}
+  let testCatalog = DEFAULT_CATALOG
   const verifyCatalog = jest.fn()
 
   const expectedTestCatalog = {
@@ -27,7 +29,7 @@ describe('CatalogProvider', () => {
   }
 
   beforeEach(() => {
-    testCatalog = { TestComponent }
+    testCatalog = DEFAULT_CATALOG
 
     backupConsole = console.error
     console.error = jest.fn()
