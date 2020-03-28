@@ -13,7 +13,7 @@ const BaseArticle = () => <div>Hello BaseArticle</div>
 
 describe('CatalogComponent', () => {
   let backupError: () => void
-  let testCatalog: ICatalog
+  let testCatalog: ICatalog<any>
 
   const components = {
     TestComponent,
@@ -29,9 +29,7 @@ describe('CatalogComponent', () => {
   }
 
   beforeEach(() => {
-    testCatalog = new Catalog({
-      components,
-    })
+    testCatalog = new Catalog(components)
 
     backupError = console.error
     console.error = jest.fn()

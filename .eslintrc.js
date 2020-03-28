@@ -14,6 +14,18 @@ module.exports = {
   },
   rules: {
     'import/extensions': 0,
+    'import/order': [
+      'error',
+      {
+        pathGroups: [
+          {
+            pattern: 'react-component-catalog',
+            group: 'external',
+            position: 'after',
+          },
+        ],
+      },
+    ],
     'no-underscore-dangle': 0,
     'sort-keys': 0,
 
@@ -28,6 +40,10 @@ module.exports = {
 
     // typescript settings
     '@typescript-eslint/no-explicit-any': 0,
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      { argsIgnorePattern: '^_', ignoreRestSiblings: true },
+    ],
     '@typescript-eslint/interface-name-prefix': [
       2,
       {
@@ -59,7 +75,7 @@ module.exports = {
         ],
       },
       node: {
-        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        extensions: ['.js', '.jsx', '.ts', '.tsx', '.d.ts'],
       },
     },
     react: {

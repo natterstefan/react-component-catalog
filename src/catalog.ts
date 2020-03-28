@@ -1,38 +1,28 @@
 import { get } from './utils'
+import { CatalogComponents } from './types'
 
-type PropertyTypes = string | number
-
-type ICatalogProperty = { [K in PropertyTypes]: any }
-
-export interface ICatalog {
+export interface ICatalog<T extends CatalogComponents = CatalogComponents> {
   // contains the raw catalog
-  _components: ICatalogProperty
+  _catalog: T | Record<string, any>
   // get a component by id, if not available it will return null
-  getComponent: (component: PropertyTypes) => any | null
+  getComponent: (component: string) => any
   // validates if the given component exists in the catalog
-  hasComponent: (component: PropertyTypes) => boolean
+  hasComponent: (component: string) => boolean
 }
 
-export interface ICatalogType {
-  components: ICatalogProperty
-}
+export class Catalog<T extends CatalogComponents = CatalogComponents>
+  implements ICatalog<T> {
+  public _catalog: T
 
-export interface ICatalogContext {
-  catalog: ICatalog
-}
-
-export class Catalog implements ICatalog {
-  public _components: ICatalog['_components']
-
-  constructor(catalog: ICatalogType) {
-    this._components = (catalog && catalog.components) || {}
+  constructor(catalog: T) {
+    this._catalog = catalog
   }
 
-  public getComponent: ICatalog['getComponent'] = component =>
-    get(this._components, component) || null
+  public getComponent: ICatalog<T>['getComponent'] = component =>
+    get(this._catalog, component)
 
-  public hasComponent: ICatalog['hasComponent'] = component =>
-    !!get(this._components, component)
+  public hasComponent: ICatalog<T>['hasComponent'] = component =>
+    !!get(this._catalog, component)
 }
 
 export default Catalog

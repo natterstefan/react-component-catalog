@@ -1,14 +1,15 @@
 import React from 'react'
 
-import { ICatalogContext } from '../catalog'
+import { ICatalog } from '../catalog'
+import { CatalogComponents } from '../types'
 
 import CatalogContext from './catalog-context'
 
 /**
- * `useCatalog` (react-hook) returns a `catalog` provided to `CatalogProvider`
+ * `useCatalog` (react-hook) returns the `catalog` provided to `CatalogProvider`
  */
-const useCatalog = (): ICatalogContext => {
-  return React.useContext(CatalogContext)
-}
+const useCatalog = <
+  T extends CatalogComponents = CatalogComponents
+>(): ICatalog<T> => React.useContext<ICatalog<T>>(CatalogContext)
 
 export default useCatalog

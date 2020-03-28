@@ -1,19 +1,18 @@
-/* eslint-disable import/order */
-import React from 'react'
+import React, { FunctionComponent } from 'react'
 import CatalogComponent, { useCatalog } from 'react-component-catalog'
+const FallbackComponent: FunctionComponent = () => (
+  <div>Component not found</div>
+)
 
-const App = () => {
-  const { catalog } = useCatalog()
+const App: FunctionComponent = () => {
+  const catalog = useCatalog()
   const Button = catalog.getComponent('Button')
 
   // or you use them with the <CatalogComponent /> component
   return (
     <div>
       <CatalogComponent component="Title">Hello Client1</CatalogComponent>
-      <CatalogComponent
-        component="Card"
-        fallbackComponent={() => <div>Component not found</div>}
-      >
+      <CatalogComponent component="Card" fallbackComponent={FallbackComponent}>
         Hello Card
       </CatalogComponent>
       {Button && <Button />}

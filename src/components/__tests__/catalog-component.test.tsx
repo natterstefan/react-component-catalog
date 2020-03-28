@@ -2,7 +2,7 @@
 import React from 'react'
 import { mount } from 'enzyme'
 
-import Catalog, { ICatalog } from '../../catalog'
+import Catalog from '../../catalog'
 import CatalogComponent from '../catalog-component'
 import CatalogProvider from '../catalog-provider'
 import { withCatalog } from '../with-catalog'
@@ -15,8 +15,8 @@ const FallbackFromCatalog = () => <div>FallbackFromCatalog</div>
 
 describe('CatalogComponent', () => {
   let backupError: () => void
-  let testCatalog: ICatalog
-  let emptyTestCatalog: ICatalog
+  let testCatalog: {}
+  let emptyTestCatalog: {}
 
   const components = {
     FallbackFromCatalog,
@@ -33,13 +33,8 @@ describe('CatalogComponent', () => {
   }
 
   beforeEach(() => {
-    testCatalog = new Catalog({
-      components,
-    })
-
-    emptyTestCatalog = new Catalog({
-      components: {},
-    })
+    testCatalog = components
+    emptyTestCatalog = {}
 
     backupError = console.error
     console.error = jest.fn()
@@ -101,7 +96,7 @@ describe('CatalogComponent', () => {
 
       render() {
         return (
-          <CatalogProvider catalog={new Catalog({ components: { TestRef } })}>
+          <CatalogProvider catalog={new Catalog({ TestRef })}>
             <TestRef ref={this.setRef} />
           </CatalogProvider>
         )
@@ -131,7 +126,7 @@ describe('CatalogComponent', () => {
 
       render() {
         return (
-          <CatalogProvider catalog={new Catalog({ components: { TestRef } })}>
+          <CatalogProvider catalog={{ TestRef }}>
             <CatalogComponent component="TestRef" ref={this.setRef} />
           </CatalogProvider>
         )

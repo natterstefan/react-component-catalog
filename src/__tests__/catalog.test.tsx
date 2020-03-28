@@ -10,29 +10,25 @@ const BaseArticle = () => <div>BaseArticle</div>
 const VideoArticle = () => <div>VideoArticle</div>
 
 describe('Catalog', () => {
-  let testCatalog: ICatalog
+  let testCatalog: ICatalog<any>
 
   beforeEach(() => {
     testCatalog = new Catalog({
-      components: {
-        ArticlePage: {
-          AudioArticle,
-          BaseArticle,
-          VideoArticle,
-        },
-        TestComponent,
+      ArticlePage: {
+        AudioArticle,
+        BaseArticle,
+        VideoArticle,
       },
+      TestComponent,
     })
   })
 
   it('can be created', () => {
     testCatalog = new Catalog({
-      components: {
-        TestComponent,
-      },
+      TestComponent,
     })
 
-    expect(testCatalog._components).toStrictEqual({
+    expect(testCatalog._catalog).toStrictEqual({
       TestComponent,
     })
   })
@@ -40,7 +36,7 @@ describe('Catalog', () => {
   it('creates proper catalog with getComponent function', () => {
     // eslint-disable-next-line jest/prefer-strict-equal
     expect(testCatalog).toEqual({
-      _components: {
+      _catalog: {
         ArticlePage: {
           AudioArticle,
           BaseArticle,
@@ -54,20 +50,20 @@ describe('Catalog', () => {
   })
 
   describe('getComponent', () => {
-    it('returns null for a requested component, when it was created with an empty component catalog', () => {
+    it('returns undefined for a requested component, when it was created with an empty component catalog', () => {
       // first we create an empty registry
-      testCatalog = new Catalog({ components: {} })
+      testCatalog = new Catalog({})
 
       // eslint-disable-next-line jest/prefer-strict-equal
       expect(testCatalog).toEqual({
-        _components: {},
+        _catalog: {},
         getComponent: expect.any(Function),
         hasComponent: expect.any(Function),
       })
 
       // now request a component from the catalog
       const TestComponentFromCatalog = testCatalog.getComponent('TestComponent')
-      expect(TestComponentFromCatalog).toBeNull()
+      expect(TestComponentFromCatalog).toBeUndefined()
     })
 
     it('returns requested component fully functional', () => {
@@ -85,9 +81,7 @@ describe('Catalog', () => {
       )
 
       testCatalog = new Catalog({
-        components: {
-          TestButton,
-        },
+        TestButton,
       })
 
       const TestButtonFromCatalog = testCatalog.getComponent('TestButton')
@@ -106,11 +100,11 @@ describe('Catalog', () => {
       expect(wrapper.text()).toStrictEqual('AudioArticle')
     })
 
-    it('returns null when nested requested component is not available', () => {
+    it('returns undefined when nested requested component is not available', () => {
       const TestComponentFromCatalog = testCatalog.getComponent(
         'ArticlePage.OtherArticle',
       )
-      expect(TestComponentFromCatalog).toBeNull()
+      expect(TestComponentFromCatalog).toBeUndefined()
     })
   })
 

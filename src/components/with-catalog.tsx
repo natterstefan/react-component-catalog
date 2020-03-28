@@ -18,14 +18,12 @@ export const withCatalog = (Component: ComponentType<any>) => {
   const WithCatalog = React.forwardRef((props: any, ref) => {
     const catalog = useCatalog()
 
-    return (
-      <Component {...props} catalog={catalog && catalog.catalog} ref={ref} />
-    )
+    return <Component {...props} catalog={catalog} ref={ref} />
   })
 
   WithCatalog.displayName = `WithCatalog(${getDisplayName(Component)})`
 
-  hoistNonReactStatics(WithCatalog, Component)
+  hoistNonReactStatics(WithCatalog, Component, undefined)
 
   return WithCatalog
 }

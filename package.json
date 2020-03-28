@@ -15,7 +15,7 @@
   ],
   "main": "lib/index.js",
   "module": "esm/index.js",
-  "types": "lib/index.d.ts",
+  "types": "esm/index.d.ts",
   "files": [
     "dist",
     "es",
@@ -25,11 +25,11 @@
   "scripts": {
     "build": " npm run build-types && npm run build-cjs && npm run build-es && npm run build-esm && npm run build-umd",
     "build-types": "npm run build-cjs-types && npm run build-es-types && npm run build-esm-types",
-    "build-cjs": "BABEL_ENV=cjs babel src --ignore **/@types/*,**/*.test.tsx,**/*.test.ts --out-dir lib --extensions '.ts,.tsx'",
+    "build-cjs": "BABEL_ENV=cjs babel src --ignore **/*.test.tsx,**/*.test.ts --out-dir lib --extensions '.ts,.tsx'",
     "build-cjs-types": "tsc --outDir lib --module commonjs --target es5 -d --emitDeclarationOnly",
-    "build-es": "BABEL_ENV=es babel src --ignore **/@types/*,**/*.test.tsx,**/*.test.ts --out-dir es --extensions '.ts,.tsx'",
+    "build-es": "BABEL_ENV=es babel src --ignore **/*.test.tsx,**/*.test.ts --out-dir es --extensions '.ts,.tsx'",
     "build-es-types": "tsc  --outDir es --module es2015 --target es2015 -d --emitDeclarationOnly",
-    "build-esm": "BABEL_ENV=esm babel src --ignore **/@types/*,**/*.test.tsx,**/*.test.ts --out-dir esm --extensions '.ts,.tsx'",
+    "build-esm": "BABEL_ENV=esm babel src --ignore **/*.test.tsx,**/*.test.ts --out-dir esm --extensions '.ts,.tsx'",
     "build-esm-types": "tsc --outDir esm --module es2015 --target es5 -d --emitDeclarationOnly",
     "build-umd": "BABEL_ENV=umd webpack --mode=production",
     "coverage": "jest --coverage",
