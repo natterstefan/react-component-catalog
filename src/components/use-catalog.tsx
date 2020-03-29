@@ -10,6 +10,6 @@ import CatalogContext from './catalog-context'
  */
 const useCatalog = <
   T extends CatalogComponents = CatalogComponents
->(): ICatalog<T> => React.useContext<ICatalog<T>>(CatalogContext)
+>(): ICatalog<T> => React.useContext(CatalogContext as any)
 
 export default useCatalog
