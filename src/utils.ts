@@ -1,6 +1,9 @@
+// inspired by https://github.com/DefinitelyTyped/DefinitelyTyped/blob/7caeca4bfbd5ca9f306c14def3dd6b416869c615/types/lodash/common/object.d.ts#L1669
 type Keys = string | number
 type ObjectType = { [K in Keys]: any }
-type PathType = string[] | string | number
+type PropertyName = string | number | symbol
+type Many<T> = T | ReadonlyArray<T>
+export type PropertyPath = Many<PropertyName>
 
 /*!
  * Get an object value from a specific path
@@ -13,13 +16,17 @@ type PathType = string[] | string | number
  * @param  {*}            def  A default value to return [optional]
  * @return {*}                 The value
  */
-export const get = (obj: ObjectType, path: PathType, def?: any): any => {
+export const get = (
+  obj: ObjectType,
+  path: PropertyPath,
+  def?: any,
+): unknown => {
   /**
    * If the path is a string, convert it to an array
    * @param  {String|Array} path The path
    * @return {Array}             The path array
    */
-  const stringToPath = (pathValue: PathType): null | any => {
+  const stringToPath = (pathValue: PropertyPath): any => {
     // If the path isn't a string, return it
     if (typeof pathValue !== 'string') {
       if (Array.isArray(pathValue)) {

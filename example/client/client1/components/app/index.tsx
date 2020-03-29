@@ -10,7 +10,14 @@ const FallbackComponent: FunctionComponent = () => (
 
 const App: FunctionComponent = () => {
   const catalog = useCatalog<Catalog>()
-  const Button = catalog.getComponent('Button')
+  const hasButton = catalog.hasComponent('Button')
+
+  let Button
+  if (hasButton) {
+    Button = catalog.getComponent('Button')
+    // this would work too:
+    // const Button = catalog.getComponent(['Button'])
+  }
 
   // or you use them with the <CatalogComponent /> component
   return (

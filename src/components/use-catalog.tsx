@@ -7,9 +7,14 @@ import CatalogContext from './catalog-context'
 
 /**
  * `useCatalog` (react-hook) returns the `catalog` provided to `CatalogProvider`
+ *
+ * @example
+ * ```
+ * const catalog = useCatalog()
+ * const Button = catalog.getComponent("button")
+ * ```
  */
-const useCatalog = <
-  T extends CatalogComponents = CatalogComponents
->(): ICatalog<T> => React.useContext(CatalogContext as any)
+const useCatalog = <T extends CatalogComponents>(): ICatalog<T> =>
+  React.useContext(CatalogContext as any)
 
 export default useCatalog

@@ -3,5 +3,6 @@
 /**
  * This interface can be augmented by users to add types to
  * `react-component-catalog`'s default catalog
+ * @see https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation
  */
 export interface CatalogComponents {}
