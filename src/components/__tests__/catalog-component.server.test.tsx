@@ -49,7 +49,7 @@ describe('CatalogComponent', () => {
     // test if the developer was notified
     expect(console.error).toHaveBeenCalledTimes(1)
     expect(console.error).toHaveBeenLastCalledWith(
-      'CatalogComponent: "NotAvailableComponent" not found in component catalog.',
+      '[CatalogComponent] "NotAvailableComponent" not found in component catalog.',
     )
   })
 })

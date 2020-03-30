@@ -1,7 +1,8 @@
 import React, { ComponentType } from 'react'
 import hoistNonReactStatics from 'hoist-non-react-statics'
 
-import useCatalog from './use-catalog'
+import { isValidCatalog } from '../utils'
+import { useUNSAFECatalog } from './use-catalog'
 
 export const getDisplayName = (Component: ComponentType): string => {
   return Component.displayName || Component.name || 'Component'
@@ -16,7 +17,17 @@ export const getDisplayName = (Component: ComponentType): string => {
  */
 export const withCatalog = (Component: ComponentType<any>) => {
   const WithCatalog = React.forwardRef((props: any, ref) => {
-    const catalog = useCatalog()
+    const catalog = useUNSAFECatalog()
+
+    if (!isValidCatalog(catalog)) {
+      if (__DEV__) {
+        // eslint-disable-next-line no-console
+        console.error(
+          '[withCatalog] You are not using withCatalog in the context of a CatalogProvider with a proper catalog.',
+        )
+      }
+      // return null
+    }
 
     return <Component {...props} catalog={catalog} ref={ref} />
   })

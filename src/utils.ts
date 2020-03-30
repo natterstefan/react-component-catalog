@@ -1,3 +1,5 @@
+import Catalog from './catalog'
+
 // inspired by https://github.com/DefinitelyTyped/DefinitelyTyped/blob/7caeca4bfbd5ca9f306c14def3dd6b416869c615/types/lodash/common/object.d.ts#L1669
 type Keys = string | number
 type ObjectType = { [K in Keys]: any }
@@ -76,3 +78,10 @@ export const get = (
 
   return current
 }
+
+/**
+ * isValidCatalog returns a bool for the check if the given catalog is an
+ * instance of Catalog.
+ */
+export const isValidCatalog = (catalog: unknown) =>
+  catalog && catalog instanceof Catalog

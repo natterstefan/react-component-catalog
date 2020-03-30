@@ -2,7 +2,10 @@
 /* eslint-disable no-console */
 import React, { ReactNode, ComponentType, ComponentPropsWithRef } from 'react'
 
-import useCatalog from './use-catalog'
+import { isValidCatalog } from '../utils'
+import { useUNSAFECatalog } from './use-catalog'
+
+const LOG_PREFIX = '[CatalogComponent]'
 
 interface IProps {
   children?: ReactNode
@@ -41,12 +44,16 @@ const CatalogComponent = React.forwardRef((props: IProps, ref) => {
     ...others
   } = props
 
-  // get catalog from the context
-  const catalog = useCatalog<any>()
-  if (!catalog || typeof catalog.getComponent !== 'function') {
+  /**
+   * get catalog from the context
+   * ATTENTION: similar to CatalogProvider, we use the internal method to access
+   * the context
+   */
+  const catalog = useUNSAFECatalog()
+  if (!isValidCatalog(catalog)) {
     if (__DEV__) {
       console.error(
-        'catalog is not defined. Please, use <CatalogComponent /> in the context of a <CatalogProvider /> with an existing catalog.',
+        `${LOG_PREFIX} You are not using CatalogComponent in the context of a CatalogProvider with a proper catalog.`,
       )
     }
     return null
@@ -75,7 +82,7 @@ const CatalogComponent = React.forwardRef((props: IProps, ref) => {
     // if no component was found, warn the user, but only when NODE_ENV equals
     // "development"
     const isClient = typeof window !== 'undefined'
-    const errorMsg = `CatalogComponent: "${component}" not found in component catalog.`
+    const errorMsg = `${LOG_PREFIX} "${component}" not found in component catalog.`
 
     if (isClient) {
       console.error(errorMsg, 'The catalog contains only:', catalog._catalog)

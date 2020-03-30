@@ -4,14 +4,17 @@ import Catalog, { ICatalog } from '../catalog'
 import { CatalogComponents } from '../types'
 
 import CatalogContext from './catalog-context'
-import useCatalog from './use-catalog'
+import { useUNSAFECatalog } from './use-catalog'
 
-// https://flow.org/en/docs/react/types/
 interface IProps<T extends CatalogComponents> {
   // the catalog you want to provided with the CatalogProvider
   catalog: T
   // prefix the given catalog allows nesting multiple catalogs within one app
   catalogPrefix?: string
+  /**
+   * ReactNode
+   * @see https://flow.org/en/docs/react/types/
+   */
   children: ReactNode
 }
 
@@ -23,7 +26,23 @@ const CatalogProvider = <T extends CatalogComponents>(
   props: IProps<T>,
 ): JSX.Element => {
   const { catalog, catalogPrefix, children } = props
-  const outerCatalog = useCatalog()
+
+  /**
+   * ATTENTION: we cannot use `useCatalog` here, as we cannot be sure that a
+   * CatalogContext exists already. This is especially true, when this is the
+   * first (outer) CatalogProvider and not a nested one.
+   */
+  const outerCatalog = useUNSAFECatalog()
+
+  // when no children are provided, render nothing but null
+  // TODO: also not render when `catalog` is not provided?
+  if (!children) {
+    if (__DEV__) {
+      // eslint-disable-next-line no-console
+      console.error('[CatalogProvider] must contain at least one child')
+    }
+    return null
+  }
 
   const prefixedCatalog: { [prop: string]: unknown } = {}
   if (catalog && catalogPrefix) {
@@ -54,7 +73,7 @@ const CatalogProvider = <T extends CatalogComponents>(
 
 CatalogProvider.defaultProps = {
   catalogPrefix: '',
-  catalog: {},
+  catalog: undefined,
 } as Partial<IProps<{}>>
 
 export default CatalogProvider
