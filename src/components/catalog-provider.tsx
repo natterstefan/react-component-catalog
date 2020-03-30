@@ -35,7 +35,15 @@ const CatalogProvider = <T extends CatalogComponents>(
   const outerCatalog = useUNSAFECatalog()
 
   // when no children are provided, render nothing but null
-  // TODO: also not render when `catalog` is not provided?
+  if (!catalog) {
+    if (__DEV__) {
+      // eslint-disable-next-line no-console
+      console.error(
+        '[CatalogProvider] must be rendered with a valid catalog property',
+      )
+    }
+    return null
+  }
   if (!children) {
     if (__DEV__) {
       // eslint-disable-next-line no-console

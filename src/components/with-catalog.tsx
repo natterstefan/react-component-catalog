@@ -26,7 +26,6 @@ export const withCatalog = (Component: ComponentType<any>) => {
           '[withCatalog] You are not using withCatalog in the context of a CatalogProvider with a proper catalog.',
         )
       }
-      // return null
     }
 
     return <Component {...props} catalog={catalog} ref={ref} />
