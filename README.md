@@ -317,24 +317,27 @@ class App extends React.Component {
 
 ```sh
 # -- build the package --
-npm i
-npm watch # or build it once with npm run build
+yarn i
+yarn build
 ```
 
 ```sh
 # -- test the package --
-# run the example in watch-mode
+# prepare the example
 cd example
-npm run watch
+rm -rf node_modules # this needs to be optimised by eg. using lernajs
+yarn
+
+# run the example in watch-mode
+yarn watch
 
 # or if you want to run them individually
-npm run watch-client
-npm run watch-server
+yarn watch-client
+yarn watch-server
 
 # or run the example in production mode
-cd example
-npm run build
-npm run start
+yarn build
+yarn start
 ```
 
 Then open the [example](./example) folder and follow the setup instructions.
@@ -350,10 +353,10 @@ When you're ready to release, execute the following commands in the given order:
 
 1. `git checkout master`
 2. `git pull origin master`
-3. `npm run release --release-as major|minor|patch` (or for eg. beta releases:
-   `npm run release -- --prerelease beta --release-as major`)
+3. `yarn release --release-as major|minor|patch` (or for eg. beta releases:
+   `yarn release -- --prerelease beta --release-as major`)
 4. `git push --tags`
-5. `npm publish`
+5. `yarn publish`
 
 ### Links
 
