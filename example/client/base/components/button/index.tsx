@@ -1,8 +1,13 @@
-import React from 'react'
+/* eslint-disable no-console */
+import React, { FunctionComponent } from 'react'
 
-const Button = () => (
+type ButtonProps = {
+  text?: string
+}
+
+const Button: FunctionComponent<ButtonProps> = ({ text = 'Hey it is me' }) => (
   <button type="button" onClick={() => console.log('Hey :)')}>
-    Hey, it is me!
+    {text}
   </button>
 )
 

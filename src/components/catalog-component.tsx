@@ -42,7 +42,7 @@ const CatalogComponent = React.forwardRef((props: IProps, ref) => {
   } = props
 
   // get catalog from the context
-  const catalog = useCatalog()
+  const catalog = useCatalog<any>()
   if (!catalog || typeof catalog.getComponent !== 'function') {
     if (__DEV__) {
       console.error(

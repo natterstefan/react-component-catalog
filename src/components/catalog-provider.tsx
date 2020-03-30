@@ -24,12 +24,12 @@ const CatalogProvider = <T extends CatalogComponents>(
 ): JSX.Element => {
   const { catalog, catalogPrefix, children } = props
   const outerCatalog = useCatalog()
-  let prepCatalog: ICatalog<T> = new Catalog({})
 
-  const prefixedCatalog: { [prop: string]: any } = {}
+  const prefixedCatalog: { [prop: string]: unknown } = {}
   if (catalog && catalogPrefix) {
     Object.keys(catalog).forEach(c => {
-      prefixedCatalog[`${catalogPrefix}${c}`] = (catalog as any)[c]
+      const cE = c as keyof typeof catalog
+      prefixedCatalog[`${catalogPrefix}${cE}`] = catalog[cE]
     })
   }
 
@@ -39,11 +39,11 @@ const CatalogProvider = <T extends CatalogComponents>(
    *
    * Attention: the innerCatalog will overwrite the outerCatalog!
    */
-  prepCatalog = new Catalog({
+  const prepCatalog = new Catalog({
     ...(outerCatalog && outerCatalog._catalog),
     // either use the prefixed or the raw catalog
     ...((catalogPrefix && prefixedCatalog) || catalog),
-  })
+  }) as ICatalog<T>
 
   return (
     <CatalogContext.Provider value={prepCatalog}>

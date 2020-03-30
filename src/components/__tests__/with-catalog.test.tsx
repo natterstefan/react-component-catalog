@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FunctionComponent } from 'react'
 import { mount } from 'enzyme'
 
 import Catalog, { ICatalog } from '../../catalog'
@@ -10,15 +10,17 @@ const TestComponent = withCatalog(() => <div>Hello World</div>)
 const TestButton = () => <button type="button">Hello</button>
 const TestButtonComponent = withCatalog(TestButton)
 
+type TestCatalog = {
+  [name: string]: FunctionComponent
+}
+
 describe('withCatalog', () => {
-  let testCatalog: ICatalog
+  let testCatalog: ICatalog<TestCatalog> = null
 
   beforeEach(() => {
     testCatalog = new Catalog({
-      components: {
-        TestComponent,
-        TestButtonComponent,
-      },
+      TestComponent,
+      TestButtonComponent,
     })
   })
 

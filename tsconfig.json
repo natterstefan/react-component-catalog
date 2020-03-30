@@ -6,7 +6,7 @@
     "declaration": true /* Generates corresponding '.d.ts' file. */,
     "declarationMap": true /* Generates a sourcemap for each corresponding '.d.ts' file. */,
     "sourceMap": true /* Generates corresponding '.map' file. */,
-    "removeComments": true /* Do not emit comments to output. */,
+    "removeComments": false /* Do not emit comments to output. */,
     "jsx": "react" /* Specify JSX code generation: 'preserve', 'react-native', or 'react'. */,
 
     /* Strict Type-Checking Options */

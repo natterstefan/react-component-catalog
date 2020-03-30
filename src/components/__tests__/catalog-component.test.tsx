@@ -1,5 +1,5 @@
 /* eslint-disable react/no-multi-comp */
-import React from 'react'
+import React, { FunctionComponent } from 'react'
 import { mount } from 'enzyme'
 
 import Catalog from '../../catalog'
@@ -7,16 +7,22 @@ import CatalogComponent from '../catalog-component'
 import CatalogProvider from '../catalog-provider'
 import { withCatalog } from '../with-catalog'
 
-const TestComponent = () => <div>Hello World</div>
-const BaseArticle = () => <div>Hello BaseArticle</div>
+const TestComponent: FunctionComponent = () => <div>Hello World</div>
+const BaseArticle: FunctionComponent = () => <div>Hello BaseArticle</div>
 
-const FallbackComponent = () => <div>Fallback</div>
-const FallbackFromCatalog = () => <div>FallbackFromCatalog</div>
+const FallbackComponent: FunctionComponent = () => <div>Fallback</div>
+const FallbackFromCatalog: FunctionComponent = () => (
+  <div>FallbackFromCatalog</div>
+)
+
+type TestCatalog = {
+  [name: string]: JSX.Element | FunctionComponent | TestCatalog
+}
 
 describe('CatalogComponent', () => {
   let backupError: () => void
-  let testCatalog: {}
-  let emptyTestCatalog: {}
+  let testCatalog: TestCatalog = null
+  let emptyTestCatalog: TestCatalog = null
 
   const components = {
     FallbackFromCatalog,
