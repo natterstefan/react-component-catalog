@@ -20,7 +20,6 @@ type TestCatalog = {
 }
 
 describe('CatalogComponent', () => {
-  let backupError: () => void
   let testCatalog: TestCatalog = null
   let emptyTestCatalog: TestCatalog = null
 
@@ -42,12 +41,12 @@ describe('CatalogComponent', () => {
     testCatalog = components
     emptyTestCatalog = {}
 
-    backupError = console.error
-    console.error = jest.fn()
+    jest.spyOn(console, 'error')
+    ;(console as any).error.mockImplementation(jest.fn())
   })
 
   afterEach(() => {
-    console.error = backupError
+    ;(console as any).error.mockRestore()
   })
 
   it('has a a proper displayName for easier debugging etc.', () => {
@@ -201,15 +200,19 @@ describe('CatalogComponent', () => {
     )
 
     expect(wrapper.find(CatalogComponent).html()).toBeNull()
-
-    // test if the developer was notified
-    expect(console.error).toHaveBeenCalledTimes(1)
-    expect(console.error).toHaveBeenLastCalledWith(
-      'catalog is not defined. Please, use <CatalogComponent /> in the context of a <CatalogProvider /> with an existing catalog.',
-    )
   })
 
   describe('debugging on DEV', () => {
+    it('tells the developer, when CatalogComponent was used outside a CatalogProvider', () => {
+      mount(<CatalogComponent component="NotAvailableComponent" />)
+
+      // test if the developer was notified
+      expect(console.error).toHaveBeenCalledTimes(1)
+      expect(console.error).toHaveBeenLastCalledWith(
+        '[CatalogComponent] You are not using CatalogComponent in the context of a CatalogProvider with a proper catalog.',
+      )
+    })
+
     it('tells the developer, when the requested component does not exist and no fallbackComponent was provided', () => {
       mount(
         <CatalogProvider catalog={testCatalog}>
@@ -220,7 +223,7 @@ describe('CatalogComponent', () => {
       // test if the developer was notified
       expect(console.error).toHaveBeenCalledTimes(1)
       expect(console.error).toHaveBeenLastCalledWith(
-        'CatalogComponent: "NotAvailableComponent" not found in component catalog.',
+        '[CatalogComponent] "NotAvailableComponent" not found in component catalog.',
         'The catalog contains only:',
         components,
       )
@@ -236,7 +239,7 @@ describe('CatalogComponent', () => {
       // test if the developer was notified
       expect(console.error).toHaveBeenCalledTimes(1)
       expect(console.error).toHaveBeenLastCalledWith(
-        'CatalogComponent: "NotAvailableComponent" not found in component catalog.',
+        '[CatalogComponent] "NotAvailableComponent" not found in component catalog.',
         'The catalog contains only:',
         {},
       )
@@ -252,7 +255,12 @@ describe('CatalogComponent', () => {
       ;(global as any).__DEV__ = true
     })
 
-    it('does not tell enable debugging logs when __DEV__ is false', () => {
+    it('does not tell the developer, when CatalogComponent was used outside a CatalogProvider and __DEV__ is false', () => {
+      mount(<CatalogComponent component="NotAvailableComponent" />)
+      expect(console.error).toHaveBeenCalledTimes(0)
+    })
+
+    it('does not tell the developer, component is not available and __DEV__ is false', () => {
       mount(
         <CatalogProvider catalog={testCatalog}>
           <CatalogComponent component="NotAvailableComponent" />
@@ -261,7 +269,7 @@ describe('CatalogComponent', () => {
       expect(console.error).toHaveBeenCalledTimes(0)
     })
 
-    it('does not tell enable debuggding logs when __DEV__ is false', () => {
+    it('does not tell the developer, when catalog is null and __DEV__ is false', () => {
       mount(
         <CatalogProvider catalog={null}>
           <div />

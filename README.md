@@ -46,7 +46,7 @@ When upgrading to 2.0.0, one needs to change the `Catalog`'s data structure.
 
 ```diff
 // catalog.js
-import { Catalog } from 'react-component-catalog'
+- import { Catalog } from 'react-component-catalog'
 import Button from './button'
 
 -const catalog = new Catalog({
@@ -54,12 +54,32 @@ import Button from './button'
 -    Button,
 -  },
 -})
-+const catalog = new Catalog({
++const catalog = {
 +  Button,
-+})
++)
 
 export default catalog
 ```
+
+### `CatalogProvider` changes
+
+Previously, `CatalogProvider` rendered it's children with an empty catalog, when
+none was provided. In 2.x it renders `null` instead. Same happens, when no
+child component is provided.
+
+```diff
+import { CatalogProvider } from 'react-component-catalog'
+import catalog from './catalog' // your apps catalog
+
+const App = () => (
+- <CatalogProvider catalog={new Catalog({ components: catalog })}>
++ <CatalogProvider catalog={catalog}>
+    <div>Hello</div>
+  </CatalogProvider>
+)
+```
+
+`CatalogProvider` accepts an object and no instance of `Catalog` anymore.
 
 ### `useCatalog` and `catalog` changes
 
@@ -106,14 +126,11 @@ export default Button
 
 ```jsx
 // catalog.js
-import { Catalog } from 'react-component-catalog'
 import Button from './button'
 
-const CATALOG = {
+const catalog = {
   Button,
 }
-
-const catalog = new Catalog(CATALOG)
 
 export default catalog
 ```
@@ -128,20 +145,18 @@ You can add them to the catalog like this:
 
 ```jsx
 // catalog.js
-import { Catalog } from 'react-component-catalog'
-
 // different types of articles
 import AudioArticle from './audio-article'
 import BaseArticle from './base-article'
 import VideoArticle from './video-article'
 
-const catalog = new Catalog({
+const catalog = {
   ArticlePage: {
     AudioArticle,
     BaseArticle,
     VideoArticle,
   },
-})
+}
 
 export default catalog
 ```
@@ -204,15 +219,15 @@ overwrite the parent provider.
 
 ```js
 // setup catalogs
-const catalog = new Catalog({
+const catalog = {
   OuterComponent: () => <div>OuterComponent</div>,
   Title: ({ children }) => <h1>OuterTitle - {children}</h1>,
-})
+}
 
-const innerCatalog = new Catalog({
+const innerCatalog = {
   InnerComponent: () => <div>InnerComponent</div>,
   Title: ({ children }) => <h2>InnerTitle - {children}</h2>, // inner CatalogProvider overwrites Title of the outer catalog
-})
+}
 
 // usage
 const App = () => (
@@ -290,7 +305,7 @@ class App extends React.Component {
   render() {
     // or <CatalogComponent component="TestComponent" ref={this.setRef} />
     return (
-      <CatalogProvider catalog={new Catalog({ TestComponent })}>
+      <CatalogProvider catalog={{ TestComponent }}>
         <TestComponent ref={this.setRef} />
       </CatalogProvider>
     )
@@ -302,24 +317,27 @@ class App extends React.Component {
 
 ```sh
 # -- build the package --
-npm i
-npm watch # or build it once with npm run build
+yarn
+yarn build
 ```
 
 ```sh
-# -- test the package --
-# run the example in watch-mode
+# -- test the package in a dedicated example setup --
+# prepare the example
 cd example
-npm run watch
+rm -rf node_modules # this needs to be optimised by eg. using lernajs
+yarn
+
+# run the example in watch-mode
+yarn watch
 
 # or if you want to run them individually
-npm run watch-client
-npm run watch-server
+yarn watch-client
+yarn watch-server
 
 # or run the example in production mode
-cd example
-npm run build
-npm run start
+yarn build
+yarn start
 ```
 
 Then open the [example](./example) folder and follow the setup instructions.
@@ -335,10 +353,10 @@ When you're ready to release, execute the following commands in the given order:
 
 1. `git checkout master`
 2. `git pull origin master`
-3. `npm run release --release-as major|minor|patch` (or for eg. beta releases:
-   `npm run release -- --prerelease beta --release-as major`)
+3. `yarn release --release-as major|minor|patch` (or for eg. beta releases:
+   `yarn release -- --prerelease beta --release-as major`)
 4. `git push --tags`
-5. `npm publish`
+5. `yarn publish`
 
 ### Links
 

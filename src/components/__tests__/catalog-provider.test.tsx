@@ -3,14 +3,13 @@ import { mount } from 'enzyme'
 
 import CatalogProvider from '../catalog-provider'
 import CatalogComponent from '../catalog-component'
-import useCatalog from '../use-catalog'
+import { useCatalog } from '../use-catalog'
 
 const TestComponent = () => <div>Hello World</div>
 
 const DEFAULT_CATALOG = { TestComponent }
 
 describe('CatalogProvider', () => {
-  let backupConsole: () => void
   let testCatalog = DEFAULT_CATALOG
   const verifyCatalog = jest.fn()
 
@@ -22,41 +21,29 @@ describe('CatalogProvider', () => {
     hasComponent: expect.any(Function),
   }
 
-  const expectedEmptyCatalog = {
-    _catalog: {},
-    getComponent: expect.any(Function),
-    hasComponent: expect.any(Function),
-  }
-
   beforeEach(() => {
     testCatalog = DEFAULT_CATALOG
 
-    backupConsole = console.error
-    console.error = jest.fn()
     verifyCatalog.mockReset()
+
+    jest.spyOn(console, 'error')
+    ;(console as any).error.mockImplementation(jest.fn())
   })
 
   afterEach(() => {
-    console.error = backupConsole
+    ;(console as any).error.mockRestore()
   })
 
   it.each([null, undefined])(
-    'provides an empty catalog context if not rendered with one',
+    'rendes null, when the catalog was not provided',
     type => {
-      const Consumer = () => {
-        const catalog = useCatalog()
-        verifyCatalog(catalog)
-
-        return <div>Catalog</div>
-      }
-
-      mount(
+      const wrapper = mount(
         <CatalogProvider catalog={type}>
-          <Consumer />
+          <CatalogComponent component="NotAvailableComponent" />
         </CatalogProvider>,
       )
 
-      expect(verifyCatalog).toHaveBeenCalledWith(expectedEmptyCatalog)
+      expect(wrapper.html()).toBeNull()
     },
   )
 
@@ -88,122 +75,165 @@ describe('CatalogProvider', () => {
     expect(wrapper.find(TestComponent).text()).toStrictEqual('Hello World')
   })
 
-  it('can be nested within another CatalogProvider', () => {
-    const Consumer = () => {
-      const catalog = useCatalog()
-      verifyCatalog(catalog)
+  describe('nesting', () => {
+    it('can be nested within another CatalogProvider', () => {
+      const Consumer = () => {
+        const catalog = useCatalog()
+        verifyCatalog(catalog)
 
-      return <div>Catalog</div>
-    }
+        return <div>Catalog</div>
+      }
 
-    mount(
-      <CatalogProvider catalog={testCatalog}>
-        <CatalogProvider catalog={null}>
-          <Consumer />
-        </CatalogProvider>
-      </CatalogProvider>,
-    )
+      mount(
+        <CatalogProvider catalog={testCatalog}>
+          {/* empty catalog can be used, but is not recommended though */}
+          <CatalogProvider catalog={{}}>
+            <Consumer />
+          </CatalogProvider>
+        </CatalogProvider>,
+      )
 
-    expect(verifyCatalog).toHaveBeenCalledWith(expectedTestCatalog)
-  })
+      expect(verifyCatalog).toHaveBeenCalledWith(expectedTestCatalog)
+    })
 
-  it('can be nested within another CatalogProvider, which overwrites existing components in Catalog and extends it', () => {
-    const TestComponentTwo = () => <div>Different</div>
-    const Title = () => <h2>Hello</h2>
+    it('can be nested within another CatalogProvider, which overwrites existing components in Catalog and extends it', () => {
+      const TestComponentTwo = () => <div>Different</div>
+      const Title = () => <h2>Hello</h2>
 
-    const innerCatalog = {
-      TestComponent: TestComponentTwo,
-      Title,
-    }
-
-    const expected = {
-      _catalog: {
+      const innerCatalog = {
         TestComponent: TestComponentTwo,
         Title,
-      },
-      getComponent: expect.any(Function),
-      hasComponent: expect.any(Function),
-    }
+      }
 
-    const Consumer = () => {
-      const catalog = useCatalog()
-      verifyCatalog(catalog)
+      const expected = {
+        _catalog: {
+          TestComponent: TestComponentTwo,
+          Title,
+        },
+        getComponent: expect.any(Function),
+        hasComponent: expect.any(Function),
+      }
 
-      return <div>Catalog</div>
-    }
+      const Consumer = () => {
+        const catalog = useCatalog()
+        verifyCatalog(catalog)
 
-    mount(
-      <CatalogProvider catalog={testCatalog}>
-        <CatalogProvider catalog={innerCatalog}>
+        return <div>Catalog</div>
+      }
+
+      mount(
+        <CatalogProvider catalog={testCatalog}>
+          <CatalogProvider catalog={innerCatalog}>
+            <Consumer />
+          </CatalogProvider>
+        </CatalogProvider>,
+      )
+
+      expect(verifyCatalog).toHaveBeenCalledWith(expected)
+    })
+
+    it('can prefix all cataloged components with the catalogPrefix', () => {
+      const Consumer = () => {
+        const catalog = useCatalog()
+        verifyCatalog(catalog)
+
+        return <div>Catalog</div>
+      }
+
+      const expected = {
+        _catalog: {
+          _TestComponent: TestComponent,
+        },
+        getComponent: expect.any(Function),
+        hasComponent: expect.any(Function),
+      }
+
+      mount(
+        <CatalogProvider catalog={testCatalog} catalogPrefix="_">
           <Consumer />
-        </CatalogProvider>
-      </CatalogProvider>,
-    )
+        </CatalogProvider>,
+      )
 
-    expect(verifyCatalog).toHaveBeenCalledWith(expected)
-  })
+      expect(verifyCatalog).toHaveBeenCalledWith(expected)
+    })
 
-  it('can prefix all cataloged components with the catalogPrefix', () => {
-    const Consumer = () => {
-      const catalog = useCatalog()
-      verifyCatalog(catalog)
+    it('can be nested within another CatalogProvider, and protected by prefixing cataloged components', () => {
+      const TestComponentTwo = () => <div>Different</div>
+      const Title = () => <h2>Hello</h2>
 
-      return <div>Catalog</div>
-    }
-
-    const expected = {
-      _catalog: {
-        _TestComponent: TestComponent,
-      },
-      getComponent: expect.any(Function),
-      hasComponent: expect.any(Function),
-    }
-
-    mount(
-      <CatalogProvider catalog={testCatalog} catalogPrefix="_">
-        <Consumer />
-      </CatalogProvider>,
-    )
-
-    expect(verifyCatalog).toHaveBeenCalledWith(expected)
-  })
-
-  it('can be nested within another CatalogProvider, and protected by prefixing cataloged components', () => {
-    const TestComponentTwo = () => <div>Different</div>
-    const Title = () => <h2>Hello</h2>
-
-    const innerCatalog = {
-      TestComponent: TestComponentTwo,
-      Title,
-    }
-
-    const expected = {
-      _catalog: {
-        // outer catalog has a prefix
-        _TestComponent: TestComponent,
-        // inner catalog has no prefix
+      const innerCatalog = {
         TestComponent: TestComponentTwo,
         Title,
-      },
-      getComponent: expect.any(Function),
-      hasComponent: expect.any(Function),
-    }
+      }
 
-    const Consumer = () => {
-      const catalog = useCatalog()
-      verifyCatalog(catalog)
+      const expected = {
+        _catalog: {
+          // outer catalog has a prefix
+          _TestComponent: TestComponent,
+          // inner catalog has no prefix
+          TestComponent: TestComponentTwo,
+          Title,
+        },
+        getComponent: expect.any(Function),
+        hasComponent: expect.any(Function),
+      }
 
-      return <div>Catalog</div>
-    }
+      const Consumer = () => {
+        const catalog = useCatalog()
+        verifyCatalog(catalog)
 
-    mount(
-      <CatalogProvider catalog={testCatalog} catalogPrefix="_">
-        <CatalogProvider catalog={innerCatalog}>
-          <Consumer />
-        </CatalogProvider>
-      </CatalogProvider>,
-    )
+        return <div>Catalog</div>
+      }
 
-    expect(verifyCatalog).toHaveBeenCalledWith(expected)
+      mount(
+        <CatalogProvider catalog={testCatalog} catalogPrefix="_">
+          <CatalogProvider catalog={innerCatalog}>
+            <Consumer />
+          </CatalogProvider>
+        </CatalogProvider>,
+      )
+
+      expect(verifyCatalog).toHaveBeenCalledWith(expected)
+    })
+  })
+
+  describe('debugging', () => {
+    describe('on DEV', () => {
+      it('tells the developer, when no catalog was provided', () => {
+        mount(<CatalogProvider catalog={null} />)
+        expect(console.error).toHaveBeenCalledTimes(1)
+        expect(console.error).toHaveBeenLastCalledWith(
+          '[CatalogProvider] must be rendered with a valid catalog property',
+        )
+      })
+
+      it('tells the developer, when no child was provided', () => {
+        mount(<CatalogProvider catalog={testCatalog} />)
+        expect(console.error).toHaveBeenCalledTimes(1)
+        expect(console.error).toHaveBeenLastCalledWith(
+          '[CatalogProvider] must contain at least one child',
+        )
+      })
+    })
+
+    describe('on PRODUCTION', () => {
+      beforeAll(() => {
+        ;(global as any).__DEV__ = false
+      })
+
+      afterAll(() => {
+        ;(global as any).__DEV__ = true
+      })
+
+      it('does not tell the developer, when no catalog was provided', () => {
+        mount(<CatalogProvider catalog={null} />)
+        expect(console.error).toHaveBeenCalledTimes(0)
+      })
+
+      it('does not tell the developer, when no child was provided', () => {
+        mount(<CatalogProvider catalog={testCatalog} />)
+        expect(console.error).toHaveBeenCalledTimes(0)
+      })
+    })
   })
 })

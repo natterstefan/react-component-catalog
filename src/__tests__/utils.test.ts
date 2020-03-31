@@ -1,22 +1,23 @@
-import { get } from '../utils'
+import { get, isValidCatalog } from '../utils'
+import Catalog from '../catalog'
 
 describe('utils', () => {
-  const obj = {
-    a: 1,
-    b: 2,
-    c: {
-      d: 3,
-      e: {
-        f: 4,
-      },
-    },
-  }
-
-  const objArray = {
-    a: [{ b: 1 }, { b: 2 }],
-  }
-
   describe('get', () => {
+    const obj = {
+      a: 1,
+      b: 2,
+      c: {
+        d: 3,
+        e: {
+          f: 4,
+        },
+      },
+    }
+
+    const objArray = {
+      a: [{ b: 1 }, { b: 2 }],
+    }
+
     it('returns undefined when path (nested or not) is not found', () => {
       expect(get(obj, 'ab')).toBeUndefined()
       expect(get(objArray, 'a[2].b')).toBeUndefined()
@@ -50,5 +51,21 @@ describe('utils', () => {
     it('returns value when nested path (with array) is found', () => {
       expect(get(objArray, 'a[0].b')).toStrictEqual(1)
     })
+  })
+
+  describe('isValidCatalog', () => {
+    it.each([undefined, null, false, {}, [], 1, 'string'])(
+      'returns false for invalid catalogs',
+      catalog => {
+        expect(isValidCatalog(catalog)).toBeFalsy()
+      },
+    )
+
+    it.each([new Catalog({}), new Catalog({ test: () => null })])(
+      'returns true for valid catalogs',
+      catalog => {
+        expect(isValidCatalog(catalog)).toBeTruthy()
+      },
+    )
   })
 })

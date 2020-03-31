@@ -22,6 +22,13 @@ describe('withCatalog', () => {
       TestComponent,
       TestButtonComponent,
     })
+
+    jest.spyOn(console, 'error')
+    ;(console as any).error.mockImplementation(jest.fn())
+  })
+
+  afterEach(() => {
+    ;(console as any).error.mockRestore()
   })
 
   it('has a proper default displayName for easier debugging etc.', () => {
@@ -39,7 +46,7 @@ describe('withCatalog', () => {
     expect(elem.name()).toStrictEqual('WithCatalog(TestButton)')
   })
 
-  it('renders a wrapped functional component properly', () => {
+  it('renders a wrapped component properly', () => {
     const wrapper = mount(
       <CatalogProvider catalog={testCatalog}>
         <TestComponent hello="world" />
@@ -51,16 +58,39 @@ describe('withCatalog', () => {
     expect(wrapper.find(TestComponent).text()).toStrictEqual('Hello World')
   })
 
-  it('renders a wrapped functional component properly, when no catalog is provided', () => {
-    const wrapper = mount(
-      <CatalogProvider catalog={null}>
-        <TestComponent hello="world" />
-      </CatalogProvider>,
-    )
+  it('renders wrapped component properly, even when withCatalog is no child of a CatalogProvider', () => {
+    const wrapper = mount(<TestComponent hello="world" />)
 
     // and the component itself
     expect(wrapper.find(TestComponent).prop('catalog')).toBeUndefined()
     expect(wrapper.find(TestComponent).text()).toStrictEqual('Hello World')
+  })
+
+  describe('debugging', () => {
+    describe('on DEV', () => {
+      it('tells the developer, when no child was provided', () => {
+        mount(<TestComponent hello="world" />)
+        expect(console.error).toHaveBeenCalledTimes(1)
+        expect(console.error).toHaveBeenLastCalledWith(
+          '[withCatalog] You are not using withCatalog in the context of a CatalogProvider with a proper catalog.',
+        )
+      })
+    })
+
+    describe('on PRODUCTION', () => {
+      beforeAll(() => {
+        ;(global as any).__DEV__ = false
+      })
+
+      afterAll(() => {
+        ;(global as any).__DEV__ = true
+      })
+
+      it('does not tell the developer, when no child was provided', () => {
+        mount(<TestComponent hello="world" />)
+        expect(console.error).toHaveBeenCalledTimes(0)
+      })
+    })
   })
 })
 

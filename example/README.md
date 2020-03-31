@@ -2,7 +2,7 @@
 
 ## Requirements
 
-Run at least once `npm build` in the root folder of this project and build
+Run at least once `yarn build` in the root folder of this project and build
 the package first. This example depends on it.
 
 ## Start
@@ -10,8 +10,8 @@ the package first. This example depends on it.
 Install all dependencies and start the server:
 
 ```bash
-npm i
-npm start
+yarn
+yarn start
 ```
 
 Then open [http://localhost:8000/base](http://localhost:8000/base) and check
