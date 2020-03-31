@@ -317,12 +317,12 @@ class App extends React.Component {
 
 ```sh
 # -- build the package --
-yarn i
+yarn
 yarn build
 ```
 
 ```sh
-# -- test the package --
+# -- test the package in a dedicated example setup --
 # prepare the example
 cd example
 rm -rf node_modules # this needs to be optimised by eg. using lernajs
