@@ -4,7 +4,7 @@ All notable changes to this project will be documented here. The format is based
 
 ## [2.0.0](https://github.com/natterstefan/react-component-catalog/compare/v2.0.0-beta.0...v2.0.0) (2020-07-22)
 
-⚠ BREAKING CHANGES
+### ⚠ BREAKING CHANGES
 
 - flat catalog (no extra components prop anymore) ([#49](https://github.com/natterstefan/react-component-catalog/issues/49)) ([ae69468](https://github.com/natterstefan/react-component-catalog/commit/ae694680b3cb326034513a6a22d5d912d0e38abe))
 
