@@ -323,26 +323,15 @@ yarn build
 ```
 
 ```sh
-# -- test the package in a dedicated example setup --
-# prepare the example
-cd example
-rm -rf node_modules # this needs to be optimised by eg. using lernajs
-yarn
-
+# -- test the package in an example app --
 # run the example in watch-mode
 yarn watch
 
-# or if you want to run them individually
-yarn watch-client
-yarn watch-server
-
 # or run the example in production mode
+cd packages/example
 yarn build
 yarn start
 ```
-
-Then open the [example](./example) folder and follow the setup instructions.
-Afterwards, you can see the package in action.
 
 ## How to release and publish the package
 

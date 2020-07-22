@@ -8,7 +8,8 @@
     "coveralls": "lerna run coveralls --scope react-component-catalog",
     "lint": "eslint --cache 'packages/**/*.{ts,tsx}' --quiet",
     "release": "cp LICENCE README.md packages/react-component-catalog && lerna run release --scope react-component-catalog",
-    "test": "FORCE_COLOR=1 lerna run test --stream"
+    "test": "FORCE_COLOR=1 lerna run test --stream",
+    "watch": "lerna run watch --scope react-component-catalog-example"
   },
   "devDependencies": {
     "@babel/cli": "7.8.4",
