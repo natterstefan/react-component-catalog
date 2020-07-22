@@ -34,10 +34,6 @@
     "build-umd": "BABEL_ENV=umd webpack --mode=production",
     "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
     "prebuild": "rimraf dist && rimraf es && rimraf esm && rimraf lib",
-    "prepublishOnly": "yarn prerelease",
-    "prerelease": "yarn build && yarn size && yarn test",
-    "release": "HUSKY_SKIP_HOOKS=1 standard-version",
-    "size": "size-limit",
     "test": "tsc -p tsconfig.test.json && jest --detectOpenHandles",
     "watch": "BABEL_ENV=esm babel --watch src --ignore **/@types/*,**/*.test.tsx,**/*.test.ts --out-dir esm --extensions '.ts,.tsx'",
     "watch-test": "jest --watch"
@@ -48,85 +44,6 @@
   },
   "peerDependencies": {
     "react": ">=16.8.3"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "prepare-commit-msg": "exec < /dev/tty && git cz --hook"
-    }
-  },
-  "lint-staged": {
-    "*.js": [
-      "yarn run lint",
-      "prettier --write",
-      "git update-index --again",
-      "jest --findRelatedTests"
-    ]
-  },
-  "size-limit": [
-    {
-      "limit": "13 KB",
-      "path": "dist/index.js",
-      "config": "./webpack.config.js",
-      "ignore": [
-        "react",
-        "react-dom"
-      ]
-    },
-    {
-      "limit": "6 KB",
-      "path": "lib/**/*.js"
-    },
-    {
-      "limit": "6 KB",
-      "path": "es/**/*.js"
-    },
-    {
-      "limit": "6 KB",
-      "path": "esm/**/*.js"
-    }
-  ],
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
-  },
-  "standard-version": {
-    "changelogHeader": "# React-Component-Catalog Changelog\n\nAll notable changes to this project will be documented here. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).\n\n",
-    "types": [
-      {
-        "type": "feat",
-        "section": "Features"
-      },
-      {
-        "type": "fix",
-        "section": "Fixes"
-      },
-      {
-        "type": "chore",
-        "hidden": true
-      },
-      {
-        "type": "docs",
-        "hidden": true
-      },
-      {
-        "type": "style",
-        "hidden": true
-      },
-      {
-        "type": "refactor",
-        "hidden": true
-      },
-      {
-        "type": "perf",
-        "hidden": true
-      },
-      {
-        "type": "test",
-        "hidden": true
-      }
-    ]
   },
   "repository": {
     "type": "git",
