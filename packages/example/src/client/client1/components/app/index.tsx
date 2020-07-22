@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from 'react'
 import CatalogComponent, { useCatalog } from 'react-component-catalog'
+
 import { catalog as outerCatalog, innerCatalog } from '../../catalog'
 
 type Catalog = typeof innerCatalog & typeof outerCatalog

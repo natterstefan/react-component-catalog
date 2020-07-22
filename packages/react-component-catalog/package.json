@@ -33,7 +33,6 @@
     "build-esm-types": "tsc -p tsconfig.build.json --outDir esm --module es2015 --target es5",
     "build-umd": "BABEL_ENV=umd webpack --mode=production",
     "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
-    "lint": "eslint --cache 'src/**/*.{ts,tsx}' --quiet",
     "prebuild": "rimraf dist && rimraf es && rimraf esm && rimraf lib",
     "prepublishOnly": "yarn prerelease",
     "prerelease": "yarn build && yarn size && yarn test",

@@ -2,6 +2,7 @@ import React, { ComponentType } from 'react'
 import hoistNonReactStatics from 'hoist-non-react-statics'
 
 import { isValidCatalog } from '../utils'
+
 import { useUNSAFECatalog } from './use-catalog'
 
 export const getDisplayName = (Component: ComponentType): string => {

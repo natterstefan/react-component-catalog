@@ -5,6 +5,8 @@
   "private": true,
   "scripts": {
     "build": "lerna run build --stream",
+    "coveralls": "lerna run coveralls --scope react-component-catalog",
+    "lint": "eslint --cache 'packages/**/*.{ts,tsx}' --quiet",
     "test": "FORCE_COLOR=1 lerna run test --stream"
   },
   "devDependencies": {
