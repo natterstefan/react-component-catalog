@@ -1,0 +1,45 @@
+{
+  "name": "react-component-catalog-example",
+  "description": "A working example for react-component-catalog",
+  "version": "0.0.1",
+  "author": "Stefan Natter <stefan@natter.at>",
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "components",
+    "registry"
+  ],
+  "main": "src/server/index.js",
+  "private": true,
+  "scripts": {
+    "build": "NODE_ENV=production BABEL_ENV=production webpack -p",
+    "prebuild": "rimraf dist",
+    "start": "node .",
+    "watch": "npm run watch-client | npm run watch-server",
+    "watch-client": "webpack --watch",
+    "watch-server": "nodemon --watch src"
+  },
+  "dependencies": {
+    "@babel/register": "7.9.0",
+    "@hapi/hapi": "^19.1.1",
+    "@hapi/inert": "^6.0.1",
+    "dotenv": "8.2.0",
+    "react": "16.8.3",
+    "react-component-catalog": "2.0.0-beta.0",
+    "react-dom": "16.8.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/natterstefan/react-component-catalog.git"
+  },
+  "bugs": {
+    "url": "https://github.com/natterstefan/react-component-catalog/issues"
+  },
+  "homepage": "https://github.com/natterstefan/react-component-catalog#readme",
+  "nodemonConfig": {
+    "delay": "1500",
+    "ignore": [
+      "*.d.ts"
+    ]
+  }
+}

@@ -1,9 +1,8 @@
-/* eslint-disable import/order */
 import React from 'react'
 import ReactDOM from 'react-dom'
+import CatalogComponent, { CatalogProvider } from 'react-component-catalog'
 
 import { App, catalog, innerCatalog } from './catalog'
-import CatalogComponent, { CatalogProvider } from 'react-component-catalog'
 
 /**
  * Showcase use of CatalogProvider, even nested ones that consume the previous

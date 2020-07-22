@@ -2,8 +2,8 @@ import React from 'react'
 
 import { ICatalog } from '../catalog'
 import { CatalogComponents } from '../types'
-
 import { isValidCatalog } from '../utils'
+
 import CatalogContext from './catalog-context'
 
 /**

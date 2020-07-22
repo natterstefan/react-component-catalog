@@ -3,6 +3,7 @@
 import React, { ReactNode, ComponentType, ComponentPropsWithRef } from 'react'
 
 import { isValidCatalog } from '../utils'
+
 import { useUNSAFECatalog } from './use-catalog'
 
 const LOG_PREFIX = '[CatalogComponent]'

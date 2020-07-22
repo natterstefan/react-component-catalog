@@ -22,7 +22,6 @@ export default async req => {
       </head>
       <body>
         <div id="_root"></div>
-        <script src="static/vendor.bundled.js" defer></script>
         <script src="static/${client}.bundled.js" defer></script>
       </body>
     </html>`

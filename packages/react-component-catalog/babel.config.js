@@ -1,6 +1,8 @@
 /* eslint-disable sort-keys */
-// inspired by
-// - https://github.com/mui-org/material-ui/blob/b62015a61a4dfef72dfcb79cef917d701d50469f/babel.config.js
+/**
+ * inspired by
+ * @see https://github.com/mui-org/material-ui/blob/b62015a61a4dfef72dfcb79cef917d701d50469f/babel.config.js
+ */
 let defaultPresets
 const environment = process.env.BABEL_ENV || 'umd'
 

@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const { join, resolve } = require('path')
+const { resolve } = require('path')
 
 const TerserPlugin = require('terser-webpack-plugin')
 
@@ -21,18 +20,7 @@ module.exports = {
       {
         exclude: /node_modules/,
         test: /\.(t|j)sx?$/,
-        loader: 'awesome-typescript-loader',
-        options: {
-          useBabel: true,
-          useCache: true,
-        },
-      },
-      // add source-map support
-      {
-        enforce: 'pre',
-        test: /\.js$/,
-        loader: 'source-map-loader',
-        exclude: [join(process.cwd(), 'node_modules')],
+        loader: 'ts-loader',
       },
     ],
   },
