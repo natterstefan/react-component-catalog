@@ -1,6 +1,6 @@
 <!--
-Please submit all PRs to the `master` branch unless they are specific to current
-release.
+Please submit all PRs to the `master` branch unless they are specific to the
+current current release.
 -->
 
 # Issue
@@ -21,10 +21,8 @@ Please explain what's new after this PR.
 ## How to test
 
 <!--
-
 - Is this testable with Jest?
 - Does this need an update to the documentation?
 
 If your answer is yes to any of these, please make sure to include it in your PR.
-
 -->
