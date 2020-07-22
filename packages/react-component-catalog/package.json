@@ -32,7 +32,6 @@
     "build-esm": "BABEL_ENV=esm babel src --ignore **/*.test.tsx,**/*.test.ts --out-dir esm --extensions '.ts,.tsx'",
     "build-esm-types": "tsc -p tsconfig.build.json --outDir esm --module es2015 --target es5",
     "build-umd": "BABEL_ENV=umd webpack --mode=production",
-    "coverage": "jest --coverage",
     "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
     "lint": "eslint --cache 'src/**/*.{ts,tsx}' --quiet",
     "prebuild": "rimraf dist && rimraf es && rimraf esm && rimraf lib",
@@ -40,8 +39,7 @@
     "prerelease": "yarn build && yarn size && yarn test",
     "release": "HUSKY_SKIP_HOOKS=1 standard-version",
     "size": "size-limit",
-    "test": "jest --detectOpenHandles && yarn test-types",
-    "test-types": "tsc --noEmit",
+    "test": "tsc -p tsconfig.test.json && jest --detectOpenHandles",
     "watch": "BABEL_ENV=esm babel --watch src --ignore **/@types/*,**/*.test.tsx,**/*.test.ts --out-dir esm --extensions '.ts,.tsx'",
     "watch-test": "jest --watch"
   },
@@ -50,7 +48,7 @@
     "hoist-non-react-statics": "^3.3.2"
   },
   "peerDependencies": {
-    "react": ">=16.8.3 <17"
+    "react": ">=16.8.3"
   },
   "husky": {
     "hooks": {
