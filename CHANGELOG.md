@@ -3,6 +3,15 @@
 All notable changes to this project will be documented here. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 
+## [2.0.0](https://github.com/natterstefan/react-component-catalog/compare/v2.0.0-beta.0...v2.0.0) (2020-07-22)
+
+
+### Features
+
+* unified handling of undefined catalog in all components ([#53](https://github.com/natterstefan/react-component-catalog/issues/53)) ([26bed89](https://github.com/natterstefan/react-component-catalog/commit/26bed894d5c585d4da7f0a6b94162d21d425f49c))
+* **ts:** properly type getComponent and hasComponent of ICatalog ([#52](https://github.com/natterstefan/react-component-catalog/issues/52)) ([4584408](https://github.com/natterstefan/react-component-catalog/commit/458440888f9f995e53dd15d21a266f8d41c3bfbb))
+* flat catalog (no extra components prop anymore) ([#49](https://github.com/natterstefan/react-component-catalog/issues/49)) ([ae69468](https://github.com/natterstefan/react-component-catalog/commit/ae694680b3cb326034513a6a22d5d912d0e38abe))
+
 ## [2.0.0-beta.0](https://github.com/natterstefan/react-component-catalog/compare/v1.3.0...v2.0.0-beta.0) (2019-12-15)
 
 
