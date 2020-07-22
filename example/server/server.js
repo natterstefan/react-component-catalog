@@ -1,5 +1,5 @@
-import Hapi from 'hapi'
-import inert from 'inert'
+import Hapi from '@hapi/hapi'
+import inert from '@hapi/inert'
 
 import render from './render'
 

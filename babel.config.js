@@ -22,7 +22,12 @@ if (environment === 'es') {
 
 module.exports = {
   comments: false,
-  presets: [...defaultPresets, '@babel/preset-react'],
+  presets: [
+    // use babel to create *.js files from *ts(x) ones
+    '@babel/preset-typescript',
+    ...defaultPresets,
+    '@babel/preset-react',
+  ],
   plugins: [
     '@babel/plugin-transform-modules-commonjs',
     '@babel/plugin-proposal-class-properties',

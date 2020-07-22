@@ -1,0 +1,15 @@
+{
+  /* inspired by https://github.com/marmelab/react-admin/blob/next/packages/ra-data-graphcool/tsconfig.json */
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "allowJs": true,
+    "lib": [
+      "es2017",
+      "dom"
+    ] /* Specify library files to be included in the compilation. */,
+    "noImplicitAny": false,
+    /* temporary workaround (https://stackoverflow.com/a/52404148/1238150) */
+    "skipLibCheck": true
+  },
+  "include": ["client/**/*", "server/**/*", "types/**/*"]
+}

@@ -4,17 +4,16 @@
 import React from 'react'
 import { render } from 'enzyme'
 
-import Catalog from '../lib/catalog'
-
-import CatalogComponent from './catalog-component'
-import CatalogProvider from './catalog-provider'
+import Catalog, { ICatalog } from '../../catalog'
+import CatalogComponent from '../catalog-component'
+import CatalogProvider from '../catalog-provider'
 
 const TestComponent = () => <div>Hello World</div>
 const BaseArticle = () => <div>Hello BaseArticle</div>
 
 describe('CatalogComponent', () => {
-  let backupError
-  let testCatalog
+  let backupError: () => void
+  let testCatalog: ICatalog<any>
 
   const components = {
     TestComponent,
@@ -22,17 +21,15 @@ describe('CatalogComponent', () => {
       BaseArticle,
     },
     Pages: {
-      NestedPage: () => null,
+      NestedPage: () => <div />,
       AnotherNestedPage: {
-        OtherPage: () => null,
+        OtherPage: () => <div />,
       },
     },
   }
 
   beforeEach(() => {
-    testCatalog = new Catalog({
-      components,
-    })
+    testCatalog = new Catalog(components)
 
     backupError = console.error
     console.error = jest.fn()
@@ -52,7 +49,7 @@ describe('CatalogComponent', () => {
     // test if the developer was notified
     expect(console.error).toHaveBeenCalledTimes(1)
     expect(console.error).toHaveBeenLastCalledWith(
-      'CatalogComponent: "NotAvailableComponent" not found in component catalog.',
+      '[CatalogComponent] "NotAvailableComponent" not found in component catalog.',
     )
   })
 })

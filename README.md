@@ -38,6 +38,79 @@ npx install-peerdeps --dev react-component-catalog
 yarn add react-component-catalog -D --peer
 ```
 
+## Upgrade from 1.x.x to 2.0.0
+
+### Catalog Data Structure changes
+
+When upgrading to 2.0.0, one needs to change the `Catalog`'s data structure.
+
+```diff
+// catalog.js
+- import { Catalog } from 'react-component-catalog'
+import Button from './button'
+
+-const catalog = new Catalog({
+-  components: {
+-    Button,
+-  },
+-})
++const catalog = {
++  Button,
++)
+
+export default catalog
+```
+
+### `CatalogProvider` changes
+
+Previously, `CatalogProvider` rendered it's children with an empty catalog, when
+none was provided. In 2.x it renders `null` instead. Same happens, when no
+child component is provided.
+
+```diff
+import { CatalogProvider } from 'react-component-catalog'
+import catalog from './catalog' // your apps catalog
+
+const App = () => (
+- <CatalogProvider catalog={new Catalog({ components: catalog })}>
++ <CatalogProvider catalog={catalog}>
+    <div>Hello</div>
+  </CatalogProvider>
+)
+```
+
+`CatalogProvider` accepts an object and no instance of `Catalog` anymore.
+
+### `useCatalog` and `catalog` changes
+
+`getComponent` does not return `null` anymore when a component is not found,
+instead it returns `undefined`.
+
+```diff
+import React from 'react'
+import CatalogComponent, { useCatalog } from 'react-component-catalog'
+
+const App = () => {
+- const { catalog } = useCatalog()
++ const catalog = useCatalog()
+
+- console.log('available components', catalog._components)
++ console.log('available components', catalog._catalog)
+
+  const Button = catalog.getComponent('Button')
+
+  // ...
+}
+```
+
+### `Catalog` changes
+
+`Catalog` is not exported anymore, so code like does not work anymore:
+
+```diff
+- import { Catalog } from 'react-catalog-component'
+```
+
 ## Basic Usage
 
 ### Create a Catalog
@@ -53,14 +126,11 @@ export default Button
 
 ```jsx
 // catalog.js
-import { Catalog } from 'react-component-catalog'
 import Button from './button'
 
-const catalog = new Catalog({
-  components: {
-    Button,
-  },
-})
+const catalog = {
+  Button,
+}
 
 export default catalog
 ```
@@ -75,22 +145,18 @@ You can add them to the catalog like this:
 
 ```jsx
 // catalog.js
-import { Catalog } from 'react-component-catalog'
-
 // different types of articles
 import AudioArticle from './audio-article'
 import BaseArticle from './base-article'
 import VideoArticle from './video-article'
 
-const catalog = new Catalog({
-  components: {
-    ArticlePage: {
-      AudioArticle,
-      BaseArticle,
-      VideoArticle,
-    },
+const catalog = {
+  ArticlePage: {
+    AudioArticle,
+    BaseArticle,
+    VideoArticle,
   },
-})
+}
 
 export default catalog
 ```
@@ -104,7 +170,7 @@ import CatalogComponent, { useCatalog } from 'react-component-catalog'
 
 const App = props => {
   const { isAudioArticle, isVideoArticle } = props
-  const { catalog } = useCatalog()
+  const catalog = useCatalog()
 
   // get the ArticlePage object from the catalog
   const ArticlePage = catalog.getComponent('ArticlePage')
@@ -153,19 +219,15 @@ overwrite the parent provider.
 
 ```js
 // setup catalogs
-const catalog = new Catalog({
-  components: {
-    OuterComponent: () => <div>OuterComponent</div>,
-    Title: ({ children }) => <h1>OuterTitle - {children}</h1>,
-  },
-})
+const catalog = {
+  OuterComponent: () => <div>OuterComponent</div>,
+  Title: ({ children }) => <h1>OuterTitle - {children}</h1>,
+}
 
-const innerCatalog = new Catalog({
-  components: {
-    InnerComponent: () => <div>InnerComponent</div>,
-    Title: ({ children }) => <h2>InnerTitle - {children}</h2>, // inner CatalogProvider overwrites Title of the outer catalog
-  },
-})
+const innerCatalog = {
+  InnerComponent: () => <div>InnerComponent</div>,
+  Title: ({ children }) => <h2>InnerTitle - {children}</h2>, // inner CatalogProvider overwrites Title of the outer catalog
+}
 
 // usage
 const App = () => (
@@ -191,7 +253,7 @@ import React from 'react'
 import CatalogComponent, { useCatalog } from 'react-component-catalog'
 
 const App = () => {
-  const { catalog } = useCatalog()
+  const catalog = useCatalog()
   const Button = catalog.getComponent('Button')
 
   // you can also first check if it exists
@@ -243,7 +305,7 @@ class App extends React.Component {
   render() {
     // or <CatalogComponent component="TestComponent" ref={this.setRef} />
     return (
-      <CatalogProvider catalog={new Catalog({ components: { TestComponent } })}>
+      <CatalogProvider catalog={{ TestComponent }}>
         <TestComponent ref={this.setRef} />
       </CatalogProvider>
     )
@@ -254,25 +316,28 @@ class App extends React.Component {
 ## How to build and test this package
 
 ```sh
-# -- build the package--
-npm i
-npm build
+# -- build the package --
+yarn
+yarn build
 ```
 
 ```sh
-# -- test the package --
-# run the example in watch-mode
+# -- test the package in a dedicated example setup --
+# prepare the example
 cd example
-npm run watch
+rm -rf node_modules # this needs to be optimised by eg. using lernajs
+yarn
+
+# run the example in watch-mode
+yarn watch
 
 # or if you want to run them individually
-npm run watch-client
-npm run watch-server
+yarn watch-client
+yarn watch-server
 
 # or run the example in production mode
-cd example
-npm run build
-npm run start
+yarn build
+yarn start
 ```
 
 Then open the [example](./example) folder and follow the setup instructions.
@@ -288,9 +353,10 @@ When you're ready to release, execute the following commands in the given order:
 
 1. `git checkout master`
 2. `git pull origin master`
-3. `npm run release`
+3. `yarn release --release-as major|minor|patch` (or for eg. beta releases:
+   `yarn release -- --prerelease beta --release-as major`)
 4. `git push --tags`
-5. `npm publish`
+5. `yarn publish`
 
 ### Links
 
@@ -300,6 +366,7 @@ When you're ready to release, execute the following commands in the given order:
 - [semantic-release](https://github.com/semantic-release/semantic-release)
   (standard-version alternative, with extended CI support)
 - [commitlint](https://github.com/conventional-changelog/commitlint)
+- [npm-dedupe when eg. multiple @types/\* versions are installed](https://docs.npmjs.com/cli/dedupe.html)
 
 ## Credits
 
