@@ -2,64 +2,53 @@
 
 All notable changes to this project will be documented here. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-
 ## [2.0.0](https://github.com/natterstefan/react-component-catalog/compare/v2.0.0-beta.0...v2.0.0) (2020-07-22)
 
+⚠ BREAKING CHANGES
+
+- flat catalog (no extra components prop anymore) ([#49](https://github.com/natterstefan/react-component-catalog/issues/49)) ([ae69468](https://github.com/natterstefan/react-component-catalog/commit/ae694680b3cb326034513a6a22d5d912d0e38abe))
 
 ### Features
 
-* unified handling of undefined catalog in all components ([#53](https://github.com/natterstefan/react-component-catalog/issues/53)) ([26bed89](https://github.com/natterstefan/react-component-catalog/commit/26bed894d5c585d4da7f0a6b94162d21d425f49c))
-* **ts:** properly type getComponent and hasComponent of ICatalog ([#52](https://github.com/natterstefan/react-component-catalog/issues/52)) ([4584408](https://github.com/natterstefan/react-component-catalog/commit/458440888f9f995e53dd15d21a266f8d41c3bfbb))
-* flat catalog (no extra components prop anymore) ([#49](https://github.com/natterstefan/react-component-catalog/issues/49)) ([ae69468](https://github.com/natterstefan/react-component-catalog/commit/ae694680b3cb326034513a6a22d5d912d0e38abe))
+- unified handling of undefined catalog in all components ([#53](https://github.com/natterstefan/react-component-catalog/issues/53)) ([26bed89](https://github.com/natterstefan/react-component-catalog/commit/26bed894d5c585d4da7f0a6b94162d21d425f49c))
+- **ts:** properly type getComponent and hasComponent of ICatalog ([#52](https://github.com/natterstefan/react-component-catalog/issues/52)) ([4584408](https://github.com/natterstefan/react-component-catalog/commit/458440888f9f995e53dd15d21a266f8d41c3bfbb))
 
 ## [2.0.0-beta.0](https://github.com/natterstefan/react-component-catalog/compare/v1.3.0...v2.0.0-beta.0) (2019-12-15)
 
-
 ### Features
 
-* js -> ts ([#47](https://github.com/natterstefan/react-component-catalog/issues/47)) ([a57e291](https://github.com/natterstefan/react-component-catalog/commit/a57e291e86e0d273bc168fafad584839bad77d61))
+- js -> ts ([#47](https://github.com/natterstefan/react-component-catalog/issues/47)) ([a57e291](https://github.com/natterstefan/react-component-catalog/commit/a57e291e86e0d273bc168fafad584839bad77d61))
 
 ## [1.3.0](https://github.com/natterstefan/react-component-catalog/compare/v1.2.0...v1.3.0) (2019-11-18)
 
-
 ### Features
 
-* fallbackComponent can also be selected from catalog now ([#48](https://github.com/natterstefan/react-component-catalog/issues/48)) ([6be75b1](https://github.com/natterstefan/react-component-catalog/commit/6be75b1512a3fb217b47b04517e575023a66cdc2))
+- fallbackComponent can also be selected from catalog now ([#48](https://github.com/natterstefan/react-component-catalog/issues/48)) ([6be75b1](https://github.com/natterstefan/react-component-catalog/commit/6be75b1512a3fb217b47b04517e575023a66cdc2))
 
 ## [1.2.0](https://github.com/natterstefan/react-component-catalog/compare/v1.1.1...v1.2.0) (2019-07-21)
 
-
 ### Features
 
-* disable/remove renovate (for now) ([319725e](https://github.com/natterstefan/react-component-catalog/commit/319725e))
-* **logging:** use babel-plugin-dev-expression for logging errors ([#41](https://github.com/natterstefan/react-component-catalog/issues/41)) ([6fdd918](https://github.com/natterstefan/react-component-catalog/commit/6fdd918))
-
-
+- disable/remove renovate (for now) ([319725e](https://github.com/natterstefan/react-component-catalog/commit/319725e))
+- **logging:** use babel-plugin-dev-expression for logging errors ([#41](https://github.com/natterstefan/react-component-catalog/issues/41)) ([6fdd918](https://github.com/natterstefan/react-component-catalog/commit/6fdd918))
 
 ### [1.1.1](https://github.com/natterstefan/react-component-catalog/compare/v1.1.0...v1.1.1) (2019-05-15)
 
-
 ### Bug Fixes
 
-* **utils:** return null when flattenObjectKeys receives invalid obj ([06081e5](https://github.com/natterstefan/react-component-catalog/commit/06081e5))
-
-
+- **utils:** return null when flattenObjectKeys receives invalid obj ([06081e5](https://github.com/natterstefan/react-component-catalog/commit/06081e5))
 
 ## [1.1.0](https://github.com/natterstefan/react-component-catalog/compare/v1.0.1...v1.1.0) (2019-05-14)
 
-
 ### Bug Fixes
 
-* **CatalogComponent:** Fix missing displayName ([fa3e14f](https://github.com/natterstefan/react-component-catalog/commit/fa3e14f))
-
+- **CatalogComponent:** Fix missing displayName ([fa3e14f](https://github.com/natterstefan/react-component-catalog/commit/fa3e14f))
 
 ### Features
 
-* **catalog:** Add new catalog.hasComponent function ([c4c10a2](https://github.com/natterstefan/react-component-catalog/commit/c4c10a2))
-* **catalog:** Allow nested components object in catalog ([ca236ad](https://github.com/natterstefan/react-component-catalog/commit/ca236ad))
-* **CatalogComponent:** CatalogComponent supports nested components ([369375b](https://github.com/natterstefan/react-component-catalog/commit/369375b))
-
-
+- **catalog:** Add new catalog.hasComponent function ([c4c10a2](https://github.com/natterstefan/react-component-catalog/commit/c4c10a2))
+- **catalog:** Allow nested components object in catalog ([ca236ad](https://github.com/natterstefan/react-component-catalog/commit/ca236ad))
+- **CatalogComponent:** CatalogComponent supports nested components ([369375b](https://github.com/natterstefan/react-component-catalog/commit/369375b))
 
 ## [1.0.1](https://github.com/natterstefan/react-component-catalog/compare/v1.0.0...v1.0.1) (2019/04/29)
 
@@ -71,7 +60,7 @@ All notable changes to this project will be documented here. The format is based
 
 ### Added
 
-- *Breaking*: `ref` support, thanks to [`React.forwardRef`](https://reactjs.org/docs/forwarding-refs.html)
+- _Breaking_: `ref` support, thanks to [`React.forwardRef`](https://reactjs.org/docs/forwarding-refs.html)
 
 ## 2019/03/28 0.6.1
 
