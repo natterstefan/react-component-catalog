@@ -14,18 +14,6 @@ module.exports = {
   },
   rules: {
     'import/extensions': 0,
-    'import/order': [
-      'error',
-      {
-        pathGroups: [
-          {
-            pattern: 'react-component-catalog',
-            group: 'external',
-            position: 'after',
-          },
-        ],
-      },
-    ],
     'no-underscore-dangle': 0,
     'sort-keys': 0,
 
@@ -63,6 +51,14 @@ module.exports = {
         // lets loosen the typescript rules in test files a little
         '@typescript-eslint/explicit-function-return-type': 0,
         '@typescript-eslint/no-explicit-any': 0,
+      },
+    },
+    {
+      files: ['webpack.*.js'],
+      rules: {
+        'import/no-extraneous-dependencies': 0,
+        'no-console': 0,
+        '@typescript-eslint/no-var-requires': 0,
       },
     },
   ],
