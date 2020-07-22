@@ -3,7 +3,6 @@ const path = require('path')
 module.exports = {
   extends: [
     'eslint-config-ns',
-    // add typescript specific linting rules and add prettier typescript support
     'plugin:@typescript-eslint/recommended',
     'prettier/@typescript-eslint',
   ],
@@ -13,6 +12,7 @@ module.exports = {
     __DEV__: true,
   },
   rules: {
+    // universal rules
     'import/extensions': 0,
     'no-underscore-dangle': 0,
     'sort-keys': 0,
@@ -62,15 +62,8 @@ module.exports = {
       },
     },
   ],
-  // required in the example-app
   settings: {
     'import/resolver': {
-      alias: {
-        map: [
-          ['react-component-catalog', path.resolve(__dirname, 'dist')],
-          ['Base', path.resolve(__dirname, 'example/client/base')],
-        ],
-      },
       node: {
         extensions: ['.js', '.jsx', '.ts', '.tsx', '.d.ts'],
       },

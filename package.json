@@ -4,9 +4,10 @@
   "license": "Apache-2.0",
   "private": true,
   "scripts": {
-    "build": "lerna run build --stream",
+    "build": "FORCE_COLOR=1 lerna run build --stream",
     "coveralls": "lerna run coveralls --scope react-component-catalog",
     "lint": "eslint --cache 'packages/**/*.{ts,tsx}' --quiet",
+    "release": "cp LICENCE README.md packages/react-component-catalog && lerna run release --scope react-component-catalog",
     "test": "FORCE_COLOR=1 lerna run test --stream"
   },
   "devDependencies": {

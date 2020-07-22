@@ -1,5 +1,5 @@
 packages/**/*.d.ts
-packages/dist
-packages/es
-packages/esm
-packages/lib
+packages/**/dist
+packages/**/es
+packages/**/esm
+packages/**/lib
