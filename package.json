@@ -1,66 +1,22 @@
 {
-  "name": "react-component-catalog",
+  "name": "react-component-catalog-monorepo",
   "author": "Stefan Natter <https://natterstefan.me>",
   "license": "Apache-2.0",
-  "version": "2.0.0",
-  "description": "Manage a catalog (registry) of react-components easily.",
-  "keywords": [
-    "react-components",
-    "react-registry",
-    "react-catalog",
-    "registry",
-    "catalog",
-    "components",
-    "react"
-  ],
-  "main": "lib/index.js",
-  "module": "esm/index.js",
-  "types": "esm/index.d.ts",
-  "files": [
-    "dist",
-    "es",
-    "esm",
-    "lib"
-  ],
+  "private": true,
   "scripts": {
-    "build": " yarn run build-types && yarn run build-cjs && yarn run build-es && yarn run build-esm && yarn run build-umd",
-    "build-types": "yarn run build-cjs-types && yarn run build-es-types && yarn run build-esm-types",
-    "build-cjs": "BABEL_ENV=cjs babel src --ignore **/*.test.tsx,**/*.test.ts --out-dir lib --extensions '.ts,.tsx'",
-    "build-cjs-types": "tsc --outDir lib --module commonjs --target es5 -d --emitDeclarationOnly",
-    "build-es": "BABEL_ENV=es babel src --ignore **/*.test.tsx,**/*.test.ts --out-dir es --extensions '.ts,.tsx'",
-    "build-es-types": "tsc  --outDir es --module es2015 --target es2015 -d --emitDeclarationOnly",
-    "build-esm": "BABEL_ENV=esm babel src --ignore **/*.test.tsx,**/*.test.ts --out-dir esm --extensions '.ts,.tsx'",
-    "build-esm-types": "tsc --outDir esm --module es2015 --target es5 -d --emitDeclarationOnly",
-    "build-umd": "BABEL_ENV=umd webpack --mode=production",
-    "coverage": "jest --coverage",
-    "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
-    "lint": "eslint --cache 'src/**/*.{ts,tsx}' --quiet",
-    "prebuild": "rimraf dist && rimraf es && rimraf esm && rimraf lib",
-    "prepublishOnly": "yarn prerelease",
-    "prerelease": "yarn build && yarn size && yarn test",
-    "release": "HUSKY_SKIP_HOOKS=1 standard-version",
-    "size": "size-limit",
-    "test": "jest --detectOpenHandles && yarn test-types",
-    "test-types": "tsc --noEmit",
-    "watch": "BABEL_ENV=esm babel --watch src --ignore **/@types/*,**/*.test.tsx,**/*.test.ts --out-dir esm --extensions '.ts,.tsx'",
-    "watch-test": "jest --watch"
-  },
-  "dependencies": {
-    "@types/hoist-non-react-statics": "^3.3.1",
-    "hoist-non-react-statics": "^3.3.2"
-  },
-  "peerDependencies": {
-    "react": ">=16.8.3 <17"
+    "build": "lerna run build --stream",
+    "test": "FORCE_COLOR=1 lerna run test --stream"
   },
   "devDependencies": {
     "@babel/cli": "7.8.4",
-    "@babel/core": "7.8.4",
-    "@babel/plugin-proposal-class-properties": "7.8.3",
-    "@babel/plugin-proposal-object-rest-spread": "7.8.3",
-    "@babel/plugin-transform-modules-commonjs": "7.8.3",
-    "@babel/preset-env": "7.8.4",
-    "@babel/preset-react": "7.8.3",
-    "@babel/preset-typescript": "7.8.3",
+    "@babel/core": "7.9.0",
+    "@babel/plugin-proposal-class-properties": "^7.10.1",
+    "@babel/plugin-proposal-object-rest-spread": "7.9.5",
+    "@babel/plugin-transform-modules-commonjs": "7.9.0",
+    "@babel/preset-env": "7.9.5",
+    "@babel/preset-react": "7.9.4",
+    "@babel/preset-typescript": "7.9.0",
+    "@babel/runtime-corejs3": "^7.10.2",
     "@size-limit/preset-small-lib": "4.0.1",
     "@types/enzyme": "3.10.5",
     "@types/enzyme-adapter-react-16": "1.0.6",
@@ -69,12 +25,11 @@
     "@types/react-dom": "16.9.5",
     "@typescript-eslint/eslint-plugin": "2.19.2",
     "@typescript-eslint/parser": "2.19.2",
-    "awesome-typescript-loader": "5.2.1",
-    "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "10.0.3",
-    "babel-loader": "8.0.6",
+    "babel-loader": "8.1.0",
     "babel-plugin-dev-expression": "0.2.2",
     "commitizen": "4.0.3",
+    "core-js": "3.6.5",
     "coveralls": "3.0.9",
     "cz-conventional-changelog": "3.1.0",
     "enzyme": "3.11.0",
@@ -92,7 +47,9 @@
     "eslint-plugin-react-hooks": "2.3.0",
     "husky": "4.2.3",
     "jest": "25.1.0",
+    "lerna": "^3.20.2",
     "lint-staged": "10.0.7",
+    "nodemon": "^2.0.4",
     "prettier": "1.19.1",
     "react": "16.8.3",
     "react-dom": "16.8.3",
@@ -100,97 +57,15 @@
     "size-limit": "^4.0.1",
     "source-map-loader": "0.2.4",
     "standard-version": "7.1.0",
-    "terser-webpack-plugin": "2.3.4",
+    "terser-webpack-plugin": "2.3.5",
     "ts-jest": "25.2.0",
-    "typescript": "3.7.5",
-    "webpack": "4.41.6",
+    "ts-loader": "^6.2.2",
+    "tsconfig-paths-webpack-plugin": "^3.2.0",
+    "typescript": "3.8.3",
+    "webpack": "4.42.1",
     "webpack-cli": "3.3.11"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "prepare-commit-msg": "exec < /dev/tty && git cz --hook"
-    }
-  },
-  "lint-staged": {
-    "*.js": [
-      "yarn run lint",
-      "prettier --write",
-      "git update-index --again",
-      "jest --findRelatedTests"
-    ]
-  },
-  "size-limit": [
-    {
-      "limit": "13 KB",
-      "path": "dist/index.js",
-      "config": "./webpack.config.js",
-      "ignore": [
-        "react",
-        "react-dom"
-      ]
-    },
-    {
-      "limit": "6 KB",
-      "path": "lib/**/*.js"
-    },
-    {
-      "limit": "6 KB",
-      "path": "es/**/*.js"
-    },
-    {
-      "limit": "6 KB",
-      "path": "esm/**/*.js"
-    }
-  ],
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
-  },
-  "standard-version": {
-    "changelogHeader": "# React-Component-Catalog Changelog\n\nAll notable changes to this project will be documented here. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).\n\n",
-    "types": [
-      {
-        "type": "feat",
-        "section": "Features"
-      },
-      {
-        "type": "fix",
-        "section": "Fixes"
-      },
-      {
-        "type": "chore",
-        "hidden": true
-      },
-      {
-        "type": "docs",
-        "hidden": true
-      },
-      {
-        "type": "style",
-        "hidden": true
-      },
-      {
-        "type": "refactor",
-        "hidden": true
-      },
-      {
-        "type": "perf",
-        "hidden": true
-      },
-      {
-        "type": "test",
-        "hidden": true
-      }
-    ]
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/natterstefan/react-component-catalog.git"
-  },
-  "bugs": {
-    "url": "https://github.com/natterstefan/react-component-catalog/issues"
-  },
-  "homepage": "https://github.com/natterstefan/react-component-catalog#readme"
+  "workspaces": [
+    "packages/*"
+  ]
 }
