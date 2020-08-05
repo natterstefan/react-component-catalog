@@ -1,16 +1,21 @@
 import React, { FunctionComponent } from 'react'
 import CatalogComponent, { useCatalog } from 'react-component-catalog'
 
-import { catalog as outerCatalog, innerCatalog } from '../../catalog'
-
-type Catalog = typeof innerCatalog & typeof outerCatalog
-
 const FallbackComponent: FunctionComponent = () => (
   <div>Component not found</div>
 )
 
 const App: FunctionComponent = () => {
-  const catalog = useCatalog<Catalog>()
+  /**
+   * CatalogComponents was customized thanks to Module Augmentation.
+   * @see packages/example/src/react-component-catalog.d.ts
+   *
+   * Docs:
+   * @see https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation
+   */
+  const catalog = useCatalog()
+  // You can also provide a custom interface or type:
+  // const catalog = useCatalog<{ Button: FunctionComponent }>()
   const hasButton = catalog.hasComponent('Button')
 
   let Button

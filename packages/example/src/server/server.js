@@ -1,4 +1,5 @@
-import 'core-js'
+/* eslint-disable no-console */
+import 'core-js/stable'
 import 'regenerator-runtime/runtime'
 
 import Hapi from '@hapi/hapi'
@@ -49,8 +50,7 @@ async function startServer() {
     await server.start()
     console.log(
       `Server running at: ${server.info.uri}`,
-      '\n- Open base: http://localhost:8000/base',
-      '\n- Open client: http://localhost:8000/client1',
+      '\n- Open Website: http://localhost:8000',
     )
   } catch (err) {
     console.error(err)

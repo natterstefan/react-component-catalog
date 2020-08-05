@@ -1,7 +1,7 @@
 import { get, PropertyPath } from './utils'
 import { CatalogComponents } from './types'
 
-export interface ICatalog<T extends CatalogComponents> {
+export interface ICatalog<T extends {} = CatalogComponents> {
   // contains the raw catalog
   _catalog: T
   /**
@@ -95,7 +95,7 @@ export interface ICatalog<T extends CatalogComponents> {
   hasComponent(component: PropertyPath): boolean
 }
 
-export class Catalog<T extends CatalogComponents> implements ICatalog<T> {
+export class Catalog<T extends {} = CatalogComponents> implements ICatalog<T> {
   public _catalog: T
 
   constructor(catalog: T) {

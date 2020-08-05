@@ -15,10 +15,10 @@ import CatalogContext from './catalog-context'
  * const Button = catalog.getComponent("button")
  * ```
  */
-export const useCatalog = <T extends CatalogComponents>(): ICatalog<
+export const useCatalog = <T extends {} = CatalogComponents>(): ICatalog<
   T
 > | null => {
-  const catalog = React.useContext(CatalogContext)
+  const catalog = React.useContext<ICatalog<T>>(CatalogContext)
 
   if (!isValidCatalog(catalog)) {
     if (__DEV__) {
@@ -30,12 +30,14 @@ export const useCatalog = <T extends CatalogComponents>(): ICatalog<
     return null
   }
 
-  return catalog as ICatalog<T>
+  return catalog
 }
 
 /**
- * ATTENTION: only use internally, do not export for users of this lib!
+ * ATTENTION: only use _internally_, do not export for users of this lib!
+ *
+ * We do not use `CatalogComponents` here, because this hook is used when the
+ * types of the `ICatalog` components are not relevant.
  */
-export const useUNSAFECatalog = <T extends CatalogComponents>():
-  | ICatalog<T>
-  | undefined => React.useContext(CatalogContext as any)
+export const useUNSAFECatalog = <T extends {}>(): ICatalog<T> | undefined =>
+  React.useContext(CatalogContext)

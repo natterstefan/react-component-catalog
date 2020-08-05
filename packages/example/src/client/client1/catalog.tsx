@@ -1,8 +1,6 @@
 /* eslint-disable import/order */
 import React, { FunctionComponent } from 'react'
 
-import App from './components/app'
-
 // base components (or from other clients if you like)
 import Button from '../base/components/button'
 /**
@@ -25,7 +23,6 @@ const InnerTitle: FunctionComponent = ({ children }) => (
 )
 
 const catalog = {
-  App,
   Button,
   OuterComponent,
   Title: OuterTitle,
@@ -37,4 +34,4 @@ const innerCatalog = {
   Title: InnerTitle,
 }
 
-export { App, catalog, innerCatalog }
+export { catalog, innerCatalog }

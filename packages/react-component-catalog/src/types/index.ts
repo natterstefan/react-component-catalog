@@ -1,11 +1,14 @@
 /* eslint-disable no-redeclare */
 /* eslint-disable @typescript-eslint/interface-name-prefix */
 /* eslint-disable @typescript-eslint/no-empty-interface */
-/* eslint-disable @typescript-eslint/interface-name-prefix */
 /**
  * This interface can be augmented by users to add types to
  * `react-component-catalog`'s default catalog
  * @see https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation
+ *
+ * ## Examples
+ * @see https://blog.agney.dev/styled-components-&-typescript/
+ * @see https://github.com/DefinitelyTyped/DefinitelyTyped/blob/9e6f0ec7864b60b9a42b654d250dbe4207398c66/types/styled-components/index.d.ts#L405-L412
  */
 export interface CatalogComponents {}
 

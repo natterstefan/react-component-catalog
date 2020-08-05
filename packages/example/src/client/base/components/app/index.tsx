@@ -1,16 +1,17 @@
 import React from 'react'
+import CatalogComponent from 'react-component-catalog'
 
-// base components can be imported without a registry
-import Button from '../button'
-import Title from '../title'
+import { CLIENTS } from '../../config'
 
 const App = () => (
   <div>
-    <Title>Hello Base</Title>
-    <Button />
-    <p>
-      <a href="/client1">Open Client 1</a>
-    </p>
+    <CatalogComponent component="Title">Hello Base</CatalogComponent>
+    <CatalogComponent component="Button" />
+    {CLIENTS.map(client => (
+      <p key={client}>
+        <a href={`/${client}`}>Open {client}</a>
+      </p>
+    ))}
   </div>
 )
 
