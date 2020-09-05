@@ -6,7 +6,7 @@ import { CatalogComponents } from '../types'
 import CatalogContext from './catalog-context'
 import { useUNSAFECatalog } from './use-catalog'
 
-interface IProps<T extends {} = CatalogComponents> {
+interface IProps<T extends CatalogComponents = CatalogComponents> {
   // the catalog you want to provided with the CatalogProvider
   catalog: T
   // prefix the given catalog allows nesting multiple catalogs within one app
@@ -22,7 +22,7 @@ interface IProps<T extends {} = CatalogComponents> {
  * Provide the `catalog` to an entire react component tree. Read more about
  * React context here: https://reactjs.org/docs/context.html
  */
-const CatalogProvider = <T extends {} = CatalogComponents>(
+const CatalogProvider = <T extends CatalogComponents = CatalogComponents>(
   props: IProps<T>,
 ): JSX.Element => {
   const { catalog, catalogPrefix, children } = props
