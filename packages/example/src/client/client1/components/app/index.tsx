@@ -18,21 +18,21 @@ const App: FunctionComponent = () => {
   // const catalog = useCatalog<{ Button: FunctionComponent }>()
   const hasButton = catalog.hasComponent('Button')
 
-  let Button
-  if (hasButton) {
-    Button = catalog.getComponent('Button')
-    // this would work too:
-    // const Button = catalog.getComponent(['Button'])
-  }
+  // this would work too:
+  // const Button = catalog.getComponent(['Button'])
+  const Button = hasButton ? catalog.getComponent('Button') : null
 
   // or you use them with the <CatalogComponent /> component
   return (
     <div>
       <CatalogComponent component="Title">Hello Client1</CatalogComponent>
-      <CatalogComponent component="Card" fallbackComponent={FallbackComponent}>
+      <CatalogComponent<any>
+        component={['Card']}
+        fallbackComponent={FallbackComponent}
+      >
         Hello Card
       </CatalogComponent>
-      {Button && <Button />}
+      {Button && <Button text="Click Me!" />}
       <p>
         <a href="/">Open Base</a>
       </p>
