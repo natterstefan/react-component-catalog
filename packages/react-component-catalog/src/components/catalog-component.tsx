@@ -15,8 +15,13 @@ const LOG_PREFIX = '[CatalogComponent]'
 
 interface IProps<T> {
   /**
-   * Represents the path in the catalog of the requested component, basically
-   * whatever `catalog.getComponent` supports can be used here.
+   * Path to the required component in the catalog. component can take any
+   * value supported by `catalog.getComponent`.
+   *
+   * ### Note
+   * The `CatalogComponents` interface matches last, because until its
+   * augmented it matches everything.
+   * @see https://stackoverflow.com/a/58512513/1238150
    */
   component: T extends Record<string, any>
     ? keyof T
