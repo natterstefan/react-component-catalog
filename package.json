@@ -16,8 +16,9 @@
     "postrelease": "cp LICENCE README.md CHANGELOG.md packages/react-component-catalog",
     "postinstall": "yarn build",
     "size": "size-limit",
+    "start": "FORCE_COLOR=1 lerna run start --scope react-component-catalog-example --stream",
     "test": "FORCE_COLOR=1 lerna run test --stream",
-    "watch": "FORCE_COLOR=1 lerna run watch --scope react-component-catalog-example"
+    "watch": "FORCE_COLOR=1 lerna run watch --scope react-component-catalog-example --stream"
   },
   "devDependencies": {
     "@babel/cli": "7.10.5",

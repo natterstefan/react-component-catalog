@@ -5,6 +5,9 @@ const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
 require('dotenv').config()
 
+const mode = process.env.BABEL_ENV || process.env.NODE_ENV || 'development'
+const isProduction = mode === 'production'
+
 const bundle = client => ({
   [`${client}.bundled.js`]: [
     'core-js',
@@ -23,7 +26,7 @@ module.exports = {
     filename: '[name]',
     path: resolve(__dirname, './dist/static'),
   },
-  mode: process.env.BABEL_ENV || process.env.NODE_ENV || 'development',
+  mode,
   module: {
     rules: [
       {
@@ -51,7 +54,7 @@ module.exports = {
      * @see https://reactjs.org/docs/codebase-overview.html#development-and-production
      */
     new webpack.DefinePlugin({
-      __DEV__: process.env.NODE_ENV !== 'production',
+      __DEV__: !isProduction,
     }),
   ],
 }

@@ -14,9 +14,9 @@
   "scripts": {
     "build": "NODE_ENV=production BABEL_ENV=production webpack -p",
     "prebuild": "rimraf dist",
-    "start": "node .",
+    "start": "NODE_ENV=production node .",
     "test": "tsc -p tsconfig.test.json",
-    "watch": "npm run watch-client | npm run watch-server",
+    "watch": "NODE_ENV=development npm run watch-client | npm run watch-server",
     "watch-client": "webpack --watch",
     "watch-server": "nodemon --watch src"
   },
