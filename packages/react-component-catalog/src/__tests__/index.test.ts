@@ -1,7 +1,6 @@
 import CatalogComponentPart from '../components/catalog-component'
 import CatalogProviderPart from '../components/catalog-provider'
 import withCatalogPart from '../components/with-catalog'
-
 import ReactComponentCatalog, {
   CatalogComponent,
   CatalogProvider,

@@ -70,8 +70,9 @@ const CatalogComponent = React.forwardRef<any, IProps<any>>((props, ref) => {
     return null
   }
 
-  // or catalog.getComponent<ComponentType<PropsWithRef<any>>>(component)
-  const Component = catalog.getComponent(component)
+  const Component = catalog.getComponent<ComponentType<PropsWithRef<any>>>(
+    component,
+  )
   if (Component) {
     return <Component {...others} ref={ref} />
   }
