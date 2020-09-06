@@ -15,6 +15,7 @@ const FallbackFromCatalog: FunctionComponent = () => (
   <div>FallbackFromCatalog</div>
 )
 
+// TestCatalog can be nested too
 type TestCatalog = {
   [name: string]: JSX.Element | FunctionComponent | TestCatalog
 }
@@ -23,7 +24,7 @@ describe('CatalogComponent', () => {
   let testCatalog: TestCatalog = null
   let emptyTestCatalog: TestCatalog = null
 
-  const components = {
+  const components: TestCatalog = {
     FallbackFromCatalog,
     TestComponent,
     ArticlePage: {
@@ -50,7 +51,7 @@ describe('CatalogComponent', () => {
   })
 
   it('has a a proper displayName for easier debugging etc.', () => {
-    expect(CatalogComponent.displayName).toStrictEqual('CatalogComponent')
+    expect(CatalogComponent.displayName).toStrictEqual('CatalogComponentRef')
   })
 
   it('renders a requested component fully functional', () => {
@@ -171,7 +172,7 @@ describe('CatalogComponent', () => {
     expect(wrapper.find(FallbackFromCatalog)).toHaveLength(1)
   })
 
-  it('renders null, when the requested component and the fallbackComponent does not exist', () => {
+  it('renders nothing, when the requested component and the fallbackComponent does not exist', () => {
     const wrapper = mount(
       <CatalogProvider catalog={testCatalog}>
         <CatalogComponent
@@ -181,25 +182,25 @@ describe('CatalogComponent', () => {
       </CatalogProvider>,
     )
 
-    expect(wrapper.find(CatalogComponent).html()).toBeNull()
+    expect(wrapper.find(CatalogComponent).html()).toStrictEqual('')
   })
 
-  it('renders null, when the requested component does not exist and no fallbackComponent was provided', () => {
+  it('renders nothing, when the requested component does not exist and no fallbackComponent was provided', () => {
     const wrapper = mount(
       <CatalogProvider catalog={testCatalog}>
         <CatalogComponent component="NotAvailableComponent" />
       </CatalogProvider>,
     )
 
-    expect(wrapper.find(CatalogComponent).html()).toBeNull()
+    expect(wrapper.find(CatalogComponent).html()).toStrictEqual('')
   })
 
-  it('renders null, when the catalog context does not exist', () => {
+  it('renders nothing, when the catalog context does not exist', () => {
     const wrapper = mount(
       <CatalogComponent component="NotAvailableComponent" />,
     )
 
-    expect(wrapper.find(CatalogComponent).html()).toBeNull()
+    expect(wrapper.find(CatalogComponent).html()).toStrictEqual('')
   })
 
   describe('debugging on DEV', () => {
