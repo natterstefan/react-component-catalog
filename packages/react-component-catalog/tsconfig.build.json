@@ -2,7 +2,8 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "declaration": true,
-    "emitDeclarationOnly": true
+    "emitDeclarationOnly": true,
+    "incremental": true
   },
   "include": ["src"],
   "exclude": ["**/*.test.ts", "**/*.test.tsx", "node_modules"]
