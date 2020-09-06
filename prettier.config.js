@@ -1,0 +1,20 @@
+module.exports = {
+  printWidth: 80,
+  semi: false,
+  singleQuote: true,
+  trailingComma: 'all',
+  overrides: [
+    {
+      files: 'package*.json',
+      options: {
+        printWidth: 1000,
+      },
+    },
+    {
+      files: '*.yml',
+      options: {
+        singleQuote: false,
+      },
+    },
+  ],
+}

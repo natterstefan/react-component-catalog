@@ -1,0 +1,28 @@
+{
+  /**
+   * Example configurations
+   * @see https://github.com/dan-kez/lerna-webpack-example/blob/master/tsconfig.settings.json
+   * @see https://github.com/dan-kez/lerna-webpack-example/blob/master/packages/router/tsconfig.json
+   *
+   * inspired by
+   * @see https://github.com/marmelab/react-admin/blob/next/packages/ra-data-graphcool/tsconfig.json
+   * @see https://github.com/marmelab/react-admin/blob/90f8efbd37361c72d776e1c2e726079ed0e59a17/tsconfig.json*/
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "allowJs": true,
+    "declaration": false,
+    "declarationMap": false,
+    "noImplicitAny": false
+  },
+  "include": ["src"],
+  /**
+   * "build each package separately and intelligently cache the result. This
+   * allows you to only build what is necessary after a change."
+   * @see https://stackoverflow.com/a/59776114/1238150
+   */
+  "references": [
+    {
+      "path": "../react-component-catalog"
+    }
+  ]
+}

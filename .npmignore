@@ -3,11 +3,13 @@
 .vscode
 
 # tests and example files
-coverage
-example
-__test__
-__tests__
-*.test.js
+packages/example
+packages/**/coverage
+packages/**/__test__
+packages/**/__tests__
+packages/**/*.test.js
+packages/**/*.test.ts
+packages/**/*.test.tsx
 
 # logs and development
 *.log

@@ -7,6 +7,7 @@
 [![Dependencies](https://img.shields.io/david/natterstefan/react-component-catalog.svg)](https://github.com/natterstefan/react-component-catalog/blob/master/package.json)
 [![Known Vulnerabilities](https://snyk.io/test/github/natterstefan/react-component-catalog/badge.svg)](https://snyk.io/test/github/natterstefan/react-component-catalog)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 
 [React-Component-Catalog](https://github.com/natterstefan/react-component-catalog)
 is a library for individually registering, retrieving, and rendering React
@@ -110,6 +111,40 @@ const App = () => {
 ```diff
 - import { Catalog } from 'react-catalog-component'
 ```
+
+### `CatalogComponent` and Module Augmentation
+
+The `CatalogComponents` interface can be augmented to add more typing support.
+
+```tsx
+// react-component-catalog.d.ts
+declare module 'react-component-catalog' {
+  export interface CatalogComponents {
+    Title: React.FunctionComponent<{}>
+  }
+}
+```
+
+Whenever you use the `CatalogComponent` now you can do the following to get full
+typing support (_opt-in feature_). When you do not provide the interface, any
+`string`, `string[]` or `Record<string, any>` value for `component` is allowed.
+
+```tsx
+const App = () => (
+  <CatalogComponent<CatalogComponents> component="Title">
+    Hello World
+  </CatalogComponent>
+)
+
+// this works too, but `component` has no typing support
+const App = () => (
+  <CatalogComponent component="Title">Hello Base</CatalogComponent>
+)
+```
+
+_Attention:_ it is recommended to use `CatalogComponents` only when it was
+augmented. Because it represents an empty interface and without adding your own
+custom properties it will [match everything](https://stackoverflow.com/a/58512513/1238150).
 
 ## Basic Usage
 
@@ -322,26 +357,15 @@ yarn build
 ```
 
 ```sh
-# -- test the package in a dedicated example setup --
-# prepare the example
-cd example
-rm -rf node_modules # this needs to be optimised by eg. using lernajs
-yarn
-
+# -- test the package in an example app --
 # run the example in watch-mode
 yarn watch
 
-# or if you want to run them individually
-yarn watch-client
-yarn watch-server
-
 # or run the example in production mode
+cd packages/example
 yarn build
 yarn start
 ```
-
-Then open the [example](./example) folder and follow the setup instructions.
-Afterwards, you can see the package in action.
 
 ## How to release and publish the package
 
@@ -367,6 +391,8 @@ When you're ready to release, execute the following commands in the given order:
   (standard-version alternative, with extended CI support)
 - [commitlint](https://github.com/conventional-changelog/commitlint)
 - [npm-dedupe when eg. multiple @types/\* versions are installed](https://docs.npmjs.com/cli/dedupe.html)
+- [React Type Reference](https://flow.org/en/docs/react/types/)
+- [Generics while using React.forwardRef](https://stackoverflow.com/a/58473012/1238150)
 
 ## Credits
 

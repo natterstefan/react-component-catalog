@@ -1,1 +1,5 @@
-src/**/*.d.ts
+packages/**/*.d.ts
+packages/**/dist
+packages/**/es
+packages/**/esm
+packages/**/lib
