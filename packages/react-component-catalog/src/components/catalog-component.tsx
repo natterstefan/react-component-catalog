@@ -14,9 +14,11 @@ import { useUNSAFECatalog } from './use-catalog'
 const LOG_PREFIX = '[CatalogComponent]'
 
 interface IProps<T> {
-  // represents the path in the catalog of the requested component
-  // basically whatever catalog.getComponent supports can be used here
-  component: T extends Record<string, any> // T can also be an Object or an Array
+  /**
+   * Represents the path in the catalog of the requested component, basically
+   * whatever `catalog.getComponent` supports can be used here.
+   */
+  component: T extends Record<string, any>
     ? keyof T
     : T extends (infer R)[]
     ? R
@@ -25,14 +27,20 @@ interface IProps<T> {
     : T extends CatalogComponents
     ? keyof CatalogComponents
     : unknown
-  // when no component is found, a fallbackComponent is rendered instead
+  /**
+   * when no component is found, a fallbackComponent is rendered instead
+   */
   fallbackComponent?: ComponentType<ComponentPropsWithRef<any>> | string
-  // any other component property is just taken as is
+  /**
+   * any other component property is just taken as is
+   */
   [property: string]: any
 }
 
-// see comment of CatalogComponentRef, it represents the actual comment of
-// CatalogComponent
+/**
+ * see comment of CatalogComponentRef, it represents the actual comment of
+ * CatalogComponent
+ */
 const CatalogComponent = React.forwardRef<any, IProps<any>>((props, ref) => {
   const {
     // catalog props

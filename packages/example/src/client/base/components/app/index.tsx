@@ -12,6 +12,7 @@ const App: FunctionComponent = () => (
       Hello Base 2
     </CatalogComponent>
     <CatalogComponent<{ Test: ReactNode }> component="Test" />
+    {/* `any` is not necessary, but for the sake of completeness it is also shown. */}
     <CatalogComponent<any> component="Something" />
     {CLIENTS.map(client => (
       <p key={client}>

@@ -11,6 +11,13 @@
  * ## Examples
  * @see https://blog.agney.dev/styled-components-&-typescript/
  * @see https://github.com/DefinitelyTyped/DefinitelyTyped/blob/9e6f0ec7864b60b9a42b654d250dbe4207398c66/types/styled-components/index.d.ts#L405-L412
+ *
+ * ## Notes
+ * `interface CatalogComponents extends Record<string, any>` doesn't work
+ * properly, because then CatalogComponents can be an object with `any` value.
+ * Which means using `CatalogComponents` does not have autocomplete support etc.
+ * For now it is an empty interface, based on how styled-components (see link
+ * above handles it.)
  */
 export interface CatalogComponents {}
 
