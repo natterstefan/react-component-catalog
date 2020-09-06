@@ -96,7 +96,7 @@
   },
   "size-limit": [
     {
-      "limit": "13 KB",
+      "limit": "14 KB",
       "path": "packages/react-component-catalog/dist/index.js",
       "config": "packages/react-component-catalog/webpack.config.js",
       "ignore": [
