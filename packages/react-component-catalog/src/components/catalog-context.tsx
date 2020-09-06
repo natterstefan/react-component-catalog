@@ -4,8 +4,8 @@
  */
 import React from 'react'
 
-import { ICatalog } from '../catalog'
+import { Catalog } from '../catalog'
 
-const CatalogContext = React.createContext<ICatalog<any> | undefined>(undefined)
+const CatalogContext = React.createContext<Catalog<any> | undefined>(undefined)
 
 export default CatalogContext

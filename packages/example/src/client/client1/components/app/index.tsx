@@ -33,7 +33,7 @@ const App: FunctionComponent = () => {
   return (
     <div>
       <CatalogComponent component="Title">Hello Client1</CatalogComponent>
-      <CatalogComponent<any>
+      <CatalogComponent
         component={['Card']}
         fallbackComponent={FallbackComponent}
       >

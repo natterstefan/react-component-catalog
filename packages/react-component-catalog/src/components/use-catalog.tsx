@@ -16,7 +16,7 @@ import CatalogContext from './catalog-context'
  * ```
  */
 export const useCatalog = <
-  T extends CatalogComponents = CatalogComponents
+  T extends Record<string, any> = CatalogComponents
 >(): ICatalog<T> | null => {
   const catalog = React.useContext<ICatalog<T>>(CatalogContext)
 
@@ -27,6 +27,9 @@ export const useCatalog = <
         '[useCatalog] You are not using useCatalog in the context of a CatalogProvider with a proper catalog.',
       )
     }
+
+    // NOTE: evaluate if we should return an empty catalog instead, or apps must
+    // always check for null too
     return null
   }
 
@@ -38,7 +41,10 @@ export const useCatalog = <
  *
  * We do not use `CatalogComponents` here, because this hook is used when the
  * types of the `ICatalog` components are not relevant.
+ *
+ * NOTE: internally we do not care about the type of T, that is why it can have
+ * any object shape
  */
-export const useUNSAFECatalog = <T extends CatalogComponents>():
+export const useUNSAFECatalog = <T extends Record<string, any>>():
   | ICatalog<T>
   | undefined => React.useContext(CatalogContext)

@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { FunctionComponent } from 'react'
 
-const Title = ({ children }) => {
+const Title: FunctionComponent = ({ children }) => {
   return <h1>{children}</h1>
 }
 

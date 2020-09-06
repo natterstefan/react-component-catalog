@@ -15,18 +15,87 @@ const LOG_PREFIX = '[CatalogComponent]'
 
 interface IProps<T> {
   // represents the path in the catalog of the requested component
-  component: T extends CatalogComponents
-    ? keyof CatalogComponents
-    : T extends Record<string, any>
+  // basically whatever catalog.getComponent supports can be used here
+  component: T extends Record<string, any> // T can also be an Object or an Array
     ? keyof T
-    : T extends []
-    ? unknown
-    : never
+    : T extends (infer R)[]
+    ? R
+    : T extends string
+    ? string
+    : T extends CatalogComponents
+    ? keyof CatalogComponents
+    : unknown
   // when no component is found, a fallbackComponent is rendered instead
   fallbackComponent?: ComponentType<ComponentPropsWithRef<any>> | string
   // any other component property is just taken as is
   [property: string]: any
 }
+
+// see comment of CatalogComponentRef, it represents the actual comment of
+// CatalogComponent
+const CatalogComponent = React.forwardRef<any, IProps<any>>((props, ref) => {
+  const {
+    // catalog props
+    component,
+    fallbackComponent,
+    // other props passed to component
+    ...others
+  } = props
+
+  /**
+   * get catalog from the context
+   * ATTENTION: similar to CatalogProvider, we use the internal method to access
+   * the context
+   */
+  const catalog = useUNSAFECatalog()
+  if (!isValidCatalog(catalog)) {
+    if (__DEV__) {
+      console.error(
+        `${LOG_PREFIX} You are not using CatalogComponent in the context of a CatalogProvider with a proper catalog.`,
+      )
+    }
+    return null
+  }
+
+  // or catalog.getComponent<ComponentType<PropsWithRef<any>>>(component)
+  const Component = catalog.getComponent(component)
+  if (Component) {
+    return <Component {...others} ref={ref} />
+  }
+
+  if (fallbackComponent) {
+    let FallbackComponent: typeof props['fallbackComponent'] = null
+
+    if (typeof fallbackComponent === 'string') {
+      FallbackComponent = catalog.getComponent(fallbackComponent)
+    } else {
+      FallbackComponent = fallbackComponent
+    }
+
+    if (FallbackComponent) {
+      return <FallbackComponent {...others} ref={ref} />
+    }
+  }
+
+  if (__DEV__) {
+    // if no component was found, warn the user, but only when NODE_ENV equals
+    // "development"
+    const isClient = typeof window !== 'undefined'
+    const errorMsg = `${LOG_PREFIX} "${String(
+      component,
+    )}" not found in component catalog.`
+
+    if (isClient) {
+      console.error(errorMsg, 'The catalog contains only:', catalog._catalog)
+    } else {
+      console.error(errorMsg)
+    }
+  }
+
+  return null
+})
+
+CatalogComponent.displayName = 'CatalogComponent'
 
 /**
  * `CatalogComponent` is wrapped `withCatalog` by default and is capable of
@@ -46,78 +115,17 @@ interface IProps<T> {
  * of the catalog and pass `hello` as a prop to the Button). If the component
  * would not exist it will render the fallback.
  */
-const CatalogComponent = React.forwardRef<unknown, IProps<any>>(
-  (props, ref) => {
-    const {
-      // catalog props
-      component,
-      fallbackComponent,
-      // other props passed to component
-      ...others
-    } = props
-
-    /**
-     * get catalog from the context
-     * ATTENTION: similar to CatalogProvider, we use the internal method to access
-     * the context
-     */
-    const catalog = useUNSAFECatalog()
-    if (!isValidCatalog(catalog)) {
-      if (__DEV__) {
-        console.error(
-          `${LOG_PREFIX} You are not using CatalogComponent in the context of a CatalogProvider with a proper catalog.`,
-        )
-      }
-      return null
-    }
-
-    const Component = catalog.getComponent<ComponentType<PropsWithRef<any>>>(
-      component,
-    )
-    if (Component) {
-      return <Component {...others} ref={ref} />
-    }
-
-    if (fallbackComponent) {
-      let FallbackComponent: typeof props['fallbackComponent'] = null
-
-      if (typeof fallbackComponent === 'string') {
-        FallbackComponent = catalog.getComponent(fallbackComponent)
-      } else {
-        FallbackComponent = fallbackComponent
-      }
-
-      if (FallbackComponent) {
-        return <FallbackComponent {...others} ref={ref} />
-      }
-    }
-
-    if (__DEV__) {
-      // if no component was found, warn the user, but only when NODE_ENV equals
-      // "development"
-      const isClient = typeof window !== 'undefined'
-      const errorMsg = `${LOG_PREFIX} "${String(
-        component,
-      )}" not found in component catalog.`
-
-      if (isClient) {
-        console.error(errorMsg, 'The catalog contains only:', catalog._catalog)
-      } else {
-        console.error(errorMsg)
-      }
-    }
-
-    return null
-  },
-)
-
-CatalogComponent.displayName = 'CatalogComponent'
-
-/**
- * React.forwardRef typing inspired by:
- * @see https://stackoverflow.com/a/58473012/1238150
- */
-export default <T extends unknown>({
+const CatalogComponentRef = <T extends any>({
   ref,
   ...rest
 }: PropsWithRef<IProps<T>>) => <CatalogComponent {...rest} ref={ref} />
+
+CatalogComponentRef.displayName = 'CatalogComponentRef'
+
+/**
+ * CatalogComponentRef is used to type React.forwardRef properly
+ *
+ * inspired by:
+ * @see https://stackoverflow.com/a/58473012/1238150
+ */
+export default CatalogComponentRef

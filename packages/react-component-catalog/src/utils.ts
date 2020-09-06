@@ -1,8 +1,10 @@
 import Catalog from './catalog'
 
-// inspired by https://github.com/DefinitelyTyped/DefinitelyTyped/blob/7caeca4bfbd5ca9f306c14def3dd6b416869c615/types/lodash/common/object.d.ts#L1669
-type Keys = string | number
-type ObjectType = { [K in Keys]: any }
+/**
+ * inspired by
+ * @see https://github.com/DefinitelyTyped/DefinitelyTyped/blob/7caeca4bfbd5ca9f306c14def3dd6b416869c615/types/lodash/common/object.d.ts#L1669
+ */
+type ObjectType = Record<string | number, any>
 type PropertyName = string | number | symbol
 type Many<T> = T | ReadonlyArray<T>
 export type PropertyPath = Many<PropertyName>
@@ -18,11 +20,7 @@ export type PropertyPath = Many<PropertyName>
  * @param  {*}            def  A default value to return [optional]
  * @return {*}                 The value
  */
-export const get = (
-  obj: ObjectType,
-  path: PropertyPath,
-  def?: any,
-): unknown => {
+export const get = (obj: ObjectType, path: PropertyPath, def?: any) => {
   /**
    * If the path is a string, convert it to an array
    * @param  {String|Array} path The path

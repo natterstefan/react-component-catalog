@@ -1,29 +1,24 @@
-import React, { ReactNode } from 'react'
+import React, { PropsWithChildren } from 'react'
 
-import Catalog, { ICatalog } from '../catalog'
+import Catalog from '../catalog'
 import { CatalogComponents } from '../types'
 
 import CatalogContext from './catalog-context'
 import { useUNSAFECatalog } from './use-catalog'
 
-interface IProps<T extends CatalogComponents = CatalogComponents> {
+interface IProps<T extends {} = CatalogComponents> {
   // the catalog you want to provided with the CatalogProvider
   catalog: T
   // prefix the given catalog allows nesting multiple catalogs within one app
   catalogPrefix?: string
-  /**
-   * ReactNode
-   * @see https://flow.org/en/docs/react/types/
-   */
-  children: ReactNode
 }
 
 /**
  * Provide the `catalog` to an entire react component tree. Read more about
  * React context here: https://reactjs.org/docs/context.html
  */
-const CatalogProvider = <T extends CatalogComponents = CatalogComponents>(
-  props: IProps<T>,
+const CatalogProvider = <T extends Record<string, any> = CatalogComponents>(
+  props: PropsWithChildren<IProps<T>>,
 ): JSX.Element => {
   const { catalog, catalogPrefix, children } = props
 
@@ -52,7 +47,7 @@ const CatalogProvider = <T extends CatalogComponents = CatalogComponents>(
     return null
   }
 
-  const prefixedCatalog: { [prop: string]: unknown } = {}
+  const prefixedCatalog: Record<string, any> = {}
   if (catalog && catalogPrefix) {
     Object.keys(catalog).forEach(c => {
       const cE = c as keyof typeof catalog
@@ -66,11 +61,12 @@ const CatalogProvider = <T extends CatalogComponents = CatalogComponents>(
    *
    * Attention: the innerCatalog will overwrite the outerCatalog!
    */
-  const prepCatalog = new Catalog({
+  const newCatalog = {
     ...(outerCatalog && outerCatalog._catalog),
     // either use the prefixed or the raw catalog
     ...((catalogPrefix && prefixedCatalog) || catalog),
-  }) as ICatalog<T>
+  }
+  const prepCatalog = new Catalog(newCatalog)
 
   return (
     <CatalogContext.Provider value={prepCatalog}>

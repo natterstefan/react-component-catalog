@@ -1,7 +1,7 @@
 import { get, PropertyPath } from './utils'
 import { CatalogComponents } from './types'
 
-export interface ICatalog<T extends CatalogComponents = CatalogComponents> {
+export interface ICatalog<T extends Record<string, any> = CatalogComponents> {
   // contains the raw catalog
   _catalog: T
   /**
@@ -54,7 +54,7 @@ export interface ICatalog<T extends CatalogComponents = CatalogComponents> {
   >(
     component: [TKey1, TKey2, TKey3, TKey4],
   ): NonNullable<T>[TKey1][TKey2][TKey3][TKey4] | undefined
-  getComponent<K extends unknown>(component: T): K
+  getComponent<K extends any>(component: T): K
   /**
    * validates if the given component exists in the catalog
    *
@@ -95,7 +95,7 @@ export interface ICatalog<T extends CatalogComponents = CatalogComponents> {
   hasComponent(component: PropertyPath): boolean
 }
 
-export class Catalog<T extends CatalogComponents = CatalogComponents>
+export class Catalog<T extends Record<string, any> = CatalogComponents>
   implements ICatalog<T> {
   public _catalog: T
 
