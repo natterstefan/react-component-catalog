@@ -112,6 +112,40 @@ const App = () => {
 - import { Catalog } from 'react-catalog-component'
 ```
 
+### `CatalogComponent` and Module Augmentation
+
+The `CatalogComponents` interface can be augmented to add more typing support.
+
+```tsx
+// react-component-catalog.d.ts
+declare module 'react-component-catalog' {
+  export interface CatalogComponents {
+    Title: React.FunctionComponent<{}>
+  }
+}
+```
+
+Whenever you use the `CatalogComponent` now you can do the following to get full
+typing support (_opt-in feature_). When you do not provide the interface, any
+`string`, `string[]` or `Record<string, any>` value for `component` is allowed.
+
+```tsx
+const App = () => (
+  <CatalogComponent<CatalogComponents> component="Title">
+    Hello World
+  </CatalogComponent>
+)
+
+// this works too, but `component` has no typing support
+const App = () => (
+  <CatalogComponent component="Title">Hello Base</CatalogComponent>
+)
+```
+
+_Attention:_ it is recommended to use `CatalogComponents` only when it was
+augmented. Because it represents an empty interface and without adding your own
+custom properties it will [match everything](https://stackoverflow.com/a/58512513/1238150).
+
 ## Basic Usage
 
 ### Create a Catalog
@@ -358,6 +392,7 @@ When you're ready to release, execute the following commands in the given order:
 - [commitlint](https://github.com/conventional-changelog/commitlint)
 - [npm-dedupe when eg. multiple @types/\* versions are installed](https://docs.npmjs.com/cli/dedupe.html)
 - [React Type Reference](https://flow.org/en/docs/react/types/)
+- [Generics while using React.forwardRef](https://stackoverflow.com/a/58473012/1238150)
 
 ## Credits
 

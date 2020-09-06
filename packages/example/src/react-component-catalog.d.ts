@@ -5,7 +5,7 @@ import { catalog as outerCatalog, innerCatalog } from './client/client1/catalog'
 type CustomCatalog = typeof innerCatalog & typeof outerCatalog
 
 /**
- * Customize CatalogComponents with Module Augmentation.
+ * Customize and extend `CatalogComponents` interface with Module Augmentation.
  * @see https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation
  */
 declare module 'react-component-catalog' {
