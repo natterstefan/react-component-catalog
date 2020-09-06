@@ -18,9 +18,19 @@ module.exports = {
   module: {
     rules: [
       {
-        exclude: /node_modules/,
         test: /\.(t|j)sx?$/,
-        loader: 'ts-loader',
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+          },
+          {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true,
+            },
+          },
+        ],
       },
     ],
   },
