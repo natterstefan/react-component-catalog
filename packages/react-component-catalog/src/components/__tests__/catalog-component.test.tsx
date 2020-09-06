@@ -51,7 +51,9 @@ describe('CatalogComponent', () => {
   })
 
   it('has a a proper displayName for easier debugging etc.', () => {
-    expect(CatalogComponent.displayName).toStrictEqual('CatalogComponentRef')
+    expect(CatalogComponent.displayName).toStrictEqual(
+      'CatalogComponentWrapper',
+    )
   })
 
   it('renders a requested component fully functional', () => {

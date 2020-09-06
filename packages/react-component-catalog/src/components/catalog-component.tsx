@@ -43,7 +43,7 @@ interface IProps<T> {
 }
 
 /**
- * see comment of CatalogComponentRef, it represents the actual comment of
+ * see comment of CatalogComponentWrapper, it represents the actual comment of
  * CatalogComponent
  */
 const CatalogComponent = React.forwardRef<any, IProps<any>>((props, ref) => {
@@ -128,17 +128,17 @@ CatalogComponent.displayName = 'CatalogComponent'
  * of the catalog and pass `hello` as a prop to the Button). If the component
  * would not exist it will render the fallback.
  */
-const CatalogComponentRef = <T extends any>({
+const CatalogComponentWrapper = <T extends any>({
   ref,
   ...rest
 }: PropsWithRef<IProps<T>>) => <CatalogComponent {...rest} ref={ref} />
 
-CatalogComponentRef.displayName = 'CatalogComponentRef'
+CatalogComponentWrapper.displayName = 'CatalogComponentWrapper'
 
 /**
- * CatalogComponentRef is used to type React.forwardRef properly
+ * CatalogComponentWrapper is used to type React.forwardRef properly
  *
  * inspired by:
  * @see https://stackoverflow.com/a/58473012/1238150
  */
-export default CatalogComponentRef
+export default CatalogComponentWrapper

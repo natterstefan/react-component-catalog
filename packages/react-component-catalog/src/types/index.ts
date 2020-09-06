@@ -17,7 +17,9 @@
  * properly, because then CatalogComponents can be an object with `any` value.
  * Which means using `CatalogComponents` does not have autocomplete support etc.
  * For now it is an empty interface, based on how styled-components (see link
- * above handles it.)
+ * above handles it.). This interface and IProps["component"] of
+ * CatalogComponent play together and give the typing support when
+ * CatalogComponent is used.
  */
 export interface CatalogComponents {}
 
