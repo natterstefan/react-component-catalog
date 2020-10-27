@@ -14,7 +14,7 @@
     "prerelease": "yarn build && yarn size && yarn test",
     "release": "HUSKY_SKIP_HOOKS=1 standard-version",
     "postrelease": "cp LICENCE README.md CHANGELOG.md packages/react-component-catalog",
-    "postinstall": "yarn build",
+    "postinstall": "lerna bootstrap",
     "size": "size-limit",
     "start": "FORCE_COLOR=1 lerna run start --scope react-component-catalog-example --stream",
     "test": "FORCE_COLOR=1 lerna run test --stream",
