@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented here. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+
+## [2.1.0](https://github.com/natterstefan/react-component-catalog/compare/v2.0.0...v2.1.0) (2020-10-27)
+
+
+### Features
+
+* updated bundling & ts (module augmentation); lerna monorepo ([#57](https://github.com/natterstefan/react-component-catalog/issues/57)) ([4dcb5c4](https://github.com/natterstefan/react-component-catalog/commit/4dcb5c4453af93887faab3d5726e113c0fc70466))
+
 ## [2.0.0](https://github.com/natterstefan/react-component-catalog/compare/v2.0.0-beta.0...v2.0.0) (2020-07-22)
 
 ### ⚠ BREAKING CHANGES
