@@ -18,11 +18,14 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(t|j)sx?$/,
+        test: /\.(ts)x?$/,
         exclude: /node_modules/,
         use: [
           {
             loader: 'babel-loader',
+            options: {
+              cacheDirectory: true,
+            },
           },
           {
             loader: 'ts-loader',

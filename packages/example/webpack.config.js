@@ -26,13 +26,26 @@ module.exports = {
     filename: '[name]',
     path: resolve(__dirname, './dist/static'),
   },
+  target: 'web',
   mode,
   module: {
     rules: [
       {
         test: /\.(t|j)sx?$/,
-        loader: 'ts-loader',
         exclude: /node_modules/,
+        use: [
+          {
+            // https://webpack.js.org/loaders/babel-loader
+            loader: 'babel-loader',
+            options: {
+              cacheDirectory: true,
+            },
+          },
+          {
+            // https://github.com/TypeStrong/ts-loader
+            loader: 'ts-loader',
+          },
+        ],
       },
       {
         type: 'javascript/auto',
