@@ -377,10 +377,15 @@ When you're ready to release, execute the following commands in the given order:
 
 1. `git checkout master`
 2. `git pull origin master`
-3. `yarn release --release-as major|minor|patch` (or for eg. beta releases:
+3. `yarn lerna version`: select the proper version
+4. `yarn release -- --release-as <version>`: use the version selected before
+   (e.g. beta releases:
    `yarn release -- --prerelease beta --release-as major`)
-4. `git push --tags`
-5. `yarn publish`
+5. `git push --tags`
+6. `yarn publish`
+
+TODO: automate and optimize scripts, see [3ba95ec](https://github.com/natterstefan/react-component-catalog/pull/57/commits/3ba95ec08af5dadc13033ecd28e9c285b3cced72#diff-7ae45ad102eab3b6d7e7896acd08c427a9b25b346470d7bc6507b6481575d519R10)
+and [2eb2a8b](https://github.com/natterstefan/react-component-catalog/pull/57/commits/2eb2a8b47500523f13ea5055961be469a2f52646)
 
 ### Links
 

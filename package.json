@@ -10,7 +10,6 @@
     "lint": "yarn lint-js && yarn lint-ts",
     "lint-js": "eslint --cache --quiet 'packages/**/*.{ts,tsx}'",
     "lint-ts": "tsc --project tsconfig.test.json",
-    "prepublishOnly": "yarn release",
     "prerelease": "yarn build && yarn size && yarn test",
     "release": "HUSKY_SKIP_HOOKS=1 standard-version",
     "postrelease": "cp LICENCE README.md CHANGELOG.md packages/react-component-catalog",
