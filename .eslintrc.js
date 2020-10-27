@@ -1,34 +1,8 @@
 module.exports = {
   extends: ['eslint-config-ns-ts'],
-  globals: {
-    __DEV__: true,
-  },
   rules: {
-    // general ESLint rules
-    'no-underscore-dangle': 0,
-
     // react settings
     'react/jsx-props-no-spreading': 0,
-
-    // typescript settings
-    // @see https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/naming-convention.md#enforce-that-interface-names-do-not-begin-with-an-i
-    '@typescript-eslint/naming-convention': [
-      'error',
-      {
-        selector: 'interface',
-        format: ['PascalCase'],
-        leadingUnderscore: 'allow',
-        custom: {
-          regex: '^I[A-Z]',
-          match: true,
-        },
-      },
-    ],
-    // removed
-    '@typescript-eslint/interface-name-prefix': 0,
-    // note you must disable the base rule as it can report incorrect errors
-    'no-use-before-define': 'off',
-    '@typescript-eslint/no-use-before-define': ['error'],
   },
   overrides: [
     {

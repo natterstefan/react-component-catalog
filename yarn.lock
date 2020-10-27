@@ -6129,20 +6129,20 @@ eslint-config-airbnb@18.2.0:
     object.assign "^4.1.0"
     object.entries "^1.1.2"
 
-eslint-config-ns-ts@1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-ns-ts/-/eslint-config-ns-ts-1.3.0.tgz#4842e730d243e05d3d8f3468007ae65565ff3aff"
-  integrity sha512-u8TfipPpAZrkFyuG6u5IQjxo4uSGGT3ic01Q6h2ff/bq9iQVtuS2MpMZrDCOPz9p3mt3SD4Sxr/quOjcY867tg==
+eslint-config-ns-ts@1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/eslint-config-ns-ts/-/eslint-config-ns-ts-1.4.1.tgz#058f53372f715c58d1291801a8435963077bc05b"
+  integrity sha512-3hONOncsmd9oyLz4CKZYjQndTLXzyBUIUsEtr4mJQikKHKmcUrvoGmsuMluTmMzp25XsiRet0e8jOZi7MtyM6g==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^4.4.0"
     "@typescript-eslint/parser" "^4.4.0"
-    eslint-config-ns "^1.3.0"
+    eslint-config-ns "^1.4.1"
     typescript "^4.0.3"
 
-eslint-config-ns@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-ns/-/eslint-config-ns-1.3.0.tgz#db983cb50c2303ac69c3262cfd3ec09e8214eb99"
-  integrity sha512-V5NKzVHBmhOEhz6H50siQeTycbiM6Iw9m5GyyaibN/aU5cIhxgdp1sQ1G5TkgI/sJvRF7aiij+3LngwQZIo0Ug==
+eslint-config-ns@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/eslint-config-ns/-/eslint-config-ns-1.4.1.tgz#97c127a350ad9ee612072685b40d3721ca9c0a1b"
+  integrity sha512-DdyDoU3Ufkkb8asBN8bOcBP7OTizXit05HjNbawc7jmWRIu8EWgOL11H3w13U658ETYl8AmtHLO9wA5pQj9zvA==
 
 eslint-config-prettier@6.15.0:
   version "6.15.0"
