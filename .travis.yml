@@ -3,9 +3,10 @@ language: node_js
 env:
   global:
     - YARN_VERSION="1.21.1"
+    - NODE_VERSION="12.16.0"
 
 node_js:
-  - "node"
+  - $NODE_VERSION
 
 before_install:
   - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
@@ -14,9 +15,17 @@ before_install:
 install:
   - yarn
 
+# if before_script returns a non-zero exit code, the build is errored and stops
+# immediately.
+before_script:
+  - yarn build
+  - yarn lint-js --max-warnings=0
+  - yarn lint-ts
+
+# If script returns a non-zero exit code, the build is failed, but continues to
+# run before being marked as failed.
 script:
   - yarn test
-  - yarn build
   - yarn size
 
 notifications:

@@ -6,7 +6,7 @@ import { CatalogComponents } from '../types'
 import CatalogContext from './catalog-context'
 import { useUNSAFECatalog } from './use-catalog'
 
-interface IProps<T extends {} = CatalogComponents> {
+interface IProps<T extends Record<string, any> = CatalogComponents> {
   // the catalog you want to provided with the CatalogProvider
   catalog: T
   // prefix the given catalog allows nesting multiple catalogs within one app

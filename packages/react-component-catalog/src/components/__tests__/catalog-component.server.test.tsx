@@ -1,15 +1,16 @@
 /**
  * @jest-environment node
  */
-import React from 'react'
+import React, { FunctionComponent } from 'react'
 import { render } from 'enzyme'
 
 import Catalog, { ICatalog } from '../../catalog'
 import CatalogComponent from '../catalog-component'
 import CatalogProvider from '../catalog-provider'
 
-const TestComponent = () => <div>Hello World</div>
-const BaseArticle = () => <div>Hello BaseArticle</div>
+const TestComponent: FunctionComponent = () => <div>Hello World</div>
+const BaseArticle: FunctionComponent = () => <div>Hello BaseArticle</div>
+const EmptyComponent: FunctionComponent = () => <div />
 
 describe('CatalogComponent', () => {
   let backupError: () => void
@@ -21,9 +22,9 @@ describe('CatalogComponent', () => {
       BaseArticle,
     },
     Pages: {
-      NestedPage: () => <div />,
+      NestedPage: EmptyComponent,
       AnotherNestedPage: {
-        OtherPage: () => <div />,
+        OtherPage: EmptyComponent,
       },
     },
   }

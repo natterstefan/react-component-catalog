@@ -1,45 +1,34 @@
-const path = require('path')
-
 module.exports = {
-  extends: [
-    'eslint-config-ns',
-    'plugin:@typescript-eslint/recommended',
-    'prettier/@typescript-eslint',
-  ],
-  parser: '@typescript-eslint/parser',
-  plugins: ['react-hooks'],
+  extends: ['eslint-config-ns-ts'],
   globals: {
     __DEV__: true,
   },
   rules: {
-    // universal rules
-    'import/extensions': 0,
+    // general ESLint rules
     'no-underscore-dangle': 0,
-    'sort-keys': 0,
-
-    // jest settings
-    'jest/prefer-strict-equal': 'error',
 
     // react settings
     'react/jsx-props-no-spreading': 0,
-    'react/prop-types': 0,
-    'react-hooks/rules-of-hooks': 'error',
-    'react-hooks/exhaustive-deps': 'error',
 
     // typescript settings
-    '@typescript-eslint/explicit-function-return-type': 0,
-    '@typescript-eslint/no-explicit-any': 0,
-    '@typescript-eslint/no-unused-vars': [
+    // @see https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/naming-convention.md#enforce-that-interface-names-do-not-begin-with-an-i
+    '@typescript-eslint/naming-convention': [
       'error',
-      { argsIgnorePattern: '^_', ignoreRestSiblings: true },
-    ],
-    '@typescript-eslint/interface-name-prefix': [
-      2,
       {
-        prefixWithI: 'always',
-        allowUnderscorePrefix: true,
+        selector: 'interface',
+        format: ['PascalCase'],
+        leadingUnderscore: 'allow',
+        custom: {
+          regex: '^I[A-Z]',
+          match: true,
+        },
       },
     ],
+    // removed
+    '@typescript-eslint/interface-name-prefix': 0,
+    // note you must disable the base rule as it can report incorrect errors
+    'no-use-before-define': 'off',
+    '@typescript-eslint/no-use-before-define': ['error'],
   },
   overrides: [
     {
@@ -62,14 +51,4 @@ module.exports = {
       },
     },
   ],
-  settings: {
-    'import/resolver': {
-      node: {
-        extensions: ['.js', '.jsx', '.ts', '.tsx', '.d.ts'],
-      },
-    },
-    react: {
-      version: 'detect', // Tells eslint-plugin-react to automatically detect the version of React to use
-    },
-  },
 }

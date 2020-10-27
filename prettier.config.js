@@ -1,20 +1,2 @@
-module.exports = {
-  printWidth: 80,
-  semi: false,
-  singleQuote: true,
-  trailingComma: 'all',
-  overrides: [
-    {
-      files: 'package*.json',
-      options: {
-        printWidth: 1000,
-      },
-    },
-    {
-      files: '*.yml',
-      options: {
-        singleQuote: false,
-      },
-    },
-  ],
-}
+// eslint-disable-next-line
+module.exports = require('eslint-config-ns-ts/prettier.config')

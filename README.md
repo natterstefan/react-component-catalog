@@ -16,7 +16,7 @@ clients, sites, ...).
 
 ## Getting started
 
-```sh
+```bash
 npm i react-component-catalog --save
 
 # or
@@ -26,13 +26,13 @@ yarn add react-component-catalog
 Then install the correct versions of each peerDependency package, which are
 listed by the command:
 
-```sh
+```bash
 npm info "react-component-catalog@latest" peerDependencies
 ```
 
 If using npm 5+, use this shortcut:
 
-```sh
+```bash
 npx install-peerdeps --dev react-component-catalog
 
 # or
@@ -350,13 +350,13 @@ class App extends React.Component {
 
 ## How to build and test this package
 
-```sh
+```bash
 # -- build the package --
 yarn
 yarn build
 ```
 
-```sh
+```bash
 # -- test the package in an example app --
 # run the example in watch-mode
 yarn watch
@@ -406,6 +406,8 @@ straightforward way. That is why, I decided to create it.
 
 ## Maintainers
 
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
 <table>
   <tbody>
     <tr>
@@ -424,3 +426,5 @@ straightforward way. That is why, I decided to create it.
     </tr>
   <tbody>
 </table>
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->

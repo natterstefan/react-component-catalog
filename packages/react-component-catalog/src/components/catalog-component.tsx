@@ -23,7 +23,7 @@ interface IProps<T> {
    * augmented it matches everything.
    * @see https://stackoverflow.com/a/58512513/1238150
    */
-  component: T extends Record<string, any>
+  component: T extends Record<string, unknown>
     ? keyof T
     : T extends (infer R)[]
     ? R
@@ -31,7 +31,7 @@ interface IProps<T> {
     ? string
     : T extends CatalogComponents
     ? keyof CatalogComponents
-    : unknown
+    : any
   /**
    * when no component is found, a fallbackComponent is rendered instead
    */
@@ -70,8 +70,9 @@ const CatalogComponent = React.forwardRef<any, IProps<any>>((props, ref) => {
     return null
   }
 
-  // or catalog.getComponent<ComponentType<PropsWithRef<any>>>(component)
-  const Component = catalog.getComponent(component)
+  const Component = catalog.getComponent<ComponentType<PropsWithRef<any>>>(
+    component,
+  )
   if (Component) {
     return <Component {...others} ref={ref} />
   }
