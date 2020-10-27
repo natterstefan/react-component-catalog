@@ -1,6 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    // proper target and module for jest tests
     "target": "ES2015",
     "module": "commonjs",
     "noEmit": true

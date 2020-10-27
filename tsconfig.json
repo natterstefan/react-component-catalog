@@ -2,8 +2,8 @@
   /* inspired by https://github.com/marmelab/react-admin/blob/HEAD@%7B2019-10-20T17:02:44Z%7D/tsconfig.json */
   "compilerOptions": {
     /* Basic Options */
-    "target": "ES5" /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017','ES2018' or 'ESNEXT'. */,
-    "module": "CommonJS",
+    "target": "ESNEXT", // ESNext because ts-loader -> babel-loader. Babel will take care of the rest
+    "module": "ESNext",
     "lib": ["DOM"],
     "declaration": true /* Generates corresponding '.d.ts' file. */,
     "declarationMap": true /* Generates a sourcemap for each corresponding '.d.ts' file. */,
