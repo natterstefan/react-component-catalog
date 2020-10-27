@@ -21,10 +21,10 @@
     "watch-server": "nodemon --watch src"
   },
   "dependencies": {
-    "@babel/register": "7.11.5",
-    "@babel/runtime-corejs3": "7.11.2",
-    "@hapi/hapi": "20.0.0",
-    "@hapi/inert": "6.0.2",
+    "@babel/register": "7.12.1",
+    "@babel/runtime-corejs3": "7.12.1",
+    "@hapi/hapi": "20.0.1",
+    "@hapi/inert": "6.0.3",
     "core-js": "3.6.5",
     "dotenv": "8.2.0",
     "react": "^16.8.3",
