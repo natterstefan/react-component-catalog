@@ -382,7 +382,7 @@ When you're ready to release, execute the following commands in the given order:
    (e.g. beta releases:
    `yarn release --prerelease beta --release-as major`)
 5. `git push --tags`
-6. `yarn publish`
+6. `cd packages/react-component-catalog && yarn publish`: do not select a new version.
 
 TODO: automate and optimize scripts, see [3ba95ec](https://github.com/natterstefan/react-component-catalog/pull/57/commits/3ba95ec08af5dadc13033ecd28e9c285b3cced72#diff-7ae45ad102eab3b6d7e7896acd08c427a9b25b346470d7bc6507b6481575d519R10)
 and [2eb2a8b](https://github.com/natterstefan/react-component-catalog/pull/57/commits/2eb2a8b47500523f13ea5055961be469a2f52646)
