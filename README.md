@@ -377,10 +377,10 @@ When you're ready to release, execute the following commands in the given order:
 
 1. `git checkout master`
 2. `git pull origin master`
-3. `yarn release:version`: select the proper version
-4. `yarn release -- --release-as <version>`: use the version selected before
+3. `yarn release:prepare`: select the proper version
+4. `yarn release --release-as <version>`: use the version selected before
    (e.g. beta releases:
-   `yarn release -- --prerelease beta --release-as major`)
+   `yarn release --prerelease beta --release-as major`)
 5. `git push --tags`
 6. `yarn publish`
 
