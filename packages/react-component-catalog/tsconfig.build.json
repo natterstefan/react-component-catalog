@@ -1,9 +1,11 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "outDir": "esm",
+    "rootDir": "src",
     "declaration": true,
     "emitDeclarationOnly": true,
-    "incremental": true
+    "incremental": false
   },
   "include": ["src"],
   "exclude": ["**/*.test.ts", "**/*.test.tsx", "node_modules"]
