@@ -3,6 +3,13 @@
 All notable changes to this project will be documented here. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 
+### [2.1.1](https://github.com/natterstefan/react-component-catalog/compare/v2.1.0...v2.1.1) (2021-03-29)
+
+
+### Fixes
+
+* added missing esm/index.d.ts declaration file ([#70](https://github.com/natterstefan/react-component-catalog/issues/70)) ([56e06cc](https://github.com/natterstefan/react-component-catalog/commit/56e06cc65653b7d00938ce7dba7a24f35ec68d8d)), closes [#68](https://github.com/natterstefan/react-component-catalog/issues/68)
+
 ## [2.1.0](https://github.com/natterstefan/react-component-catalog/compare/v2.0.0...v2.1.0) (2020-10-27)
 
 
