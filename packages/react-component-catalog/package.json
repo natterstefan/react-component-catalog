@@ -23,17 +23,15 @@
     "lib"
   ],
   "scripts": {
-    "build": " yarn run build-types && yarn run build-cjs && yarn run build-es && yarn run build-esm && yarn run build-umd",
-    "build-types": "yarn run build-cjs-types && yarn run build-es-types && yarn run build-esm-types",
+    "build": "yarn run build-cjs && yarn run build-es && yarn run build-esm && yarn run build-umd",
     "build-cjs": "BABEL_ENV=cjs babel src --ignore **/*.test.tsx,**/*.test.ts --out-dir lib --extensions '.ts,.tsx'",
-    "build-cjs-types": "tsc -p tsconfig.build.json --outDir lib --module commonjs --target es5",
     "build-es": "BABEL_ENV=es babel src --ignore **/*.test.tsx,**/*.test.ts --out-dir es --extensions '.ts,.tsx'",
-    "build-es-types": "tsc -p tsconfig.build.json --outDir es --module es2015 --target es2015",
     "build-esm": "BABEL_ENV=esm babel src --ignore **/*.test.tsx,**/*.test.ts --out-dir esm --extensions '.ts,.tsx'",
-    "build-esm-types": "tsc -p tsconfig.build.json --outDir esm --module es2015 --target es5",
+    "build-types": "tsc -p tsconfig.build.json",
     "build-umd": "BABEL_ENV=umd webpack --mode=production",
     "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
     "prebuild": "rimraf dist && rimraf es && rimraf esm && rimraf lib",
+    "postbuild": "yarn run build-types",
     "test": "tsc -p tsconfig.test.json && jest --detectOpenHandles",
     "watch": "BABEL_ENV=esm babel --watch src --ignore **/@types/*,**/*.test.tsx,**/*.test.ts --out-dir esm --extensions '.ts,.tsx'",
     "watch-test": "jest --watch"

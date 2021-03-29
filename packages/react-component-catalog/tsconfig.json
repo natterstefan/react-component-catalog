@@ -1,8 +1,6 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "dist",
-    "rootDir": "src",
     /**
      * Composite is required for lernajs monorepos
      * @see https://betterstack.dev/blog/lerna-typescript-monorepo/#heading-extras
